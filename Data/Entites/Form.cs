@@ -47,5 +47,13 @@ namespace DiplomMetod.Data.Entites
 
         public RegionDivision? RegionsDivision { get; set; }
 
+        public string? Event { get; set; }
+
+        public string? Question { get; set; }
+
+        public string? Answer { get; set; }
+
+
+
     }
 }
