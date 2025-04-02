@@ -15,7 +15,8 @@ namespace DiplomMetod.Data.Configurations
                 .HasForeignKey(x => x.FormTypeId)
                 .IsRequired();
 
-            builder.Property(x => x.InventoryNumber).IsRequired();
+            builder.Property(x => x.InventoryNumber)
+                .IsRequired();
 
             builder.HasOne(x => x.ReferenceBook)
                 .WithMany(x => x.Forms)

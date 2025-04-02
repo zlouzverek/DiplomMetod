@@ -1,5 +1,5 @@
-    using DiplomMetod.Data;
-using Microsoft.AspNetCore.Identity;
+using DiplomMetod.Data;
+using DiplomMetod.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +13,8 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite("Data Source=Local.db"));
+
+builder.Services.AddScoped<IFormRepository,FormRepository>();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 

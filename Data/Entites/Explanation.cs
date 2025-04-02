@@ -12,6 +12,8 @@ namespace DiplomMetod.Data.Entites
         public string? Number { get; set; }
 
         public DateTime Data { get; set; }
+
+        public int OrganizationId { get; set; }
         public Organization Organization { get; set; }
 
         /// <summary>

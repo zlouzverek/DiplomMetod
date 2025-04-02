@@ -4,6 +4,6 @@
     {
         public string Name { get; set; }
 
-        public ICollection<Explanation> Explorations { get; set; } = new List<Explanation>();
+        public ICollection<Explanation> Explonations { get; set; } = new List<Explanation>();
     }
 }
