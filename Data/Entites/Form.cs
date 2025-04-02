@@ -30,9 +30,6 @@ namespace DiplomMetod.Data.Entites
         [Description("Номер кода")]
         public int? Code { get; set; }
 
-        [Description("Уровень согласования")]
-        public ApproveLevel ApproveLevel { get; set; }
-
         public int ReferenceBooksId { get; set; }
 
         public ReferenceBook? ReferenceBook { get; set; }
@@ -53,7 +50,6 @@ namespace DiplomMetod.Data.Entites
 
         public string? Answer { get; set; }
 
-
-
+        public string? FileLink { get; set; }
     }
 }

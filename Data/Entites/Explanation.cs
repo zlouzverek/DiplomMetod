@@ -36,7 +36,8 @@ namespace DiplomMetod.Data.Entites
         public Form Form { get; set; }
         public int FormId { get; set; }
 
-
+        [Description("Уровень согласования")]
+        public ApproveLevel ApproveLevel { get; set; }
 
     }
 }

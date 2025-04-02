@@ -17,9 +17,6 @@ namespace DiplomMetod.Data.Configurations
 
             builder.Property(x => x.InventoryNumber).IsRequired();
 
-            builder.Property(x => x.ApproveLevel)
-                .HasConversion(v => v.ToString(), v => (ApproveLevel)Enum.Parse(typeof(ApproveLevel), v));
-
             builder.HasOne(x => x.ReferenceBook)
                 .WithMany(x => x.Forms)
                 .HasForeignKey(x => x.ReferenceBooksId)
