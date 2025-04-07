@@ -14,11 +14,8 @@ var connectionsString = builder.Configuration.GetConnectionString("DefaultConnec
 
 
 
-
-//builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//   options.UseSqlite("Data Source=Local.db"));
-
-
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+   options.UseSqlite("Data Source=Local.db"));
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
