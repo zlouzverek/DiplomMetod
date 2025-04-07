@@ -1,22 +1,20 @@
 using DiplomMetod.Data;
-using DiplomMetod.Data.Entites;
 using DiplomMetod.Data.Identity;
 using DiplomMetod.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionsString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-/*builder.Services.AddDbContext<ApplicationDbContext>(options =>
-   options.UseSqlite("Data Source=Local.db"));*/
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//   options.UseSqlite("Data Source=Local.db"));
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()

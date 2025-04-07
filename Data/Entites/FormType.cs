@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DiplomMetod.Data.Entites
 {
+    [Table("FormType")]
     public class FormType : BaseEntity
     {
         [Description("Номер формы")]
