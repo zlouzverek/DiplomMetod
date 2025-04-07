@@ -10,7 +10,7 @@ namespace DiplomMetod.Data.Entites
         {
             get
             {
-                return this.InventoryNumber;
+                return InventoryNumber;
 
             }
 

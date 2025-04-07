@@ -1,5 +1,7 @@
 using DiplomMetod.Data;
+using DiplomMetod.Data.Entites;
 using DiplomMetod.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,9 +16,12 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite("Data Source=Local.db"));
 
-builder.Services.AddScoped<IFormRepository, FormRepository>();
 
-builder.Services.AddRazorPages();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.AddScoped<IFormRepository, FormRepository>();
 
 
 builder.Services.AddControllersWithViews();
@@ -45,6 +50,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-app.MapRazorPages();
+
+
 
 app.Run();
