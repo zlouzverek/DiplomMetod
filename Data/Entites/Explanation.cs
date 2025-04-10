@@ -29,10 +29,10 @@ namespace DiplomMetod.Data.Entites
         [Description("Пример из жизни")]
         public string? Description { get; set; }
 
-        [Display(Name = "Примечание")]
+        [Description("Примечание")]
         public string? Comment { get; set; }
 
-        [Display(Name = "Избранное")]
+        [Description("Избранное")]
         public bool IsFavorites { get; set; }
 
         public Form Form { get; set; }

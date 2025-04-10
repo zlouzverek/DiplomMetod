@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="bootstrap" Version="5.3.5" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.14" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.14" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.14">
@@ -40,6 +41,7 @@
     <Folder Include="Migrations\" />
     <Folder Include="Views\Organization\" />
     <Folder Include="Views\ReferenceBook\" />
+    <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
 </Project>

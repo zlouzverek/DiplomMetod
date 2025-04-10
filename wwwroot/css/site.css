@@ -16,7 +16,19 @@ html {
   position: relative;
   min-height: 100%;
 }
-
+/*Задний фон*/
 body {
-  margin-bottom: 60px;
+    background-image: url('/img/Other.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+/*Добавление прозрачности, скругления и отсутп от краев*/
+.container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

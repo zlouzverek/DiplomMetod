@@ -6,6 +6,8 @@ namespace DiplomMetod.Data.Entites
     {
         public int FormTypeId { get; set; }
         public FormType FormType { get; set; }
+
+        [Description("Инвентарный номер")]
         public string InventoryNumber
         {
             get
@@ -16,7 +18,7 @@ namespace DiplomMetod.Data.Entites
 
             set
             {
-                value = $"{Id}_{FormType.Name}";
+                value = $"{FormType.Name}_{Id}";
             }
         }
 
