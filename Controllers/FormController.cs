@@ -1,4 +1,5 @@
-﻿using DiplomMetod.Repositories;
+﻿using DiplomMetod.Models;
+using DiplomMetod.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DiplomMetod.Controllers
@@ -13,6 +14,7 @@ namespace DiplomMetod.Controllers
         {
             _formRepository = formRepository;
         }
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -28,10 +30,25 @@ namespace DiplomMetod.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        [Route("search")]
+        public async Task<IActionResult> Search([FromQuery] FormSearchFilter queryFilter)
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int Id)
+        {
+            var result = await _formRepository.GetById(Id);
+
+            return View(result);
         }
     }
 }
