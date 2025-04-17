@@ -1,6 +1,7 @@
 ﻿@using DiplomMetod.Models
 @model FormCreateViewModel;
 
+}
 @{
     ViewData["Title"] = "Create";
 }
@@ -18,132 +19,50 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="FormTypeId" class="control-label"></label>
-                <select asp-for="FormTypeId" class="form-control" asp-items=@Model.FormTypes></select>
+                <label class="control-label">Form Types</label>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="formTypesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Select Form Type
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="formTypesDropdown">
+                        @foreach (var formType in Model.FormTypes)
+                        {
+                            <a class="dropdown-item" href="#" data-value="@formType.Id">@formType.Name</a>
+                        }
+                    </div>
+                    <input type="hidden" id="selectedFormType" name="FormTypeId" value="" />
+                </div>
             </div>
-            @*
-            <div class="form-group">
-                <label asp-for="Name_forma" class="control-label"></label>
-                <input asp-for="Name_forma" class="form-control" />
-                <span asp-validation-for="Name_forma" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="rek" class="control-label"></label>
-                <input asp-for="rek" class="form-control" />
-                <span asp-validation-for="rek" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="sprav" class="control-label"></label>
-                <input asp-for="sprav" class="form-control" />
-                <span asp-validation-for="sprav" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="kod" class="control-label"></label>
-                <input asp-for="kod" class="form-control" />
-                <span asp-validation-for="kod" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="tema" class="control-label"></label>
-                <input asp-for="tema" class="form-control" />
-                <span asp-validation-for="tema" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="invent_nomerID" class="control-label"></label>
-                <input asp-for="invent_nomerID" class="form-control" />
-                <span asp-validation-for="invent_nomerID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="pravila" class="control-label"></label>
-                <input asp-for="pravila" class="form-control" />
-                <span asp-validation-for="pravila" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="aktual" class="control-label"></label>
-                <input asp-for="aktual" class="form-control" />
-                <span asp-validation-for="aktual" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="sogl_GP" class="control-label"></label>
-                <input asp-for="sogl_GP" class="form-control" />
-                <span asp-validation-for="sogl_GP" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="regionID" class="control-label"></label>
-                <input asp-for="regionID" class="form-control" />
-                <span asp-validation-for="regionID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="primer" class="control-label"></label>
-                <input asp-for="primer" class="form-control" />
-                <span asp-validation-for="primer" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="vremia_document" class="control-label"></label>
-                <input asp-for="vremia_document" class="form-control" />
-                <span asp-validation-for="vremia_document" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="document" class="control-label"></label>
-                <input asp-for="document" class="form-control" />
-                <span asp-validation-for="document" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="punkt_document" class="control-label"></label>
-                <input asp-for="punkt_document" class="form-control" />
-                <span asp-validation-for="punkt_document" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="kto_document" class="control-label"></label>
-                <input asp-for="kto_document" class="form-control" />
-                <span asp-validation-for="kto_document" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="sootnoshenie" class="control-label"></label>
-                <input asp-for="sootnoshenie" class="form-control" />
-                <span asp-validation-for="sootnoshenie" class="text-danger"></span>
-            </div>
-            <!-- Добавьте эти блоки в секцию form-group -->
-            <div class="form-group">
-                <label asp-for="Keyword1" class="control-label"></label>
-                <input asp-for="Keyword1" class="form-control" />
-                <span asp-validation-for="Keyword1" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Keyword2" class="control-label"></label>
-                <input asp-for="Keyword2" class="form-control" />
-                <span asp-validation-for="Keyword2" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Keyword3" class="control-label"></label>
-                <input asp-for="Keyword3" class="form-control" />
-                <span asp-validation-for="Keyword3" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Keyword4" class="control-label"></label>
-                <input asp-for="Keyword4" class="form-control" />
-                <span asp-validation-for="Keyword4" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Keyword5" class="control-label"></label>
-                <input asp-for="Keyword5" class="form-control" />
-                <span asp-validation-for="Keyword5" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Keyword6" class="control-label"></label>
-                <input asp-for="Keyword6" class="form-control" />
-                <span asp-validation-for="Keyword6" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Keyword7" class="control-label"></label>
-                <input asp-for="Keyword7" class="form-control" />
-                <span asp-validation-for="Keyword7" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Создать" class="btn btn-primary" />
-            </div>
-            *@
 
+            <div class="form-group">
+                <label class="control-label">Reference Books</label>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="referenceBooksDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Select Reference Book
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="referenceBooksDropdown">
+                        @foreach (var referenceBook in Model.ReferenceBooks)
+                        {
+                            <a class="dropdown-item" href="#" data-value="@referenceBook.Id">@referenceBook.Name</a>
+                        }
+                    </div>
+                    <input type="hidden" id="selectedReferenceBook" name="ReferenceBookId" value="" />
+                </div>
+            </div>
         </form>
+
+        <form>
+            <div class="form-group">
+                <label asp-for=@Model.Code class="control-label"></label>
+                <input asp-for=@Model.Code class="form-control" />
+            </div>
+
+         
+        </form>
+           
+          
+
+       
     </div>
 </div>
 
@@ -151,8 +70,24 @@
     <a asp-action="Index">К списку рекомендаций</a>
 </div>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+
+                section Scripts {
+@{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
 }
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.dropdown-item').forEach(function (element) {
+            element.addEventListener('click', function (event) {
+                event.preventDefault();
+                var value = this.getAttribute('data-value');
+                var dropdownMenu = this.closest('.dropdown-menu');
+                var dropdownToggle = dropdownMenu.previousElementSibling;
+                var hiddenInput = dropdownMenu.nextElementSibling;
+
+                dropdownToggle.textContent = this.textContent;
+                hiddenInput.value = value;
+            });
+        });
+    });
+</script>

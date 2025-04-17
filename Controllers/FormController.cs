@@ -57,9 +57,13 @@ namespace DiplomMetod.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int Id)
         {
-            var result = await _formRepository.GetById(Id);
+            var form = await _formRepository.GetById(Id);
+           
+            var formTypes = await _formRepository.GetFormTypes();
+            var referenceBook = await _referenceBookRepository.GetAll();
 
-            return View(result);
+            //var editCreateViewModel = new EditCreateViewModel(formTypes, referenceBook);
+            return View(form);
         }
 
        
