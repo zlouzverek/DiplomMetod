@@ -9,5 +9,7 @@ namespace DiplomMetod.Repositories
         Task Remove(Form entity);
         Task<IEnumerable<Form>> GetAll();
         Task Update(Form entity);
+
+        Task<IEnumerable<FormType>> GetFormTypes();
     }
 }

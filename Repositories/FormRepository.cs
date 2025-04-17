@@ -29,6 +29,11 @@ namespace DiplomMetod.Repositories
             return await _dbContext.Set<Form>().FindAsync(id);
         }
 
+        public async Task<IEnumerable<FormType>> GetFormTypes()
+        {
+            return await _dbContext.Set<FormType>().ToListAsync();
+        }
+
         public async Task Remove(Form entity)
         {
             _dbContext.Set<Form>().Remove(entity); 

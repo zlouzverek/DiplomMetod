@@ -9,10 +9,12 @@ namespace DiplomMetod.Controllers
     {
 
         private readonly IFormRepository _formRepository;
+        private readonly IReferenceBookRepository _referenceBookRepository;
 
-        public FormController(IFormRepository formRepository)
+        public FormController(IFormRepository formRepository, IReferenceBookRepository referenceBookRepository)
         {
             _formRepository = formRepository;
+            _referenceBookRepository = referenceBookRepository;
         }
 
         [HttpGet]
@@ -34,7 +36,15 @@ namespace DiplomMetod.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            return View();
+            var formTypes = await _formRepository.GetFormTypes();
+
+            var referenceBook = await _referenceBookRepository.GetAll();
+
+            var formCreateViewModel = new FormCreateViewModel(formTypes, referenceBook);
+
+            return View(formCreateViewModel);
+
+
         }
         
         [HttpPost]
