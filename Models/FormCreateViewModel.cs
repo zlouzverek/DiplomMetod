@@ -1,4 +1,5 @@
-﻿using DiplomMetod.Data.Entites;
+﻿using System.ComponentModel;
+using DiplomMetod.Data.Entites;
 
 namespace DiplomMetod.Models
 {
@@ -15,5 +16,10 @@ namespace DiplomMetod.Models
 
         public IEnumerable<ReferenceBook> ReferenceBooks { get; set; }
 
+        public int FormTypeId { get; set; }
+
+        public int RequisiteNumber { get; set; }
+
+        public int Code { get; set; }
     }
 }
