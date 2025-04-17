@@ -50,5 +50,25 @@ namespace DiplomMetod.Controllers
 
             return View(result);
         }
+
+        /*
+        [HttpPost]
+        //#FIXME: Добавил метод ExportToExcel//
+        public async Task<IActionResult> ExportToExcel()
+        {
+        
+            return View();
+        }
+
+         //#FIXME: Добавил метод ExportToPdf//
+         [HttpPost]
+        /*public async Task<IActionResult> ExpotToPdf()
+        {
+            return View();
+        }
+        */
+
+
+
     }
 }
