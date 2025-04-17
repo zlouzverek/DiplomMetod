@@ -30,12 +30,13 @@ namespace DiplomMetod.Controllers
             return View();
         }
 
+      
         [HttpGet]
         public async Task<IActionResult> Create()
         {
             return View();
         }
-
+        
         [HttpPost]
         [Route("search")]
         public async Task<IActionResult> Search([FromQuery] FormSearchFilter queryFilter)
