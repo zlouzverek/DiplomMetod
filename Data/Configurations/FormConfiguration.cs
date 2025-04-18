@@ -24,7 +24,8 @@ namespace DiplomMetod.Data.Configurations
                 .IsRequired();
 
             builder.HasMany(x => x.KeyWords)
-                .WithMany(x => x.Forms);
+                .WithOne(x => x.Form)
+                .HasForeignKey(x => x.FormId);
 
             builder.HasOne(x => x.Explanation)
                 .WithOne(x => x.Form)

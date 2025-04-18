@@ -4,6 +4,8 @@
     {
         public string Name { get; set; }
 
-        public ICollection<Form> Forms { get; set; }
+        public int FormId { get; set; }
+
+        public Form Form { get; set; }
     }
 }

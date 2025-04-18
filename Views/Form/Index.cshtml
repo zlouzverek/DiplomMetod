@@ -7,68 +7,70 @@
 @await Html.PartialAsync("Search")
 
 <div class="table-responsive">
-<table class="table table-striped table-bordered">
-    <thead class="thead-dark">
-        <tr>
-                <th class="small text-center align-middle">Инвентарный №</th>
-                <th class="small text-center align-middle">Тип формы</th>
-                <th class="small text-center align-middle">Реквизит</th>
-                <th class="small text-center align-middle">Код</th>
-                <th class="small text-center align-middle">Справочник</th>
-                <th class="small text-center align-middle">Ключевые слова</th>
-                <th class="small text-center align-middle">№ разъяснения</th>
-                <th class="small text-center align-middle">Дата разъяснения</th>
-                <th class="small text-center align-middle">Организация</th>
-                <th class="small text-center align-middle">Согласовано с ГП</th>
-                <th class="small text-center align-middle">Уровень (фед/мес)</th>
-                <th class="small text-center align-middle">Актуальность</th>
-                <th class="small text-center align-middle">Регион (подразделение)</th>
-                <th class="small text-center align-middle">Примечание</th>
-                <th class="small text-center align-middle">Избранное</th>
-                <th class="small text-center align-middle">Скачать файл</th>
-                <th class="small text-center align-middle">Действия</th>
+	<table class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				<th class="small text-center align-middle">Инвентарный №</th>
+				<th class="small text-center align-middle">Тип формы</th>
+				<th class="small text-center align-middle">Реквизит</th>
+				<th class="small text-center align-middle">Код</th>
+				<th class="small text-center align-middle">Справочник</th>
+				<th class="small text-center align-middle">Ключевые слова</th>
+				<th class="small text-center align-middle">№ разъяснения</th>
+				<th class="small text-center align-middle">Дата разъяснения</th>
+				<th class="small text-center align-middle">Организация</th>
+				<th class="small text-center align-middle">Согласовано с ГП</th>
+				<th class="small text-center align-middle">Уровень (фед/мес)</th>
+				<th class="small text-center align-middle">Актуальность</th>
+				<th class="small text-center align-middle">Регион (подразделение)</th>
+				<th class="small text-center align-middle">Примечание</th>
+				<th class="small text-center align-middle">Избранное</th>
+				<th class="small text-center align-middle">Скачать файл</th>
+				<th class="small text-center align-middle">Действия</th>
 
-        </tr>
-    </thead>
-    <tbody>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var form in Model)
+			{
+				<tr>
+					<td>@form.InventoryNumber</td>
+					<td>@form.FormType?.Name</td>
+					<td>@form.RequisiteNumber</td>
+					<td>@form.Code</td>
+					<td>@form.ReferenceBook?.Name</td>
+					<td>
+						@if (form.KeyWords != null && form.KeyWords.Any())
+						{
+							@string.Join(", ", form.KeyWords.Select(k => k.Name))
+						}
+					</td>
+					<td>@form.Explanation.Number</td>
+					<td>@form.Explanation.Date</td>
+					<td>@form.Explanation.Organization.Name</td>
+					<td>@(form.Explanation.IsAgreedGenProk ? "да" : "нет")</td>
+					<td>@form.Explanation.ApproveLevel.ToString()</td>
+					<td>@(form.Explanation.IsRevelant ? "актуально" : "не актуально")</td>
+					<td>@form.RegionsDivision?.Name</td>
+					<td>@form.Explanation.Comment</td>
+					<td>@(form.Explanation.IsFavorites ? "да" : "нет")</td>
+					<td>
+						@if (!string.IsNullOrEmpty(form.FileLink))
+						{
+							<a href="@form.FileLink" target="_blank">Скачать</a>
+						}
+					</td>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <th>@Html.DisplayNameFor(model => model.InventoryNumber)</th>
-                <th>@Html.DisplayNameFor(model => model.FormType.Name)</th>
-                <th>@Html.DisplayNameFor(model => model.RequisiteNumber)</th>
-                <th>@Html.DisplayNameFor(model => model.Code)</th>
-                <th>@Html.DisplayNameFor(model => model.ReferenceBook)</th>
-                
-                <!--Реализация отображения нескольких KeyWords??? -->
-                <td> 
-                        @if (item.KeyWords != null && item.KeyWords.Any())
-                        {
-                            @string.Join(", ", item.KeyWords.Select(k => k.Name))
-                        }
-                </td> 
-                <th>@Html.DisplayNameFor(model => model.Explanation.Number)</th>
-                <th>@Html.DisplayNameFor(model => model.Explanation.Data)</th>
-                <th>@Html.DisplayNameFor(model => model.Explanation.Organization)</th>
-                <th>@Html.DisplayNameFor(model => model.Explanation.IsAgreedGenProk ? "да" : "нет")</th>
-                <th>@Html.DisplayNameFor(model => model.Explanation.ApproveLevel)</th>
-                <th>@Html.DisplayNameFor(model => model.Explanation.IsRevelant ? "актуально" : "не актуально")</th>
-                <th>@Html.DisplayNameFor(model => model.RegionsDivision)</th>
-                <th>@Html.DisplayNameFor(model => model.Explanation.Comment)</th>
-                <th>@Html.DisplayNameFor(model => model.Explanation.IsFavorites ? "да" : "нет")</th>
-                <th>@Html.DisplayNameFor(model => model.FileLink)</th>
-
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Редактировать</a>
-                    <a asp-action="Details" asp-route-id="@item.FormType.Name" class="btn btn-sm btn-info">Просмотр</a>
-                    <a asp-action="Delete" asp-route-id="@item.FormType.Name" class="btn btn-sm btn-danger">Удалить</a>
-                </td>
-            </tr>
-                            
-        }
-    </tbody>
-</table>
+					<td>
+						<div class="btn-group" role="group">
+							<a asp-action="Edit" class="btn btn-sm btn-warning" asp-route-id="@form.Id">Редактировать</a>
+							<a asp-action="Delete" class="btn btn-sm btn-danger" asp-route-id="@form.Id">Удалить</a>
+						</div>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
 </div>
 
 <!--#FIXME: Добавил кнопкм экспорт в Excel (по образцу search) -->

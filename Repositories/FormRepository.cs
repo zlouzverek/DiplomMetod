@@ -21,7 +21,15 @@ namespace DiplomMetod.Repositories
         }
         public async Task<IEnumerable<Form>> GetAll()
         {
-            return await _dbContext.Set<Form>().ToListAsync();
+            return await _dbContext.Set<Form>()
+                .Include( x => x.Explanation)
+                    .ThenInclude(x => x.Organization)
+                .Include(x => x.ReferenceBook)
+                .Include(x => x.KeyWords)
+                .Include(x => x.FormType)
+                .Include(x => x.RegionsDivision)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<Form> GetById(int id)

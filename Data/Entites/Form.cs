@@ -8,19 +8,7 @@ namespace DiplomMetod.Data.Entites
         public FormType FormType { get; set; }
 
         [Description("Инвентарный номер")]
-        public string InventoryNumber
-        {
-            get
-            {
-                return InventoryNumber;
-
-            }
-
-            set
-            {
-                value = $"{FormType.Name}_{Id}";
-            }
-        }
+        public string InventoryNumber { get; set; }
 
         [Description("Номер реквизита")]
         public int? RequisiteNumber { get; set; }
@@ -32,7 +20,7 @@ namespace DiplomMetod.Data.Entites
 
         public ReferenceBook? ReferenceBook { get; set; }
 
-        public ICollection<KeyWord> KeyWords { get; set; }
+        public ICollection<KeyWord> KeyWords { get; set; } = new List<KeyWord>();
 
         public Explanation Explanation { get; set; }
 
