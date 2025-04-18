@@ -58,6 +58,16 @@ namespace DiplomMetod.Controllers
         }
 
 
+        public async Task<IActionResult> Delete(int id)
+        {
+           var form = await _formRepository.GetById(id);
+
+            if (form != null)
+                await _formRepository.Remove(form);
+
+            return RedirectToAction("Index", "Form");
+        }
+
 
         [HttpPost]
         [Route("search")]
