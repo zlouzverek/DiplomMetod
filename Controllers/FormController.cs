@@ -43,10 +43,22 @@ namespace DiplomMetod.Controllers
             var formCreateViewModel = new FormCreateViewModel(formTypes, referenceBook);
 
             return View(formCreateViewModel);
-
-
         }
-        
+
+
+        [HttpPost]
+        public async Task<IActionResult> Create(FormCreateViewModel formCreateViewModel)
+        {
+            var form = formCreateViewModel.ToFormEntity();
+
+            await _formRepository.Add(form);
+
+
+            return RedirectToAction("Index", "Form");
+        }
+
+
+
         [HttpPost]
         [Route("search")]
         public async Task<IActionResult> Search([FromQuery] FormSearchFilter queryFilter)

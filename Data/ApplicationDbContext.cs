@@ -31,14 +31,26 @@ namespace DiplomMetod.Data
             Seed(modelBuilder);
         }
 
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            foreach (var entry in ChangeTracker.Entries<Form>())
+            {
+                if (entry.State == EntityState.Added || entry.State == EntityState.Modified)
+                {
+                    entry.Entity.InventoryNumber = $"{entry.Entity.Id}_{entry.Entity.FormType?.Name}";
+                }
+            }
+
+            return await base.SaveChangesAsync(cancellationToken);
+        }
 
         private void Seed(ModelBuilder modelBuilder)
         {
             // Вставка тестовых данных для FormType
-            modelBuilder.Entity<FormType>().HasData(
-                new FormType { Id = 1, Name = "FormType1", FullName = "Full Name 1", FormId = 1 },
-                new FormType { Id = 2, Name = "FormType2", FullName = "Full Name 2", FormId = 2 }
-            );
+            var formType1 = new FormType { Id = 1, Name = "FormType1", FullName = "Full Name 1", FormId = 1 };
+            var formType2 = new FormType { Id = 2, Name = "FormType2", FullName = "Full Name 2", FormId = 2 };
+
+            modelBuilder.Entity<FormType>().HasData(formType1, formType2);
 
             // Вставка тестовых данных для ReferenceBook
             modelBuilder.Entity<ReferenceBook>().HasData(
@@ -100,7 +112,7 @@ namespace DiplomMetod.Data
                 {
                     Id = 1,
                     FormTypeId = 1,
-                    InventoryNumber = "Inventory1",
+                    InventoryNumber = $"1_{formType1.Name}",
                     RequisiteNumber = 101,
                     Code = 1,
                     ReferenceBooksId = 1,
@@ -115,7 +127,7 @@ namespace DiplomMetod.Data
                 {
                     Id = 2,
                     FormTypeId = 2,
-                    InventoryNumber = "Inventory2",
+                    InventoryNumber = $"2_{formType1.Name}",
                     RequisiteNumber = 102,
                     Code = 2,
                     ReferenceBooksId = 2,
