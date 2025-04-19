@@ -6,6 +6,7 @@ namespace DiplomMetod.Models
 {
     public class FormCreateViewModel
     {
+
         public FormCreateViewModel()
         {
             
@@ -60,6 +61,21 @@ namespace DiplomMetod.Models
 
         public IEnumerable<KeyWordViewModel> KeyWords { get; set; }
 
+        public string? FileLink { get; set; }
+
+        public bool IsAgreedGenProk { get; set; }
+
+        /*#FIXME:Не получилось с enum, может все же bool или как?*/
+        //public enum ApproveLevel { get; set; }
+
+        public bool IsRevelant { get; set; }
+
+        public bool IsFavorites { get; set; }
+
+        public string? Comment { get; set; }
+
+        public string? Description { get; set; }
+
         /*#FIXME:Заменил OrganizationName в public Form ToFormEntity(), на OrganizationId*/
         public Form ToFormEntity()
         {
@@ -69,6 +85,7 @@ namespace DiplomMetod.Models
                 Code = Code,
                 ReferenceBooksId = ReferenceBooksId,
                 RequisiteNumber = RequisiteNumber,
+                FileLink = FileLink,
                 Explanation = new Explanation
                 {
 
@@ -76,8 +93,14 @@ namespace DiplomMetod.Models
                     FullName = ExplanationFullName,
                     Date = ExplanationDate,
                     Number = ExplanationNumber,
+                    IsAgreedGenProk = IsAgreedGenProk,
+                    IsRevelant = IsRevelant,
+                    IsFavorites = IsFavorites,
+                    Comment = Comment,
+                    Description = Description,
+                    //ApproveLevel = ApproveLevel,
                     OrganizationId = OrganizationId,
-                    /*Organization = new OrganizationName { Name = RegionDivisionName }*/
+                    /*Organization = new OrganizationName { Name = OrganizationName }*/
 
                 },
                 RegionsDivision = new RegionDivision { Name = RegionDivisionName },
