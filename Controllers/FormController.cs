@@ -1,4 +1,5 @@
-﻿using DiplomMetod.Models;
+﻿using DiplomMetod.Data.Entites;
+using DiplomMetod.Models;
 using DiplomMetod.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,11 +11,13 @@ namespace DiplomMetod.Controllers
 
         private readonly IFormRepository _formRepository;
         private readonly IReferenceBookRepository _referenceBookRepository;
+        private readonly IOrganizationRepository _organizationRepository;
 
-        public FormController(IFormRepository formRepository, IReferenceBookRepository referenceBookRepository)
+        public FormController(IFormRepository formRepository, IReferenceBookRepository referenceBookRepository, IOrganizationRepository organizationRepository)
         {
             _formRepository = formRepository;
             _referenceBookRepository = referenceBookRepository;
+            _organizationRepository = organizationRepository;
         }
 
         [HttpGet]
@@ -39,8 +42,10 @@ namespace DiplomMetod.Controllers
             var formTypes = await _formRepository.GetFormTypes();
 
             var referenceBook = await _referenceBookRepository.GetAll();
+            //#FIXME:Добавил organization. +  в public FormController наверхую.Тут GetAll?
+            var organizations = await _organizationRepository.GetAll();
 
-            var formCreateViewModel = new FormCreateViewModel(formTypes, referenceBook);
+            var formCreateViewModel = new FormCreateViewModel(formTypes, referenceBook, organizations);
 
             return View(formCreateViewModel);
         }

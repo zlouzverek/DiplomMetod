@@ -8,77 +8,135 @@
 <h1>@ViewData["Title"]</h1>
 
 <form asp-action="Create" method="post">
-    <div class="form-group">
+	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+	@* #FIXME: Взял за образец твой код, чтобы сделать выпадающие списки, потом посмотреть будет ли работать*@
+	<div class="form-group">
+		<label class="control-label">Тип формы</label>
+		<div class="dropdown">
+			<button class="btn btn-info text-white dropdown-toggle" type="button" id="formTypesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Выберите тип формы
+			</button>
+			<div class="dropdown-menu" aria-labelledby="formTypesDropdown">
+				@* #FIXME: Заменил ID на Value, а  Name на Text в formType*@
+				@foreach (var formType in Model.FormTypes)
+				{
+					<a class="dropdown-item" href="#" data-value="@formType.Value">@formType.Text</a>
+				}
+			</div>
+			<input type="hidden" id="selectedFormType" name="FormTypeId" value="" />
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label">Справочники</label>
+		<div class="dropdown">
+			<button class="btn btn-info text-white dropdown-toggle" type="button" id="referenceBooksDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Выберите справочник
+			</button>
+			<div class="dropdown-menu" aria-labelledby="referenceBooksDropdown">
+				@* #FIXME: Заменил ID на Value, а  Name на Text в referenceBook, чтобы заработало, т.к.  выдавало ошибку*@
+				@foreach (var referenceBook in Model.ReferenceBooks)
+				{
+					<a class="dropdown-item" href="#" data-value="@referenceBook.Value">@referenceBook.Text</a>
+				}
+			</div>
+			<input type="hidden" id="selectedReferenceBook" name="ReferenceBookId" value="" />
+		</div>
+	</div>
+
+    @* #FIXME:Закомментировал, т.к. есть formType из выплывающего списка*@
+@*     <div class="form-group">
         <label asp-for="FormTypeId" class="control-label"></label>
         <select asp-for="FormTypeId" class="form-control" asp-items="Model.FormTypes"></select>
         <span asp-validation-for="FormTypeId" class="text-danger"></span>
-    </div>
+    </div> *@
     
 
     <div class="form-group">
-        <label asp-for="RequisiteNumber" class="control-label"></label>
-        <input asp-for="RequisiteNumber" class="form-control" />
+        <label asp-for="RequisiteNumber" class="control-label">Номер реквизита</label>
+        <input asp-for="RequisiteNumber" class="form-control" placeholder="Введите номер реквизита" />
         <span asp-validation-for="RequisiteNumber" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label asp-for="Code" class="control-label"></label>
+        <label asp-for="Code" class="control-label">Номер кода</label>
         <input asp-for="Code" class="form-control" />
         <span asp-validation-for="Code" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
+    @* #FIXME:Закомментировал, т.к. есть ReferenceBooks из выплывающего списка*@
+@*     <div class="form-group">
         <label asp-for="ReferenceBooksId" class="control-label"></label>
         <select asp-for="ReferenceBooksId" class="form-control" asp-items="Model.ReferenceBooks"></select>
         <span asp-validation-for="ReferenceBooksId" class="text-danger"></span>
-    </div>
+    </div> *@
 
 
     <div class="form-group">
-        <label asp-for="ExplanationName" class="control-label"></label>
-        <input asp-for="ExplanationName" class="form-control" />
+        <label asp-for="ExplanationName" class="control-label">Разъяснение (краткое)</label>
+        <input asp-for="ExplanationName" class="form-control" placeholder="Введите разъяснение (краткое для понимания)" />
         <span asp-validation-for="ExplanationName" class="text-danger"></span>
     </div>
 
 
     <div class="form-group">
-        <label asp-for="ExplanationFullName" class="control-label"></label>
-        <input asp-for="ExplanationFullName" class="form-control" />
+        <label asp-for="ExplanationFullName" class="control-label">Разъяснение (полное)</label>
+        <input asp-for="ExplanationFullName" class="form-control" placeholder="Введите разъяснение (официальное наименование)" />
         <span asp-validation-for="ExplanationFullName" class="text-danger"></span>
     </div>
 
     
     <div class="form-group">
-        <label asp-for="ExplanationNumber" class="control-label"></label>
-        <input asp-for="ExplanationNumber" class="form-control" />
+        <label asp-for="ExplanationNumber" class="control-label">№ разъяснения</label>
+        <input asp-for="ExplanationNumber" class="form-control" placeholder="Введите № разъяснение (регистрационный №)" />
         <span asp-validation-for="ExplanationNumber" class="text-danger"></span>
     </div>
 
 
     <div class="form-group">
-        <label asp-for="ExplanationDate" class="control-label"></label>
+        <label asp-for="ExplanationDate" class="control-label">Дата разъяснения (дата подписания)</label>
         <input type="datetime-local" asp-for="ExplanationDate" class="form-control" id="explanationDate" />
         <span asp-validation-for="ExplanationDate" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
-        <label asp-for="OrganizationName" class="control-label"></label>
-        <input asp-for="OrganizationName" class="form-control" />
+    @* #FIXME:Закомментировал, т.к. добавил Organization из выплывающего списка*@
+@*     <div class="form-group">
+        <label asp-for="OrganizationName" class="control-label">Кто утвердил</label>
+        <input asp-for="OrganizationName" class="form-control" placeholder="Введите наименование органа, утвердившего разъяснение" />
         <span asp-validation-for="OrganizationName" class="text-danger"></span>
+    </div> *@
+
+    @* #FIXME:Попрбовал создать по образцу как referenceBooks (прописал в модели и контроллере). Будет ли работать?*@
+    <div class="form-group">
+        <label class="control-label">Кому дано разъяснение (регион)</label>
+        <div class="dropdown">
+            <button class="btn btn-info text-white dropdown-toggle" type="button" id="organizationsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Выберите регион (подразделение)
+            </button>
+            <div class="dropdown-menu" aria-labelledby="organizationsDropdown">
+                @* #FIXME: Заменил ID на Value, а  Name на Text в organizations, чтобы заработало, т.к.  выдавало ошибку*@
+                @foreach (var organizations in Model.Organization)
+                {
+                    <a class="dropdown-item" href="#" data-value="@organizations.Value">@organizations.Text</a>
+                }
+            </div>
+            <input type="hidden" id="selectedOrganization" name="OrganizationId" value="" />
+        </div>
     </div>
 
     <div class="form-group">
-        <label asp-for="RegionDivisionName" class="control-label"></label>
+        <label asp-for="RegionDivisionName" class="control-label">Автор вопроса (регион)</label>
         <input asp-for="RegionDivisionName" class="form-control" />
         <span asp-validation-for="RegionDivisionName" class="text-danger"></span>
     </div>
 
   
     <div class="form-group">
-        <label class="control-label">Key Words</label>
+        <label class="control-label">Ключевые слова</label>
         <div id="keywords-container">
             <div class="input-group mb-3">
-                <input type="text" name="KeyWords[0].Name" class="form-control" placeholder="добавить ключевое слово" />
+                <input type="text" name="KeyWords[0].Name" class="form-control" placeholder="Введите ключевое слово" />
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button" onclick="removeKeyword(this)">-</button>
                 </div>

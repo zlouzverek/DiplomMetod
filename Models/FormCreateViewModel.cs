@@ -10,7 +10,7 @@ namespace DiplomMetod.Models
         {
             
         }
-        public FormCreateViewModel(IEnumerable<FormType> formTypes, IEnumerable<ReferenceBook> referenceBooks)
+        public FormCreateViewModel(IEnumerable<FormType> formTypes, IEnumerable<ReferenceBook> referenceBooks, IEnumerable<Organization> organizations)
         {
             FormTypes = formTypes.Select(ft => new SelectListItem
             {
@@ -19,6 +19,13 @@ namespace DiplomMetod.Models
             }).ToList();
 
             ReferenceBooks = referenceBooks.Select(rb => new SelectListItem
+            {
+                Value = rb.Id.ToString(),
+                Text = rb.Name
+            }).ToList();
+
+            /*#FIXME:Добавил Organization, прописал тут и в контроллере*/
+            Organization = organizations.Select(rb => new SelectListItem
             {
                 Value = rb.Id.ToString(),
                 Text = rb.Name
@@ -44,12 +51,16 @@ namespace DiplomMetod.Models
 
         public DateTime ExplanationDate { get; set; }
 
-        public string OrganizationName { get; set; }
+        /*#FIXME: Тут вопрос: OrganizationName заменил на ID (вроде дожен ID по base автоматически создаваться)*/
+        public int OrganizationId { get; set; }
+
+        public IEnumerable<SelectListItem> Organization { get; set; }
 
         public string RegionDivisionName {  get; set; }
 
         public IEnumerable<KeyWordViewModel> KeyWords { get; set; }
 
+        /*#FIXME:Заменил OrganizationName в public Form ToFormEntity(), на OrganizationId*/
         public Form ToFormEntity()
         {
             var form = new Form
@@ -65,8 +76,8 @@ namespace DiplomMetod.Models
                     FullName = ExplanationFullName,
                     Date = ExplanationDate,
                     Number = ExplanationNumber,
-                    Organization = new Organization { Name = OrganizationName },
-
+                    OrganizationId = OrganizationId,
+                    /*Organization = new OrganizationName { Name = RegionDivisionName }*/
 
                 },
                 RegionsDivision = new RegionDivision { Name = RegionDivisionName },
