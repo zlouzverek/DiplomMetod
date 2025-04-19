@@ -23,6 +23,11 @@ body {
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+    padding-bottom: 100px; 
+    position: relative;
 }
 /*Добавление прозрачности, скругления и отсутп от краев*/
 .container {
@@ -31,4 +36,14 @@ body {
     border-radius: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
+    flex: 1; 
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px; 
+    /*Масштабирование исходя из размера окна, от 12 до 16*/
+    font-size: clamp(12px, 1.5vw, 16px);
 }
