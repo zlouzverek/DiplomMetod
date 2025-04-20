@@ -47,3 +47,187 @@ footer {
     /*Масштабирование исходя из размера окна, от 12 до 16*/
     font-size: clamp(12px, 1.5vw, 16px);
 }
+
+
+
+
+
+/* Основной контейнер страницы с фоновым изображением */
+.home-main {
+    background: url('/img/Home.jpg') no-repeat center center fixed;
+    background-size: cover;
+    min-height: calc(100vh - 220px); /* Высота с учетом отступов */
+    display: flex;
+    align-items: center;
+    padding: 40px 0 60px; /* Вертикальные отступы */
+}
+
+/* Центральный контейнер с контентом */
+.home-content {
+    max-width: 1200px; /* Фиксированная максимальная ширина */
+    margin: 0 auto; /* Центрирование по горизонтали */
+    width: 100%;
+    padding: 0 15px; /* Боковые отступы */
+    transform: translateY(-5%); /* Смещение контента вверх */
+}
+
+/* Шапка с логотипом и заголовком */
+.home-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem; /* Отступ снизу */
+}
+
+/* Стили для логотипа */
+.home-logo {
+    width: 150px; /* Ширина логотипа */
+    height: auto;
+    margin-right: 2rem; /* Отступ справа */
+    flex-shrink: 0; /* Запрет на сжатие */
+}
+
+/* Обертка для заголовка */
+.home-title-wrapper {
+    padding-top: 0.5rem; /* Корректировка позиции */
+}
+
+/* Стили основного заголовка */
+.home-title {
+    font-size: 2.1rem;
+    font-weight: 500;
+    line-height: 1.3; /* Межстрочный интервал */
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    margin: 0; /* Убираем стандартные отступы */
+}
+
+/* Разделительная линия между заголовком и меню */
+.home-divider {
+    height: 2px;
+    background: rgba(255, 255, 255, 0.3);
+    margin: 1rem 0 2rem; /* Вертикальные отступы */
+    position: relative;
+    width: 100vw; /* На всю ширину экрана */
+    left: 50%;
+    transform: translateX(-50%); /* Центрирование */
+    max-width: 1200px; /* Ограничение ширины */
+}
+
+/* Сетка меню с адаптивными колонками */
+.home-menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.8rem; /* Расстояние между элементами */
+}
+
+    /* Стили пунктов меню */
+    .home-menu a {
+        font-size: 1.35rem;
+        color: #fff;
+        font-weight: 400;
+        text-decoration: none;
+        padding: 1rem 1.5rem;
+        background: rgba(41, 98, 155, 0.7);
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        min-height: 80px; /* Минимальная высота */
+    }
+
+        /* Эффекты при наведении на пункты меню */
+        .home-menu a:hover {
+            background: rgba(41, 98, 155, 0.9);
+            transform: translateY(-3px); /* Сдвиг вверх */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Тень */
+        }
+
+/* Блок статистики внизу страницы */
+.home-stats {
+    margin-top: 3.5rem; /* Отступ сверху */
+    text-align: right; /* Выравнивание по правому краю */
+    color: #fff;
+    font-size: 1.2rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    padding-bottom: 1rem; /* Отступ снизу */
+}
+
+/* Стили для блока с версией */
+.home-version {
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-top: 1.5rem; /* Отступ сверху */
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 20px; /* Скругленные углы */
+}
+
+/* Адаптивные стили для экранов до 1200px */
+@media (max-width: 1200px) {
+    .home-divider {
+        max-width: calc(100% - 30px); /* Уменьшение ширины */
+    }
+}
+
+/* Адаптивные стили для планшетов */
+@media (max-width: 992px) {
+    .home-header {
+        flex-direction: column; /* Вертикальное расположение */
+        text-align: center; /* Центрирование текста */
+    }
+
+    .home-logo {
+        width: 140px; /* Размер логотипа */
+        margin-right: 0;
+        margin-bottom: 1.5rem; /* Отступ снизу */
+    }
+
+    .home-title {
+        font-size: 1.8rem; /* Уменьшение размера шрифта */
+    }
+
+    .home-menu a {
+        font-size: 1.2rem; /* Размер шрифта */
+        min-height: 70px; /* Высота элементов */
+    }
+}
+
+/* Адаптивные стили для мобильных устройств */
+@media (max-width: 768px) {
+    .home-main {
+        padding: 30px 0 50px; /* Уменьшение отступов */
+    }
+
+    .home-content {
+        transform: translateY(0); /* Отмена смещения */
+    }
+
+    .home-title {
+        font-size: 1.5rem; /* Размер шрифта */
+        line-height: 1.4; /* Межстрочный интервал */
+    }
+
+    .home-menu {
+        grid-template-columns: 1fr; /* Одна колонка */
+        gap: 1.2rem; /* Расстояние между элементами */
+    }
+
+    .home-stats {
+        text-align: center; /* Центрирование текста */
+        margin-top: 2.5rem; /* Отступ сверху */
+    }
+
+    .home-divider {
+        margin: 0.8rem 0 1.8rem; /* Вертикальные отступы */
+    }
+
+    .home-logo {
+        width: 130px; /* Размер логотипа */
+    }
+}
+
