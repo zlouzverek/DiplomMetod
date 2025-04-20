@@ -1,0 +1,80 @@
+﻿@using DiplomMetod.Data.Entites
+@model IEnumerable<Form>;
+
+
+
+<h1 class="mb-4">Разъяснения в формате: вопрос-ответ</h1>
+@await Html.PartialAsync("Search")
+
+<div class="table-responsive">
+	<table class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				<th class="small text-center align-middle">Инвентарный №</th>
+				<th class="small text-center align-middle">Тип формы</th>
+				<th class="small text-center align-middle">Реквизит</th>
+				<th class="small text-center align-middle">Код</th>
+				<th class="small text-center align-middle">Справочник</th>
+				<th class="small text-center align-middle">Ключевые слова</th>
+				<th class="small text-center align-middle">Вопрос задан в рамках</th>
+				<th class="small text-center align-middle">Вопрос задал (регион)</th>
+				<th class="small text-center align-middle">Ответ дан (организация)</th>
+				<th class="small text-center align-middle">Рег № ответа</th>
+				<th class="small text-center align-middle">Дата ответа</th>
+				<th class="small text-center align-middle">Согласовано с ГП</th>
+				<th class="small text-center align-middle">Уровень (фед/мес)</th>
+				<th class="small text-center align-middle">Актуальность</th>
+				<th class="small text-center align-middle">Примечание</th>
+				<th class="small text-center align-middle">Избранное</th>
+				<th class="small text-center align-middle">Скачать файл</th>
+				<th class="small text-center align-middle">Действия</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var form in Model)
+			{
+				<tr>
+					<td>@form.InventoryNumber</td>
+					<td>@form.FormType?.Name</td>
+					<td>@form.RequisiteNumber</td>
+					<td>@form.Code</td>
+					<td>@form.ReferenceBook?.Name</td>
+										<td>
+						@if (form.KeyWords != null && form.KeyWords.Any())
+						{
+							@string.Join(", ", form.KeyWords.Select(k => k.Name))
+						}
+
+					</td>
+					<td>@form.Event</td>
+					<td>@form.RegionsDivision?.Name</td>
+					<td>@form.Explanation.Organization.Name</td>
+					<td>@form.Explanation.Number</td>
+					<td>@form.Explanation.Date</td>
+					<td>@(form.Explanation.IsAgreedGenProk ? "да" : "нет")</td>
+					<td>@form.Explanation.ApproveLevel.ToString()</td>
+					<td>@(form.Explanation.IsRevelant ? "актуально" : "не актуально")</td>
+					<td>@form.Explanation.Comment</td>
+					<td>@(form.Explanation.IsFavorites ? "да" : "нет")</td>
+					<td>
+						@if (!string.IsNullOrEmpty(form.FileLink))
+						{
+							<a href="@form.FileLink" target="_blank">Скачать</a>
+						}
+					</td>
+
+					<td>
+						<div class="btn-group" role="group">
+							<a asp-action="Edit" class="btn btn-sm btn-warning" asp-route-id="@form.Id">Редактировать</a>
+							<a asp-action="Delete" class="btn btn-sm btn-danger" asp-route-id="@form.Id">Удалить</a>
+						</div>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+
+<!--#FIXME: Добавил кнопкм экспорт в Excel (по образцу search) -->
+@await Html.PartialAsync("Export")

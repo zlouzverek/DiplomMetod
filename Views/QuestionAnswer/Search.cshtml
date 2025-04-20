@@ -1,0 +1,87 @@
+﻿
+
+
+<search>
+    <div class="d-flex justify-content-between mb-3">
+        <!--Левая группа из 2 кнопок. Использовал класс Bootstrap flex. #FIXME: нужно правильный контроллеры проставить-->
+        <div class="d-flex">
+            <a asp-action="Search" type="submit" class="btn btn-secondary me-2" method="post">Поиск</a>
+            <a asp-action="Index" class="btn btn-secondary">Сбросить</a>
+        </div>
+
+        <!-- Правая группа из 2 кнопок. Отступ справа, за счет between-->
+        <div class="d-flex">
+            <a asp-controller="Form" asp-action="Create" class="btn btn-dark me-2">Создать новую</a>
+            <a asp-controller="Form" asp-action="Index" class="btn btn-secondary">На главную</a>
+        </div>
+    </div>
+
+    <!-- Реализация формы для поиска/фильтрации-->
+    <form asp-action="Index" asp-controller="QuestionAnswerCreateViewModel" method="get" class="row g-3 mb-4">
+        <div class="col-md-2">
+            <input name="InventoryNumber" class="form-control" placeholder="Инвентарный №" value="@Context.Request.Query["InventoryNumber"]" />
+        </div>
+
+        <div class="col-md-2">
+            <input name="NameFormType" class="form-control" placeholder="Название формы" value="@Context.Request.Query["NameFormType"]" />
+        </div>
+
+        <div class="col-md-2">
+            <input name="RequisiteNumber" class="form-control" placeholder="Реквизит" value="@Context.Request.Query["RequisiteNumber"]" />
+        </div>
+
+        <div class="col-md-2">
+            <input name="Code" class="form-control" placeholder="Код" value="@Context.Request.Query["Code"]" />
+        </div>
+
+        <div class="col-md-2">
+            <input name="ReferenceBookName" class="form-control" placeholder="Справочник" value="@Context.Request.Query["ReferenceBookName"]" />
+        </div>
+
+        <div class="col-md-2">
+            <input name="KeyWordName" class="form-control" placeholder="Ключевое слово" value="@Context.Request.Query["KeyWordName"]" />
+        </div>
+
+		<div class="col-md-2">
+			<input name="Event" class="form-control" placeholder="Вопрос задан в рамках" value="@Context.Request.Query["Event"]" />
+		</div>
+
+		<div class="col-md-2">
+			<input name="RegionsDivisionName" class="form-control" placeholder="Вопрос задал (регион)" value="@Context.Request.Query["RegionsDivisionName"]" />
+		</div>
+
+		<div class="col-md-2">
+			<input name="OrganizationName" class="form-control" placeholder="Ответ дан (организация)" value="@Context.Request.Query["OrganizationName"]" />
+		</div>
+
+        <div class="col-md-2">
+            <input name="ExplanationNumber" class="form-control" placeholder="№ разъяснения" value="@Context.Request.Query["ExplanationNumber"]" />
+        </div>
+
+        <div class="col-md-2">
+            <input name="ExplanationData" class="form-control" placeholder="Дата разъяснения" value="@Context.Request.Query["ExplanationData"]" />
+        </div>
+
+        <div class="col-md-2">
+            <input name="IsAgreedGenProk" class="form-control" placeholder="Согласовано с ГП" value="@Context.Request.Query["IsAgreedGenProk"]" />
+        </div>
+
+        <div class="col-md-2">
+            <input name="ApproveLevel" class="form-control" placeholder="Уровень (фед/мес)" value="@Context.Request.Query["ApproveLevel"]" />
+        </div>
+
+        <div class="col-md-2">
+            <input name="IsRevelant" class="form-control" placeholder="Актуальность" value="@Context.Request.Query["IsRevelant"]" />
+        </div>
+
+        <div class="col-md-2">
+            <input name="Comment" class="form-control" placeholder="Примечание" value="@Context.Request.Query["Comment"]" />
+        </div>
+
+        <div class="col-md-2">
+            <input name="IsFavorites" class="form-control" placeholder="Избранное" value="@Context.Request.Query["IsFavorites"]" />
+        </div>
+
+    </form>
+</search>
+

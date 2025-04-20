@@ -48,7 +48,7 @@ namespace DiplomMetod.Models
 
         public string ExplanationFullName { get; set; }
 
-        public string ExplanationNumber { get; set; }
+        public string? ExplanationNumber { get; set; }
 
         public DateTime ExplanationDate { get; set; }
 
@@ -103,6 +103,7 @@ namespace DiplomMetod.Models
                     /*Organization = new OrganizationName { Name = OrganizationName }*/
 
                 },
+                /*#FIXME: Есть вопрос, т.к. это должно из списка выпадающего*/
                 RegionsDivision = new RegionDivision { Name = RegionDivisionName },
             };
 
