@@ -3,18 +3,18 @@
 
 <search>
 	<div class="d-flex justify-content-between mb-3">
-    <!--Левая группа из 2 кнопок. Использовал класс Bootstrap flex. #FIXME: нужно правильный контроллеры проставить-->
-    <div class="d-flex">
-        <a asp-action="Search" type="submit" class="btn btn-secondary me-2" method="post">Поиск</a>
-        <a asp-action="Index" class="btn btn-secondary">Сбросить</a>
-    </div>
+		<!--Левая группа из 2 кнопок. Использовал класс Bootstrap flex. #FIXME: нужно правильный контроллеры проставить-->
+		<div class="d-flex">
+			<a asp-action="Search" type="submit" class="btn btn-secondary me-2" method="post">Поиск</a>
+			<a asp-action="Index" class="btn btn-secondary">Сбросить</a>
+		</div>
 
-    <!-- Правая группа из 2 кнопок. Отступ справа, за счет between-->
-    <div class="d-flex">
-            <a asp-controller="Form"  asp-action="Create" class="btn btn-dark me-2">Создать новую</a>
-        <a asp-controller="Form" asp-action="Index" class="btn btn-secondary">На главную</a>
-    </div>
-</div>
+		<!-- Правая группа из 2 кнопок. Отступ справа, за счет between-->
+		<div class="d-flex">
+			<a asp-controller="Form" asp-action="Create" class="btn btn-dark me-2">Создать новую</a>
+			<a asp-controller="Home" asp-action="Index" class="btn btn-secondary">На главную</a>
+		</div>
+	</div>
 
 <!-- Реализация формы для поиска/фильтрации-->
 <form asp-action="Index" asp-controller="FormController" method="get" class="row g-3 mb-4">

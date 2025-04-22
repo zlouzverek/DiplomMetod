@@ -1,0 +1,43 @@
+﻿@using DiplomMetod.Data.Entites
+@model IEnumerable<ReferenceBook>;
+
+
+
+<h1 class="mb-4">Справочники</h1>
+
+<div class="d-flex justify-content-between mb-3">
+	<!-- Правая группа из 2 кнопок. Отступ справа, за счет between-->
+	<div class="d-flex">
+		<a asp-controller="ReferenceBook" asp-action="Create" class="btn btn-dark me-2">Создать новую</a>
+		<a asp-controller="Home" asp-action="Index" class="btn btn-secondary">На главную</a>
+	</div>
+</div>
+
+
+<div class="table-responsive">
+	<table class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				<th class="small text-center align-middle">Номер справочника</th>
+				<th class="small text-center align-middle">Полное наименование справочника</th>
+				<th class="small text-center align-middle">Действия</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var form in Model)
+			{
+				<tr>
+					<td>@form.Name</td>
+					<td>@form.FullName</td>
+					<td>
+						<div class="btn-group" role="group">
+							<a asp-action="Edit" class="btn btn-sm btn-warning" asp-route-id="@form.Id">Редактировать</a>
+							<a asp-action="Delete" class="btn btn-sm btn-danger" asp-route-id="@form.Id">Удалить</a>
+						</div>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+
