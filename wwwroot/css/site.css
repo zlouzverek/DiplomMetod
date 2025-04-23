@@ -269,7 +269,7 @@ footer {
 
 /* Блок статистики внизу страницы */
 .home-stats {
-    margin-top: 11.0rem; /* Отступ сверху */
+    margin-top: 4.0rem; /* Отступ сверху */
     text-align: right; 
     color: #fff;
     font-size: 1.2rem;
