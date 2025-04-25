@@ -74,13 +74,6 @@ namespace DiplomMetod.Controllers
         }
 
 
-        [HttpPost]
-        [Route("search")]
-        public async Task<IActionResult> Search([FromQuery] FormSearchFilter queryFilter)
-        {
-            return View();
-        }
-
         [HttpGet]
         public async Task<IActionResult> Edit(int Id)
         {
