@@ -12,14 +12,16 @@
 		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 		@* #FIXME: Взял за образец твой код, чтобы сделать выпадающие списки, потом посмотреть будет ли работать*@
-		<div class="form-group">
+
+@* 
+<div class="form-group">
 			<label class="control-label">Тип формы</label>
 			<div class="dropdown">
 				<button class="btn btn-info text-white dropdown-toggle" type="button" id="formTypesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Выберите тип формы
 				</button>
 				<div class="dropdown-menu" aria-labelledby="formTypesDropdown">
-					@* #FIXME: Заменил ID на Value, а  Name на Text в formType*@
+
 					@foreach (var formType in Model.FormTypes)
 					{
 						<a class="dropdown-item" href="#" data-value="@formType.Value">@formType.Text</a>
@@ -27,14 +29,17 @@
 				</div>
 				<input type="hidden" id="selectedFormType" name="FormTypeId" value="" />
 			</div>
-		</div>
+        </div> 
+ *@
+
 
 		@* #FIXME:Закомментировал, т.к. есть formType из выплывающего списка*@
-		@*     <div class="form-group">
+
+		    <div class="form-group">
 		<label asp-for="FormTypeId" class="control-label"></label>
 		<select asp-for="FormTypeId" class="form-control" asp-items="Model.FormTypes"></select>
 		<span asp-validation-for="FormTypeId" class="text-danger"></span>
-		</div> *@
+		</div>
 
 
 		<div class="col-md-6">
@@ -68,11 +73,11 @@
     </div>
 
     @* #FIXME:Закомментировал, т.к. есть ReferenceBooks из выплывающего списка*@
-@*     <div class="form-group">
+    <div class="form-group">
         <label asp-for="ReferenceBooksId" class="control-label"></label>
         <select asp-for="ReferenceBooksId" class="form-control" asp-items="Model.ReferenceBooks"></select>
         <span asp-validation-for="ReferenceBooksId" class="text-danger"></span>
-    </div> *@
+    </div>
 
    
         <div class="col-md-6">
@@ -119,14 +124,15 @@
     </div>
 
     @* #FIXME:Попрбовал создать по образцу как referenceBooks (прописал в модели и контроллере). Будет ли работать?*@
-    <div class="form-group">
+    
+@*     <div class="form-group">
         <label class="control-label">Кто дал разъяснение</label>
         <div class="dropdown">
             <button class="btn btn-info text-white dropdown-toggle" type="button" id="organizationsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Выберите организацию
             </button>
             <div class="dropdown-menu" aria-labelledby="organizationsDropdown">
-                @* #FIXME: Заменил ID на Value, а  Name на Text в organizations, чтобы заработало, т.к.  выдавало ошибку*@
+              
                 @foreach (var organizations in Model.Organization)
                 {
                     <a class="dropdown-item" href="#" data-value="@organizations.Value">@organizations.Text</a>
@@ -134,6 +140,12 @@
             </div>
             <input type="hidden" id="selectedOrganization" name="OrganizationId" value="" />
         </div>
+    </div> *@
+
+    <div class="form-group">
+        <label asp-for="OrganizationId" class="control-label">Организации</label>
+        <select asp-for="OrganizationId" class="form-control" asp-items="Model.Organizations"></select>
+        <span asp-validation-for="OrganizationId" class="text-danger"></span>
     </div>
 
 

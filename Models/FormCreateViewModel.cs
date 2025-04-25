@@ -25,8 +25,8 @@ namespace DiplomMetod.Models
                 Text = rb.Name
             }).ToList();
 
-            /*#FIXME:Добавил Organization, прописал тут и в контроллере*/
-            Organization = organizations.Select(rb => new SelectListItem
+            /*#FIXME:Добавил Organizations, прописал тут и в контроллере*/
+            Organizations = organizations.Select(rb => new SelectListItem
             {
                 Value = rb.Id.ToString(),
                 Text = rb.Name
@@ -55,7 +55,7 @@ namespace DiplomMetod.Models
         /*#FIXME: Тут вопрос: OrganizationName заменил на ID (вроде дожен ID по base автоматически создаваться)*/
         public int OrganizationId { get; set; }
 
-        public IEnumerable<SelectListItem> Organization { get; set; }
+        public IEnumerable<SelectListItem> Organizations { get; set; }
 
         public string RegionDivisionName {  get; set; }
 
@@ -100,7 +100,7 @@ namespace DiplomMetod.Models
                     Description = Description,
                     //ApproveLevel = ApproveLevel,
                     OrganizationId = OrganizationId,
-                    /*Organization = new OrganizationName { Name = OrganizationName }*/
+                    /*Organizations = new OrganizationName { Name = OrganizationName }*/
 
                 },
                 /*#FIXME: Есть вопрос, т.к. это должно из списка выпадающего*/

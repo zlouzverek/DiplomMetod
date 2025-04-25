@@ -58,7 +58,7 @@ namespace DiplomMetod.Data
                 new ReferenceBook { Id = 2, Name = "ReferenceBook2", FullName = "Full Name 2" }
             );
 
-            // Вставка тестовых данных для Organization
+            // Вставка тестовых данных для Organizations
             modelBuilder.Entity<Organization>().HasData(
                 new Organization { Id = 1, Name = "Organization1" },
                 new Organization { Id = 2, Name = "Organization2" }
