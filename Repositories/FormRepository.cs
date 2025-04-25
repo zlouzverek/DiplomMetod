@@ -22,7 +22,7 @@ namespace DiplomMetod.Repositories
         public async Task<IEnumerable<Form>> GetAll()
         {
             return await _dbContext.Set<Form>()
-                .Include( x => x.Explanation)
+                .Include(x => x.Explanation)
                     .ThenInclude(x => x.Organization)
                 .Include(x => x.ReferenceBook)
                 .Include(x => x.KeyWords)
@@ -42,9 +42,24 @@ namespace DiplomMetod.Repositories
             return await _dbContext.Set<FormType>().ToListAsync();
         }
 
+        public IQueryable<Form> GetQueryAllWithIncludes()
+        {
+            return Query().Include(f => f.FormType)
+                .Include(f => f.ReferenceBook)
+                .Include(f => f.KeyWords)
+                .Include(f => f.Explanation)
+                    .ThenInclude(e => e.Organization)
+                .Include(f => f.RegionsDivision);
+        }
+
+        public IQueryable<Form> Query()
+        {
+            return _dbContext.Set<Form>().AsQueryable();
+        }
+
         public async Task Remove(Form entity)
         {
-            _dbContext.Set<Form>().Remove(entity); 
+            _dbContext.Set<Form>().Remove(entity);
             await SaveAsync();
         }
 

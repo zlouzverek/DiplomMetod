@@ -1,6 +1,7 @@
 ﻿using DiplomMetod.Models;
 using DiplomMetod.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DiplomMetod.Controllers
 {
@@ -18,10 +19,89 @@ namespace DiplomMetod.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(FormSearchViewModel filters)
         {
-            var forms = await _formRepository.GetAll();
+            var query = _formRepository.GetQueryAllWithIncludes();
 
+            if (!string.IsNullOrEmpty(filters.InventoryNumber))
+            {
+                query = query.Where(f => f.InventoryNumber.Contains(filters.InventoryNumber));
+            }
+
+            if (!string.IsNullOrEmpty(filters.NameFormType))
+            {
+                query = query.Where(f => f.FormType.Name.Contains(filters.NameFormType));
+            }
+
+            if (filters.RequisiteNumber.HasValue)
+            {
+                query = query.Where(f => f.RequisiteNumber == filters.RequisiteNumber);
+            }
+
+            if (filters.Code.HasValue)
+            {
+                query = query.Where(f => f.Code == filters.Code);
+            }
+
+            if (!string.IsNullOrEmpty(filters.ReferenceBookName))
+            {
+                query = query.Where(f => f.ReferenceBook.Name.Contains(filters.ReferenceBookName));
+            }
+
+            if (!string.IsNullOrEmpty(filters.KeyWordName))
+            {
+                query = query.Where(f => f.KeyWords.Any(kw => kw.Name.Contains(filters.KeyWordName)));
+            }
+
+            if (!string.IsNullOrEmpty(filters.ExplanationNumber))
+            {
+                query = query.Where(f => f.Explanation.Number.Contains(filters.ExplanationNumber));
+            }
+
+            if (filters.ExplanationDate.HasValue)
+            {
+                query = query.Where(f => f.Explanation.Date.Date == filters.ExplanationDate.Value.Date);
+            }
+
+            if (!string.IsNullOrEmpty(filters.OrganizationName))
+            {
+                query = query.Where(f => f.Explanation.Organization.Name.Contains(filters.OrganizationName));
+            }
+
+            if (filters.IsAgreedGenProk.HasValue)
+            {
+                query = query.Where(f => f.Explanation.IsAgreedGenProk == filters.IsAgreedGenProk.Value);
+            }
+
+            if (!string.IsNullOrEmpty(filters.ApproveLevel))
+            {
+                query = query.Where(f => f.Explanation.ApproveLevel.ToString().Contains(filters.ApproveLevel));
+            }
+
+            if (filters.IsRevelant.HasValue)
+            {
+                query = query.Where(f => f.Explanation.IsRevelant == filters.IsRevelant.Value);
+            }
+
+            if (!string.IsNullOrEmpty(filters.RegionsDivisionName))
+            {
+                query = query.Where(f => f.RegionsDivision.Name.Contains(filters.RegionsDivisionName));
+            }
+
+            if (!string.IsNullOrEmpty(filters.Comment))
+            {
+                query = query.Where(f => f.Explanation.Comment.Contains(filters.Comment));
+            }
+
+            if (filters.IsFavorites.HasValue)
+            {
+                query = query.Where(f => f.Explanation.IsFavorites == filters.IsFavorites.Value);
+            }
+
+            // выполняем запрос и получаем отфильтрованные данных
+            var forms = await query.ToListAsync();
+
+           
             return View(forms);
         }
 
@@ -71,7 +151,7 @@ namespace DiplomMetod.Controllers
 
         [HttpPost]
         [Route("search")]
-        public async Task<IActionResult> Search([FromQuery] FormSearchFilter queryFilter)
+        public async Task<IActionResult> Search([FromQuery] FormSearchViewModel queryFilter)
         {
             return View();
         }
