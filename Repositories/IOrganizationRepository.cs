@@ -1,4 +1,4 @@
-﻿using DiplomMetod.Data.Entites;//пространство имен,гдетнаходится класс организаций
+﻿using DiplomMetod.Data.Entites;//пространство имен,где находится класс организаций
 
 namespace DiplomMetod.Repositories//пространосто имен для репозитория
 {

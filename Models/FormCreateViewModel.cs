@@ -6,11 +6,12 @@ namespace DiplomMetod.Models
 {
     public class FormCreateViewModel
     {
+
         public FormCreateViewModel()
         {
             
         }
-        public FormCreateViewModel(IEnumerable<FormType> formTypes, IEnumerable<ReferenceBook> referenceBooks)
+        public FormCreateViewModel(IEnumerable<FormType> formTypes, IEnumerable<ReferenceBook> referenceBooks, IEnumerable<Organization> organizations)
         {
             FormTypes = formTypes.Select(ft => new SelectListItem
             {
@@ -19,6 +20,13 @@ namespace DiplomMetod.Models
             }).ToList();
 
             ReferenceBooks = referenceBooks.Select(rb => new SelectListItem
+            {
+                Value = rb.Id.ToString(),
+                Text = rb.Name
+            }).ToList();
+
+            /*#FIXME:Добавил Organization, прописал тут и в контроллере*/
+            Organization = organizations.Select(rb => new SelectListItem
             {
                 Value = rb.Id.ToString(),
                 Text = rb.Name
@@ -40,16 +48,35 @@ namespace DiplomMetod.Models
 
         public string ExplanationFullName { get; set; }
 
-        public string ExplanationNumber { get; set; }
+        public string? ExplanationNumber { get; set; }
 
         public DateTime ExplanationDate { get; set; }
 
-        public string OrganizationName { get; set; }
+        /*#FIXME: Тут вопрос: OrganizationName заменил на ID (вроде дожен ID по base автоматически создаваться)*/
+        public int OrganizationId { get; set; }
+
+        public IEnumerable<SelectListItem> Organization { get; set; }
 
         public string RegionDivisionName {  get; set; }
 
         public IEnumerable<KeyWordViewModel> KeyWords { get; set; }
 
+        public string? FileLink { get; set; }
+
+        public bool IsAgreedGenProk { get; set; }
+
+        /*#FIXME:Не получилось с enum, может все же bool или как?*/
+        //public enum ApproveLevel { get; set; }
+
+        public bool IsRevelant { get; set; }
+
+        public bool IsFavorites { get; set; }
+
+        public string? Comment { get; set; }
+
+        public string? Description { get; set; }
+
+        /*#FIXME:Заменил OrganizationName в public Form ToFormEntity(), на OrganizationId*/
         public Form ToFormEntity()
         {
             var form = new Form
@@ -58,6 +85,7 @@ namespace DiplomMetod.Models
                 Code = Code,
                 ReferenceBooksId = ReferenceBooksId,
                 RequisiteNumber = RequisiteNumber,
+                FileLink = FileLink,
                 Explanation = new Explanation
                 {
 
@@ -65,10 +93,17 @@ namespace DiplomMetod.Models
                     FullName = ExplanationFullName,
                     Date = ExplanationDate,
                     Number = ExplanationNumber,
-                    Organization = new Organization { Name = OrganizationName },
-
+                    IsAgreedGenProk = IsAgreedGenProk,
+                    IsRevelant = IsRevelant,
+                    IsFavorites = IsFavorites,
+                    Comment = Comment,
+                    Description = Description,
+                    //ApproveLevel = ApproveLevel,
+                    OrganizationId = OrganizationId,
+                    /*Organization = new OrganizationName { Name = OrganizationName }*/
 
                 },
+                /*#FIXME: Есть вопрос, т.к. это должно из списка выпадающего*/
                 RegionsDivision = new RegionDivision { Name = RegionDivisionName },
             };
 

@@ -1,0 +1,49 @@
+﻿@using DiplomMetod.Models
+@model ReferenceBookCreateViewModel;
+
+
+@{
+    ViewData["Title"] = "Создать справочник";
+}
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Create" method="post">
+    <div class="row g-3">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+         <div class="col-md-6">
+            <label asp-for="Name" class="control-label">Номер справочника</label>
+            <input asp-for="Name" class="form-control" placeholder="Введите номер справочника" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="FullName" class="control-label">Полное наименование справочника</label>
+            <input asp-for="FullName" class="form-control" placeholder="Введите полное наименование справочника" />
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+    </div>
+     
+    <div class="form-group mt-3">
+        <input type="submit" value="Создать" class="btn btn-dark me-2" />
+    </div>
+
+</form>
+
+
+
+
+<div>
+    <a asp-action="Index">К списку справочников</a>
+</div>
+
+
+
+
+
+
+
+@{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+

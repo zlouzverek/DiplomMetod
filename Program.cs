@@ -1,3 +1,9 @@
+/*#FIXME:В ходе создания View возник огромный вопрос. А именно: 
+ * 1) Правильно ли мы создали репозиторий OrganizationRepository, 
+    может нужно было RegionDivisionRepository, т.к. имеено это сущность не относится к Explanation, а напрямую к Form 
+   2) В RegionDivision должны были вносится Регионы, которые потом выплывали ли бы из списка, а я делал Organization, теперь можно ли оставить два выплывающих списка, чтобы все не переделывать
+   3) Это я увидел ближе к вечеру, и как молнией ударило, сейчас создам просто View, дополнив новыми строками, надеюсь потом получится все исправить 8( */
+
 using DiplomMetod.Data;
 using DiplomMetod.Data.Identity;
 using DiplomMetod.Repositories;
@@ -63,7 +69,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Form}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
 //инициализация ролей и пользователя администратор

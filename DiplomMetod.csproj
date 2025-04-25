@@ -40,7 +40,6 @@
   <ItemGroup>
     <Folder Include="Migrations\" />
     <Folder Include="Views\Organization\" />
-    <Folder Include="Views\ReferenceBook\" />
     <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
