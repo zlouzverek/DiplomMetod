@@ -18,7 +18,7 @@ namespace DiplomMetod.Data.Entites
             }
             set
             {
-                _inventoryNumber = $"{Id}_{FormType?.Name}";
+                _inventoryNumber = FormType == null ? value : $"{Id}_{FormType?.Name}";
             }
         }
         [Description("Номер реквизита")]

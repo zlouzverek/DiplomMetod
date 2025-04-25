@@ -31,15 +31,6 @@ namespace DiplomMetod.Controllers
 
             return View(forms);
         }
-
-
-        [HttpGet]
-        [Route("privacy")]
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
       
         [HttpGet]
         public async Task<IActionResult> Create()
