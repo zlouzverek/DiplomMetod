@@ -11,5 +11,6 @@ namespace DiplomMetod.Repositories
         Task Update(Form entity);
 
         Task<IEnumerable<FormType>> GetFormTypes();
+        
     }
 }
