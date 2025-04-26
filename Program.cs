@@ -29,6 +29,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 builder.Services.AddScoped<IFormRepository, FormRepository>();
 builder.Services.AddScoped<IOrganizationRepository, OrganizationRepository>();
 builder.Services.AddScoped<IReferenceBookRepository, ReferenceBookRepository>();
+builder.Services.AddScoped<IRegionDivisionRepository, RegionDivisionRepository>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>

@@ -52,8 +52,17 @@
         </div>
 
         <div class="col-md-2">
-            <input name="IsAgreedGenProk" class="form-control" placeholder="Согласовано с ГП" value="@Context.Request.Query["IsAgreedGenProk"]" />
+            <div class="form-check">
+                <input type="checkbox" name="IsAgreedGenProk" class="form-check-input" id="IsAgreedGenProkCheckbox"
+                @(Context.Request.Query["IsAgreedGenProk"] == "on" || Context.Request.Query["IsAgreedGenProk"] == "true" ? "checked" : "") />
+                <label class="form-check-label" for="IsAgreedGenProkCheckbox">Согласовано с ГП</label>
+            </div>
         </div>
+
+
+		<div class="col-md-2">
+			<input name="IsAgreedGenProk" class="form-control" placeholder="Согласовано с ГП" value="@Context.Request.Query["IsAgreedGenProk"]" />
+		</div>
 
         <div class="col-md-2">
             <input name="ApproveLevel" class="form-control" placeholder="Уровень (фед/мес)" value="@Context.Request.Query["ApproveLevel"]" />
