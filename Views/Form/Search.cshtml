@@ -52,24 +52,31 @@
         </div>
 
         <div class="col-md-2">
-            <div class="form-check">
-                <input type="checkbox" name="IsAgreedGenProk" class="form-check-input" id="IsAgreedGenProkCheckbox"
-                @(Context.Request.Query["IsAgreedGenProk"] == "on" || Context.Request.Query["IsAgreedGenProk"] == "true" ? "checked" : "") />
-                <label class="form-check-label" for="IsAgreedGenProkCheckbox">Согласовано с ГП</label>
+            <div class="form-check form-switch d-flex align-items-center">
+                <input type="checkbox"
+                       name="IsAgreedGenProk"
+                       class="form-check-input"
+                       id="IsAgreedGenProkCheckbox"
+                       value="true"
+                @(Context.Request.Query["IsAgreedGenProk"] == "true" ? "checked" : "") />
+                <label class="form-check-label ms-2" for="IsAgreedGenProkCheckbox">Согласовано с ГП</label>
             </div>
         </div>
-
-
-		<div class="col-md-2">
-			<input name="IsAgreedGenProk" class="form-control" placeholder="Согласовано с ГП" value="@Context.Request.Query["IsAgreedGenProk"]" />
-		</div>
 
         <div class="col-md-2">
             <input name="ApproveLevel" class="form-control" placeholder="Уровень (фед/мес)" value="@Context.Request.Query["ApproveLevel"]" />
         </div>
 
         <div class="col-md-2">
-            <input name="IsRevelant" class="form-control" placeholder="Актуальность" value="@Context.Request.Query["IsRevelant"]" />
+            <div class="form-check form-switch d-flex align-items-center">
+                <input type="checkbox"
+                       name="IsRevelant"
+                       class="form-check-input"
+                       id="IsRevelantCheckbox"
+                       value="true"
+                @(Context.Request.Query["IsRevelant"] == "true" ? "checked" : "") />
+                <label class="form-check-label ms-2" for="IsRevelantCheckbox">Актуально</label>
+            </div>
         </div>
 
         <div class="col-md-2">
@@ -81,7 +88,17 @@
         </div>
 
         <div class="col-md-2">
-            <input name="IsFavorites" class="form-control" placeholder="Избранное" value="@Context.Request.Query["IsFavorites"]" />
+            <div class="form-check form-switch d-flex align-items-center">
+                <input type="checkbox"
+                       name="IsFavorites"
+                       class="form-check-input"
+                       id="IsFavoritesCheckbox"
+                       value="true"
+                @(Context.Request.Query["IsRevelant"] == "true" ? "checked" : "") />
+                <label class="form-check-label ms-2" for="IsFavoritesCheckbox">Избранное</label>
+            </div>
         </div>
+
+
     </form>
 </search>

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Reflection;
 using DiplomMetod.Data.Entites;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -6,6 +7,13 @@ namespace DiplomMetod.Models
 {
     public class FormCreateViewModel
     {
+        /*#FIXME:Затычка для ENUM посмотри пожалуйста*/
+        private static string GetEnumDescription(Enum value)
+        {
+            FieldInfo field = value.GetType().GetField(value.ToString());
+            DescriptionAttribute attribute = field.GetCustomAttribute<DescriptionAttribute>();
+            return attribute == null ? value.ToString() : attribute.Description;
+        }
 
         public FormCreateViewModel()
         {
@@ -31,6 +39,14 @@ namespace DiplomMetod.Models
                 Value = rb.Id.ToString(),
                 Text = rb.Name
             }).ToList();
+
+            ApproveLevels = Enum.GetValues(typeof(ApproveLevel))
+            .Cast<ApproveLevel>()
+            .Select(level => new SelectListItem
+        {
+            Value = ((int)level).ToString(),
+            Text = GetEnumDescription(level)
+        }).ToList();
         }
 
         public int FormTypeId { get; set; }
@@ -65,8 +81,10 @@ namespace DiplomMetod.Models
 
         public bool IsAgreedGenProk { get; set; }
 
-        /*#FIXME:Не получилось с enum, может все же bool или как?*/
-        //public enum ApproveLevel { get; set; }
+        /*#FIXME: Тут реализован enum*/
+        public ApproveLevel ApproveLevel { get; set; }
+
+        public IEnumerable<SelectListItem> ApproveLevels { get; set; }
 
         public bool IsRevelant { get; set; }
 
@@ -98,7 +116,7 @@ namespace DiplomMetod.Models
                     IsFavorites = IsFavorites,
                     Comment = Comment,
                     Description = Description,
-                    //ApproveLevel = ApproveLevel,
+                    ApproveLevel = ApproveLevel,
                     OrganizationId = OrganizationId,
                     /*Organizations = new OrganizationName { Name = OrganizationName }*/
 
