@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
+using DiplomMetod.Controllers;
 using DiplomMetod.Data.Entites;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -19,7 +20,7 @@ namespace DiplomMetod.Models
         {
             
         }
-        public FormCreateViewModel(IEnumerable<FormType> formTypes, IEnumerable<ReferenceBook> referenceBooks, IEnumerable<Organization> organizations)
+        public FormCreateViewModel(IEnumerable<FormType> formTypes, IEnumerable<ReferenceBook> referenceBooks, IEnumerable<Organization> organizations, IEnumerable<RegionDivision> regionDivisions)
         {
             FormTypes = formTypes.Select(ft => new SelectListItem
             {
@@ -40,7 +41,14 @@ namespace DiplomMetod.Models
                 Text = rb.Name
             }).ToList();
 
-            ApproveLevels = Enum.GetValues(typeof(ApproveLevel))
+			/*#FIXME:Не понял почему рукагется, ошибку. Менял все оп аналогии на ID-все равно ошибка*/
+			//RegionDivisions = regionDivisions.Select(rb => new SelectListItem
+			//{
+			//	Value = rb.Id.ToString(),
+			//	Text = rb.Name
+			//}).ToList();
+
+			ApproveLevels = Enum.GetValues(typeof(ApproveLevel))
             .Cast<ApproveLevel>()
             .Select(level => new SelectListItem
         {
@@ -75,7 +83,12 @@ namespace DiplomMetod.Models
 
         public string RegionDivisionName {  get; set; }
 
-        public IEnumerable<KeyWordViewModel> KeyWords { get; set; }
+		/*#FIXME: Тут менял */
+		//public int RegionDivisionId { get; set; }
+
+		//public IEnumerable<SelectListItem> RegionDivision { get; set; }
+
+		public IEnumerable<KeyWordViewModel> KeyWords { get; set; }
 
         public string? FileLink { get; set; }
 
@@ -121,7 +134,7 @@ namespace DiplomMetod.Models
                     /*Organizations = new OrganizationName { Name = OrganizationName }*/
 
                 },
-                /*#FIXME: Есть вопрос, т.к. это должно из списка выпадающего*/
+                /*#FIXME: Есть вопрос, т.к. это должно из списка выпадающего. Тут тоже менял, но не получилось. Ставил ID, потом Name....*/
                 RegionsDivision = new RegionDivision { Name = RegionDivisionName },
             };
 

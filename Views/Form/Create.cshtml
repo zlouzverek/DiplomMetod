@@ -171,12 +171,26 @@
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
 
-    @* #FIXME: Здесь нужно из выплывающего списка, но как осознал, так завис. Может ошибаюсь RegionDivision*@
-    <div class="form-group">
+    <!-- #FIXME: Пока затычка, как получится исправить,заменить на код ниже -->
+     <div class="form-group">
         <label asp-for="RegionDivisionName" class="control-label">Кому дано разъяснение (регион или служба)</label>
         <input asp-for="RegionDivisionName" class="form-control" placeholder="Выберите регион (службу)" />
         <span asp-validation-for="RegionDivisionName" class="text-danger"></span>
-    </div>
+    </div> 
+
+
+    @* 	<!-- #FIXME: Неполучилось, выдает ошибку. Ругается на Model asp-items="Model.RegionDivisionName" -->
+	<div class="col-md-6">
+		<div class="mb-3">
+			<label asp-for="RegionDivisionName" class="form-label fw-bold text-primary">
+				<i class="bi bi-book me-2"></i>Регионы (подразделения)
+			</label>
+			<select asp-for="RegionDivisionName" class="form-select border-primary" asp-items="Model.RegionDivisionName">
+				<option value="" selected disabled>-Выберите регион (подразделение)-</option>
+			</select>
+			<span asp-validation-for="RegionDivisionName" class="text-danger small"></span>
+		</div>
+	</div> *@
 
       <div class="form-group mt-3">
         <input type="submit" value="Создать" class="btn btn-dark me-2" />

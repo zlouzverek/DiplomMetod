@@ -13,12 +13,14 @@ namespace DiplomMetod.Controllers
         private readonly IFormRepository _formRepository;
         private readonly IReferenceBookRepository _referenceBookRepository;
         private readonly IOrganizationRepository _organizationRepository;
+        private readonly IRegionDivisionRepository _regionDivisionRepository;
 
-        public FormController(IFormRepository formRepository, IReferenceBookRepository referenceBookRepository, IOrganizationRepository organizationRepository)
+        public FormController(IFormRepository formRepository, IReferenceBookRepository referenceBookRepository, IOrganizationRepository organizationRepository, IRegionDivisionRepository regionDivisionRepository)
         {
             _formRepository = formRepository;
             _referenceBookRepository = referenceBookRepository;
             _organizationRepository = organizationRepository;
+            _regionDivisionRepository = regionDivisionRepository;
         }
 
         [HttpGet]
@@ -41,7 +43,9 @@ namespace DiplomMetod.Controllers
             //#FIXME:Добавил organization. +  в public FormController наверхую.Тут GetAll?
             var organizations = await _organizationRepository.GetAll();
 
-            var formCreateViewModel = new FormCreateViewModel(formTypes, referenceBook, organizations);
+            var regionDivisions = await _regionDivisionRepository.GetAll();
+
+            var formCreateViewModel = new FormCreateViewModel(formTypes, referenceBook, organizations, regionDivisions);
 
             return View(formCreateViewModel);
         }
@@ -53,7 +57,6 @@ namespace DiplomMetod.Controllers
             var form = formCreateViewModel.ToFormEntity();
 
             await _formRepository.Add(form);
-
 
             return RedirectToAction("Index", "Form");
         }
@@ -77,12 +80,14 @@ namespace DiplomMetod.Controllers
             return View();
         }
 
+        //#FIXME: Тут надо что то менять?//
         [HttpGet]
         public async Task<IActionResult> Edit(int Id)
         {
             var form = await _formRepository.GetById(Id);
            
             var formTypes = await _formRepository.GetFormTypes();
+
             var referenceBook = await _referenceBookRepository.GetAll();
 
             //var editCreateViewModel = new EditCreateViewModel(formTypes, referenceBook);
