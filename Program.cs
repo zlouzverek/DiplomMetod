@@ -1,12 +1,7 @@
-/*#FIXME:В ходе создания View возник огромный вопрос. А именно: 
- * 1) Правильно ли мы создали репозиторий OrganizationRepository, 
-    может нужно было RegionDivisionRepository, т.к. имеено это сущность не относится к Explanation, а напрямую к Form 
-   2) В RegionDivision должны были вносится Регионы, которые потом выплывали ли бы из списка, а я делал Organization, теперь можно ли оставить два выплывающих списка, чтобы все не переделывать
-   3) Это я увидел ближе к вечеру, и как молнией ударило, сейчас создам просто View, дополнив новыми строками, надеюсь потом получится все исправить 8( */
-
 using DiplomMetod.Data;
 using DiplomMetod.Data.Identity;
 using DiplomMetod.Repositories;
+using DiplomMetod.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -31,6 +26,9 @@ builder.Services.AddScoped<IOrganizationRepository, OrganizationRepository>();
 builder.Services.AddScoped<IReferenceBookRepository, ReferenceBookRepository>();
 builder.Services.AddScoped<IRegionDivisionRepository, RegionDivisionRepository>();
 builder.Services.AddScoped<IFormTypeRepository, FormTypeRepository>();
+
+builder.Services.AddTransient<IFileService, FileService>();
+builder.Services.AddTransient<IFormExportService, FormExportService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>

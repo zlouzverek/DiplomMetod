@@ -3,13 +3,13 @@
 
 
 @{
-    ViewData["Title"] = "Создать методическую рекомендацию";
+	ViewData["Title"] = "Создать методическую рекомендацию";
 }
 <h1>@ViewData["Title"]</h1>
 
-<form asp-action="Create" method="post">
-    <div class="row g-3">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+	<div class="row g-3">
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <!-- Выделил для выплывающих -->
         <div class="col-md-6">
@@ -54,49 +54,48 @@
         </div>
     </div>
 
-   
-        <div class="col-md-6">
-        <label class="control-label">Ключевые слова</label>
-        <div id="keywords-container">
-            <div class="input-group mb-3">
-                <input type="text" name="KeyWords[0].Name" class="form-control" placeholder="Введите ключевое слово" />
-                <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button" onclick="removeKeyword(this)">-</button>
-                </div>
-            </div>
-        </div>
-        <button type="button" class="btn btn-secondary me-2" onclick="addKeyword()">
-            <i class="bi bi-plus-circle"></i> Добавить ключевое слово
-        </button>
-    </div>
-    
-    <div class="form-group">
-        <label asp-for="ExplanationName" class="control-label">Разъяснение (краткое)</label>
-        <input asp-for="ExplanationName" class="form-control" placeholder="Введите разъяснение (краткое для понимания)" />
-        <span asp-validation-for="ExplanationName" class="text-danger"></span>
-    </div>
+	<div class="col-md-6">
+		<label class="control-label">Ключевые слова</label>
+		<div id="keywords-container">
+			<div class="input-group mb-3">
+				<input type="text" name="KeyWords[0].Name" class="form-control" placeholder="Введите ключевое слово" />
+				<div class="input-group-append">
+					<button class="btn btn-outline-secondary" type="button" onclick="removeKeyword(this)">-</button>
+				</div>
+			</div>
+		</div>
+		<button type="button" class="btn btn-secondary me-2" onclick="addKeyword()">
+			<i class="bi bi-plus-circle"></i> Добавить ключевое слово
+		</button>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="ExplanationName" class="control-label">Разъяснение (краткое)</label>
+		<input asp-for="ExplanationName" class="form-control" placeholder="Введите разъяснение (краткое для понимания)" />
+		<span asp-validation-for="ExplanationName" class="text-danger"></span>
+	</div>
 
 
-    <div class="form-group">
-        <label asp-for="ExplanationFullName" class="control-label">Разъяснение (полное)</label>
-        <input asp-for="ExplanationFullName" class="form-control" placeholder="Введите разъяснение (официальное наименование)" />
-        <span asp-validation-for="ExplanationFullName" class="text-danger"></span>
-    </div>
+	<div class="form-group">
+		<label asp-for="ExplanationFullName" class="control-label">Разъяснение (полное)</label>
+		<input asp-for="ExplanationFullName" class="form-control" placeholder="Введите разъяснение (официальное наименование)" />
+		<span asp-validation-for="ExplanationFullName" class="text-danger"></span>
+	</div>
 
-    <div class="row g-3">
-        <div class="col-md-6">
-        <label asp-for="ExplanationNumber" class="control-label">№ разъяснения</label>
-        <input asp-for="ExplanationNumber" class="form-control" placeholder="Введите № разъяснение (регистрационный №)" />
-        <span asp-validation-for="ExplanationNumber" class="text-danger"></span>
-    </div>
+	<div class="row g-3">
+		<div class="col-md-6">
+			<label asp-for="ExplanationNumber" class="control-label">№ разъяснения</label>
+			<input asp-for="ExplanationNumber" class="form-control" placeholder="Введите № разъяснение (регистрационный №)" />
+			<span asp-validation-for="ExplanationNumber" class="text-danger"></span>
+		</div>
 
 
-        <div class="col-md-6">
-        <label asp-for="ExplanationDate" class="control-label">Дата разъяснения (дата подписания)</label>
-        <input type="datetime-local" asp-for="ExplanationDate" class="form-control" id="explanationDate" />
-        <span asp-validation-for="ExplanationDate" class="text-danger"></span>
-    </div>
-    </div>
+		<div class="col-md-6">
+			<label asp-for="ExplanationDate" class="control-label">Дата разъяснения (дата подписания)</label>
+			<input type="datetime-local" asp-for="ExplanationDate" class="form-control" id="explanationDate" />
+			<span asp-validation-for="ExplanationDate" class="text-danger"></span>
+		</div>
+	</div>
 
     <!-- Выделил для выплывающих -->
     <div class="col-md-6">
@@ -111,24 +110,23 @@
         </div>
     </div>
 
+	<div class="form-group">
+		<label asp-for="OrganizationId" class="control-label">Организации</label>
+		<select asp-for="OrganizationId" class="form-control" asp-items="Model.Organizations"></select>
+		<span asp-validation-for="OrganizationId" class="text-danger"></span>
+	</div>
 
-    @* #FIXME: Тут нужно добавить кнопку "Загрузите файл"*@
-    <div class="form-group">
-        <label asp-for="FileLink" class="control-label">Ссылка на документ</label>
-        <input asp-for="FileLink" class="form-control" />
-        <span asp-validation-for="FileLink" class="text-danger"></span>
-    </div>
 
-    <div class="row g-3">
-    @* Тут попробовал (да/нет) из bool*@
-        <div class="col-md-6">
-            <label asp-for="IsAgreedGenProk" class="form-label fw-bold text-primary">Согласовано с ГП</label>
-        <select asp-for="IsAgreedGenProk" class="form-select">
-            <option value="true">Да</option>
-            <option value="false">Нет</option>
-        </select>
-        <span asp-validation-for="IsAgreedGenProk" class="text-danger"></span>
-    </div>
+	
+	<div class="row g-3">
+		<div class="col-md-6">
+			<label asp-for="IsAgreedGenProk" class="form-label">Согласовано с ГП</label>
+			<select asp-for="IsAgreedGenProk" class="form-select">
+				<option value="true">Да</option>
+				<option value="false">Нет</option>
+			</select>
+			<span asp-validation-for="IsAgreedGenProk" class="text-danger"></span>
+		</div>
 
     @* #FIXME: Попытка с enum ApproveLevel по принципу bool*@
         <!-- Выделил для выплывающих -->
@@ -158,20 +156,20 @@
             <span asp-validation-for="IsFavorites" class="text-danger"></span>
         </div>
 
-    </div>
+        <div class="col-md-6">
+            <label asp-for="IsFavorites" class="form-label">Отметить как избранное</label>
+            <select asp-for="IsFavorites" class="form-select">
+                <option value="true">Да</option>
+                <option value="false">Нет</option>
+            </select>
+            <span asp-validation-for="IsFavorites" class="text-danger"></span>
+        </div>
 
-      <div class="form-group">
-        <label asp-for="Comment" class="control-label">Примечание</label>
-        <input asp-for="Comment" class="form-control" placeholder="Введите примечание (пояснение)" />
-        <span asp-validation-for="Comment" class="text-danger"></span>
-    </div>
+	</div>
 
-    <div class="col-md-12">
-        <label asp-for="Description" class="control-label">Введите пример из жизни</label>
-        <textarea asp-for="Description" class="form-control" rows="3" placeholder="Введите пример"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-
+	<div class="form-group">
+		<label asp-for="Comment" class="control-label">Примечание</label>
+		<input asp-for="Comment" class="form-control" placeholder="Введите примечание (пояснение)" />
     <!-- #FIXME: Пока затычка, как получится исправить,заменить на код ниже -->
      <div class="form-group">
         <label asp-for="RegionDivisionName" class="control-label">Кому дано разъяснение (регион или служба)</label>
@@ -192,18 +190,33 @@
 			<span asp-validation-for="RegionDivisionName" class="text-danger small"></span>
 		</div>
 	</div> *@
+		<span asp-validation-for="Description" class="text-danger"></span>
+	</div>
 
-      <div class="form-group mt-3">
-        <input type="submit" value="Создать" class="btn btn-dark me-2" />
+    @* #FIXME: Здесь нужно из выплывающего списка, но как осознал, так завис. Может ошибаюсь RegionDivision*@
+    <div class="form-group">
+        <label asp-for="RegionDivisionName" class="control-label">Кому дано разъяснение (регион или служба)</label>
+        <input asp-for="RegionDivisionName" class="form-control" placeholder="Выберите регион (службу)" />
+        <span asp-validation-for="RegionDivisionName" class="text-danger"></span>
     </div>
-  
+
+	<div class="form-group">
+		<label asp-for="File" class="control-label">Загрузить файл</label>
+		<input asp-for="File" type="file" class="form-control" />
+		<span asp-validation-for="File" class="text-danger"></span>
+	</div>
+
+	<div class="form-group mt-3">
+		<input type="submit" value="Создать" class="btn btn-dark me-2" />
+	</div>
+
 </form>
 
 
 
 
 <div>
-    <a asp-action="Index">К списку рекомендаций</a>
+	<a asp-action="Index">К списку рекомендаций</a>
 </div>
 
 
@@ -213,35 +226,26 @@
 
 
 @{
-    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	await Html.RenderPartialAsync("_ValidationScriptsPartial");
 }
 
-    @section Scripts {
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var now = new Date();
-            var isoString = now.toISOString().slice(0, 16); // Формат YYYY-MM-DDTHH:MM
-            document.getElementById('explanationDate').value = isoString;
-        });
-    </script>
+@section Scripts {
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			var now = new Date();
+			var isoString = now.toISOString().slice(0, 16); // Формат YYYY-MM-DDTHH:MM
+			document.getElementById('explanationDate').value = isoString;
+		});
+	</script>
 
-    <script>
-        let keywordIndex = 1; // Начинаем с 1, так как первое поле уже есть
+	<script>
+		let keywordIndex = 1; // Начинаем с 1, так как первое поле уже есть
 
-        function addKeyword() {
-            const container = document.getElementById('keywords-container');
-            const div = document.createElement('div');
-            div.className = 'input-group mb-3';
-            div.innerHTML = `
-                        <input type="text" name="KeyWords[${keywordIndex}].Name" class="form-control" placeholder="Введите ключевое слово" />
-                <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button" onclick="removeKeyword(this)">-</button>
-                </div>
-            `;
-            container.appendChild(div);
-            keywordIndex++;
-        }
-
+		function addKeyword() {
+			const container = document.getElementById('keywords-container');
+			const div = document.createElement('div');
+			div.className = 'input-group mb-3';
+			div.innerHTML = `
         function removeKeyword(button) {
             const div = button.closest('.input-group');
             div.remove();
@@ -303,4 +307,12 @@
             </div>
             <input type="hidden" id="selectedOrganization" name="OrganizationId" value="" />
         </div>
-    </div> *@
+    </div> *@			keywordIndex++;
+		}
+
+        function removeKeyword(button) {
+            const div = button.closest('.input-group');
+            div.remove();
+        }
+    </script>
+    }

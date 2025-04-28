@@ -1,6 +1,8 @@
 ﻿using DiplomMetod.Data.Entites;
+using DiplomMetod.Data.Enums;
 using DiplomMetod.Models;
 using DiplomMetod.Repositories;
+using DiplomMetod.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +17,14 @@ namespace DiplomMetod.Controllers
         private readonly IOrganizationRepository _organizationRepository;
         private readonly IRegionDivisionRepository _regionDivisionRepository;
         private readonly IFormTypeRepository _formTypeRepository;
+        private readonly IFileService _fileService;
+        private readonly IFormExportService _formExportService;
 
+        public FormController(IFormRepository formRepository,
+            IReferenceBookRepository referenceBookRepository,
+            IOrganizationRepository organizationRepository,
+            IFileService fileService,
+            IFormExportService formExportService)
         public FormController(IFormRepository formRepository, 
             IReferenceBookRepository referenceBookRepository, 
             IOrganizationRepository organizationRepository, 
@@ -25,6 +34,8 @@ namespace DiplomMetod.Controllers
             _formRepository = formRepository;
             _referenceBookRepository = referenceBookRepository;
             _organizationRepository = organizationRepository;
+            _fileService = fileService;
+            _formExportService = formExportService;
             _regionDivisionRepository = regionDivisionRepository;
             _formTypeRepository = formTypeRepository;
         }
@@ -39,7 +50,7 @@ namespace DiplomMetod.Controllers
 
             return View(forms);
         }
-      
+
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -60,17 +71,24 @@ namespace DiplomMetod.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(FormCreateViewModel formCreateViewModel)
         {
+
             var form = formCreateViewModel.ToFormEntity();
+
+            if (formCreateViewModel.File != null && formCreateViewModel.File.Length > 0)
+            {
+                form.FileLink = await _fileService.SaveFile(formCreateViewModel.File, "uploadFiles");
+            }
 
             await _formRepository.Add(form);
 
             return RedirectToAction("Index", "Form");
+
         }
 
 
         public async Task<IActionResult> Delete(int id)
         {
-           var form = await _formRepository.GetById(id);
+            var form = await _formRepository.GetById(id);
 
             if (form != null)
                 await _formRepository.Remove(form);
@@ -79,14 +97,6 @@ namespace DiplomMetod.Controllers
         }
 
 
-        [HttpPost]
-        [Route("search")]
-        public async Task<IActionResult> Search([FromQuery] FormSearchViewModel queryFilter)
-        {
-            return View();
-        }
-
-        //#FIXME: Тут надо что то менять?//
         [HttpGet]
         public async Task<IActionResult> Edit(int Id)
         {
@@ -100,22 +110,20 @@ namespace DiplomMetod.Controllers
             return View(form);
         }
 
-        /*
         [HttpPost]
-        //#FIXME: Добавил метод ExportToExcel//
-        public async Task<IActionResult> ExportToExcel()
+        public async Task<IActionResult> Export(FormSearchViewModel filters, string exportType)
         {
-        
-            return View();
-        }
+            var query = GetFormQueryFiltered(filters);
 
-         //#FIXME: Добавил метод ExportToPdf//
-         [HttpPost]
-        /*public async Task<IActionResult> ExpotToPdf()
-        {
-            return View();
+            var forms = await query.ToListAsync();
+
+            var type = Enum.Parse<FormExportType>(exportType, true);
+
+            var result = _formExportService.Export(forms.ToExportModel(), type);
+
+            return result;
+
         }
-        */
 
         private IQueryable<Form> GetFormQueryFiltered(FormSearchViewModel filters)
         {

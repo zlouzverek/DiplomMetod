@@ -103,6 +103,8 @@ namespace DiplomMetod.Models
 
         public string? Description { get; set; }
 
+        public IFormFile File { get; set; }
+
         public Form ToFormEntity()
         {
             var form = new Form
