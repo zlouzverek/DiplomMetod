@@ -26,6 +26,7 @@ builder.Services.AddScoped<IOrganizationRepository, OrganizationRepository>();
 builder.Services.AddScoped<IReferenceBookRepository, ReferenceBookRepository>();
 
 builder.Services.AddTransient<IFileService, FileService>();
+builder.Services.AddTransient<IFormExportService, FormExportService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>

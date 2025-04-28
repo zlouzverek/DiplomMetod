@@ -1,4 +1,5 @@
 ﻿using DiplomMetod.Data.Entites;
+using DiplomMetod.Data.Enums;
 using DiplomMetod.Models;
 using DiplomMetod.Repositories;
 using DiplomMetod.Services;
@@ -15,16 +16,19 @@ namespace DiplomMetod.Controllers
         private readonly IReferenceBookRepository _referenceBookRepository;
         private readonly IOrganizationRepository _organizationRepository;
         private readonly IFileService _fileService;
+        private readonly IFormExportService _formExportService;
 
         public FormController(IFormRepository formRepository,
             IReferenceBookRepository referenceBookRepository,
             IOrganizationRepository organizationRepository,
-            IFileService fileService)
+            IFileService fileService,
+            IFormExportService formExportService)
         {
             _formRepository = formRepository;
             _referenceBookRepository = referenceBookRepository;
             _organizationRepository = organizationRepository;
             _fileService = fileService;
+            _formExportService = formExportService;
         }
 
         [HttpGet]
@@ -82,13 +86,6 @@ namespace DiplomMetod.Controllers
         }
 
 
-        [HttpPost]
-        [Route("search")]
-        public async Task<IActionResult> Search([FromQuery] FormSearchViewModel queryFilter)
-        {
-            return View();
-        }
-
         [HttpGet]
         public async Task<IActionResult> Edit(int Id)
         {
@@ -101,22 +98,20 @@ namespace DiplomMetod.Controllers
             return View(form);
         }
 
-        /*
         [HttpPost]
-        //#FIXME: Добавил метод ExportToExcel//
-        public async Task<IActionResult> ExportToExcel()
+        public async Task<IActionResult> Export(FormSearchViewModel filters, string exportType)
         {
-        
-            return View();
-        }
+            var query = GetFormQueryFiltered(filters);
 
-         //#FIXME: Добавил метод ExportToPdf//
-         [HttpPost]
-        /*public async Task<IActionResult> ExpotToPdf()
-        {
-            return View();
+            var forms = await query.ToListAsync();
+
+            var type = Enum.Parse<FormExportType>(exportType, true);
+
+            var result = _formExportService.Export(forms.ToExportModel(), type);
+
+            return result;
+
         }
-        */
 
         private IQueryable<Form> GetFormQueryFiltered(FormSearchViewModel filters)
         {

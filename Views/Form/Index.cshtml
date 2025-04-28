@@ -73,5 +73,13 @@
 	</table>
 </div>
 
-<!--#FIXME: Добавил кнопкм экспорт в Excel (по образцу search) -->
+@* скрипты для выгрузки в эксель *@
+@section Scripts {
+	<script>
+		function submitForm(exportType) {
+			document.getElementById('exportType').value = exportType;
+			document.getElementById('exportForm').submit();
+		}
+	</script>
+        }
 @await Html.PartialAsync("Export")
