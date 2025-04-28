@@ -1,23 +1,20 @@
-﻿
+﻿<search>
 
+    <!-- Реализация формы для поиска/фильтрации -->
+    <form asp-action="Index" asp-controller="Form" method="get" class="row g-3 mb-4">
+        <div class="d-flex justify-content-between mb-3">
+            <!-- Левая группа из 2 кнопок -->
+            <div class="d-flex">
+                <button type="submit" class="btn btn-secondary me-2">Поиск</button>
+                <a asp-action="Index" class="btn btn-secondary">Сбросить</a>
+            </div>
 
-<search>
-    <div class="d-flex justify-content-between mb-3">
-        <!--Левая группа из 2 кнопок. Использовал класс Bootstrap flex. #FIXME: нужно правильный контроллеры проставить-->
-        <div class="d-flex">
-            <a asp-action="Search" type="submit" class="btn btn-secondary me-2" method="post">Поиск</a>
-            <a asp-action="Index" class="btn btn-secondary">Сбросить</a>
+            <!-- Правая группа из 2 кнопок -->
+            <div class="d-flex">
+                <a asp-controller="Form" asp-action="Create" class="btn btn-dark me-2">Создать новую</a>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">На главную</a>
+            </div>
         </div>
-
-        <!-- Правая группа из 2 кнопок. Отступ справа, за счет between-->
-        <div class="d-flex">
-            <a asp-controller="QuestionAnswer" asp-action="Create" class="btn btn-dark me-2">Создать новое</a>
-            <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">На главную</a>
-        </div>
-    </div>
-
-    <!-- Реализация формы для поиска/фильтрации-->
-    <form asp-action="Index" asp-controller="QuestionAnswerCreateViewModel" method="get" class="row g-3 mb-4">
         <div class="col-md-2">
             <input name="InventoryNumber" class="form-control" placeholder="Инвентарный №" value="@Context.Request.Query["InventoryNumber"]" />
         </div>
@@ -42,28 +39,36 @@
             <input name="KeyWordName" class="form-control" placeholder="Ключевое слово" value="@Context.Request.Query["KeyWordName"]" />
         </div>
 
-		<div class="col-md-2">
-			<input name="Event" class="form-control" placeholder="Вопрос задан в рамках" value="@Context.Request.Query["Event"]" />
-		</div>
+        <div class="col-md-2">
+            <input name="Event" class="form-control" placeholder="Вопрос задан в рамках" value="@Context.Request.Query["Event"]" />
+        </div>
 
-		<div class="col-md-2">
-			<input name="RegionsDivisionName" class="form-control" placeholder="Вопрос задал (регион)" value="@Context.Request.Query["RegionsDivisionName"]" />
-		</div>
+        <div class="col-md-2">
+            <input name="RegionsDivisionName" class="form-control" placeholder="Вопрос задал (регион)" value="@Context.Request.Query["RegionsDivisionName"]" />
+        </div>
 
-		<div class="col-md-2">
-			<input name="OrganizationName" class="form-control" placeholder="Ответ дан (организация)" value="@Context.Request.Query["OrganizationName"]" />
-		</div>
+        <div class="col-md-2">
+            <input name="OrganizationName" class="form-control" placeholder="Ответ дан (организация)" value="@Context.Request.Query["OrganizationName"]" />
+        </div>
 
         <div class="col-md-2">
             <input name="ExplanationNumber" class="form-control" placeholder="№ разъяснения" value="@Context.Request.Query["ExplanationNumber"]" />
         </div>
 
         <div class="col-md-2">
-            <input name="ExplanationData" class="form-control" placeholder="Дата разъяснения" value="@Context.Request.Query["ExplanationData"]" />
+            <input name="ExplanationDate" class="form-control" placeholder="Дата разъяснения" value="@Context.Request.Query["ExplanationDate"]" />
         </div>
 
         <div class="col-md-2">
-            <input name="IsAgreedGenProk" class="form-control" placeholder="Согласовано с ГП" value="@Context.Request.Query["IsAgreedGenProk"]" />
+            <div class="form-check form-switch d-flex align-items-center">
+                <input type="checkbox"
+                       name="IsAgreedGenProk"
+                       class="form-check-input"
+                       id="IsAgreedGenProkCheckbox"
+                       value="true"
+                @(Context.Request.Query["IsAgreedGenProk"] == "true" ? "checked" : "") />
+                <label class="form-check-label ms-2" for="IsAgreedGenProkCheckbox">Согласовано с ГП</label>
+            </div>
         </div>
 
         <div class="col-md-2">
@@ -71,17 +76,35 @@
         </div>
 
         <div class="col-md-2">
-            <input name="IsRevelant" class="form-control" placeholder="Актуальность" value="@Context.Request.Query["IsRevelant"]" />
+            <div class="form-check form-switch d-flex align-items-center">
+                <input type="checkbox"
+                       name="IsRevelant"
+                       class="form-check-input"
+                       id="IsRevelantCheckbox"
+                       value="true"
+                @(Context.Request.Query["IsRevelant"] == "true" ? "checked" : "") />
+                <label class="form-check-label ms-2" for="IsRevelantCheckbox">Актуально</label>
+            </div>
         </div>
+
+
 
         <div class="col-md-2">
             <input name="Comment" class="form-control" placeholder="Примечание" value="@Context.Request.Query["Comment"]" />
         </div>
 
         <div class="col-md-2">
-            <input name="IsFavorites" class="form-control" placeholder="Избранное" value="@Context.Request.Query["IsFavorites"]" />
+            <div class="form-check form-switch d-flex align-items-center">
+                <input type="checkbox"
+                       name="IsFavorites"
+                       class="form-check-input"
+                       id="IsFavoritesCheckbox"
+                       value="true"
+                @(Context.Request.Query["IsRevelant"] == "true" ? "checked" : "") />
+                <label class="form-check-label ms-2" for="IsFavoritesCheckbox">Избранное</label>
+            </div>
         </div>
+
 
     </form>
 </search>
-

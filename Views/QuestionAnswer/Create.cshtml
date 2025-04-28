@@ -11,68 +11,48 @@
     <div class="row g-3">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                
-        @* #FIXME: Взял за образец твой код, чтобы сделать выпадающие списки, потом посмотреть будет ли работать*@
-        <div class="form-group">
-            <label class="control-label">Тип формы</label>
-            <div class="dropdown">
-                <button class="btn btn-info text-white dropdown-toggle" type="button" id="formTypesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Выберите тип формы
-                </button>
-                <div class="dropdown-menu" aria-labelledby="formTypesDropdown">
-                    @* #FIXME: Заменил ID на Value, а  Name на Text в formType*@
-                    @foreach (var formType in Model.FormTypes)
-                    {
-                        <a class="dropdown-item" href="#" data-value="@formType.Value">@formType.Text</a>
-                    }
-                </div>
-                <input type="hidden" id="selectedFormType" name="FormTypeId" value="" />
+        <!-- Выделил для выплывающих -->
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label asp-for="FormTypeId" class="form-label fw-bold text-primary">
+                    <i class="bi bi-card-checklist me-2"></i>Тип формы
+                </label>
+                <select asp-for="FormTypeId" class="form-select border-primary" asp-items="Model.FormTypes">
+                    <option value="" selected disabled>-Выберите тип формф-</option>
+                </select>
+                <span asp-validation-for="FormTypeId" class="text-danger small"></span>
             </div>
         </div>
 
-        @* #FIXME:Закомментировал, т.к. есть formType из выплывающего списка*@
-        @*     <div class="form-group">
-        <label asp-for="FormTypeId" class="control-label"></label>
-        <select asp-for="FormTypeId" class="form-control" asp-items="Model.FormTypes"></select>
-        <span asp-validation-for="FormTypeId" class="text-danger"></span>
-        </div> *@
-
-
         <div class="col-md-6">
-            <label asp-for="RequisiteNumber" class="control-label">Номер реквизита</label>
-            <input asp-for="RequisiteNumber" class="form-control" placeholder="Введите номер реквизита" />
-            <span asp-validation-for="RequisiteNumber" class="text-danger"></span>
-        </div>
-
-        <div class="col-md-6">
-            <label asp-for="Code" class="control-label">Номер кода</label>
-            <input asp-for="Code" class="form-control" />
-            <span asp-validation-for="Code" class="text-danger"></span>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="control-label">Справочники</label>
-        <div class="dropdown">
-            <button class="btn btn-info text-white dropdown-toggle" type="button" id="referenceBooksDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Выберите справочник
-            </button>
-            <div class="dropdown-menu" aria-labelledby="referenceBooksDropdown">
-                @* #FIXME: Заменил ID на Value, а  Name на Text в referenceBook, чтобы заработало, т.к.  выдавало ошибку*@
-                @foreach (var referenceBook in Model.ReferenceBooks)
-                {
-                    <a class="dropdown-item" href="#" data-value="@referenceBook.Value">@referenceBook.Text</a>
-                }
+            <div class="mb-3">
+                <label asp-for="RequisiteNumber" class="form-label">Номер реквизита</label>
+                <input asp-for="RequisiteNumber" class="form-control" />
+                <span asp-validation-for="RequisiteNumber" class="text-danger"></span>
             </div>
-            <input type="hidden" id="selectedReferenceBook" name="ReferenceBookId" value="" />
+        </div>
+
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label asp-for="Code" class="form-label">Номер кода</label>
+                <input asp-for="Code" class="form-control" />
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Выделил для выплывающих -->
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label asp-for="ReferenceBooksId" class="form-label fw-bold text-primary">
+                    <i class="bi bi-book me-2"></i>Справочник
+                </label>
+                <select asp-for="ReferenceBooksId" class="form-select border-primary" asp-items="Model.ReferenceBooks">
+                    <option value="" selected disabled>-Выберите справочник-</option>
+                </select>
+                <span asp-validation-for="ReferenceBooksId" class="text-danger small"></span>
+            </div>
         </div>
     </div>
-
-    @* #FIXME:Закомментировал, т.к. есть ReferenceBooks из выплывающего списка*@
-    @*     <div class="form-group">
-    <label asp-for="ReferenceBooksId" class="control-label"></label>
-    <select asp-for="ReferenceBooksId" class="form-control" asp-items="Model.ReferenceBooks"></select>
-    <span asp-validation-for="ReferenceBooksId" class="text-danger"></span>
-    </div> *@
 
 
     <div class="col-md-6">
@@ -108,38 +88,38 @@
         <span asp-validation-for="Answer" class="text-danger"></span>
     </div>
 
-    @* #FIXME: Здесь нужно из выплывающего списка, но как осознал, так завис. Может ошибаюсь RegionDivision*@
+    <!-- #FIXME: Пока затычка, как получится исправить,заменить на код ниже -->
     <div class="form-group">
         <label asp-for="RegionDivisionName" class="control-label">Вопрос задал (регион или служба)</label>
         <input asp-for="RegionDivisionName" class="form-control" placeholder="Выберите регион (службу)" />
         <span asp-validation-for="RegionDivisionName" class="text-danger"></span>
     </div>
 
-    @* #FIXME:Попрбовал создать по образцу как referenceBooks (прописал в модели и контроллере). Будет ли работать?*@
-    <div class="form-group">
-        <label class="control-label">Ответ дан (организация)</label>
-        <div class="dropdown">
-            <button class="btn btn-info text-white dropdown-toggle" type="button" id="organizationsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Выберите организацию
-            </button>
-            <div class="dropdown-menu" aria-labelledby="organizationsDropdown">
-                @* #FIXME: Заменил ID на Value, а  Name на Text в organizations, чтобы заработало, т.к.  выдавало ошибку*@
-                @foreach (var organizations in Model.Organization)
-                {
-                    <a class="dropdown-item" href="#" data-value="@organizations.Value">@organizations.Text</a>
-                }
-            </div>
-            <input type="hidden" id="selectedOrganization" name="OrganizationId" value="" />
+
+	@* 	<!-- #FIXME: Неполучилось, выдает ошибку. Ругается на Model asp-items="Model.RegionDivisionName" -->
+	<div class="col-md-6">
+	<div class="mb-3">
+	<label asp-for="RegionDivisionName" class="form-label fw-bold text-primary">
+	<i class="bi bi-book me-2"></i>Регионы (подразделения)
+	</label>
+	<select asp-for="RegionDivisionName" class="form-select border-primary" asp-items="Model.RegionDivisionName">
+	<option value="" selected disabled>-Выберите регион (подразделение)-</option>
+	</select>
+	<span asp-validation-for="RegionDivisionName" class="text-danger small"></span>
+	</div>
+	</div> *@
+
+    <div class="col-md-6">
+        <div class="mb-3">
+            <label asp-for="OrganizationId" class="form-label fw-bold text-primary">
+                <i class="bi bi-card-checklist me-2"></i>Оргниазация, ответившая на вопрос
+            </label>
+            <select asp-for="OrganizationId" class="form-select border-primary" asp-items="Model.Organizations">
+                <option value="" selected disabled>-Выберите оргниазцию-</option>
+            </select>
+            <span asp-validation-for="OrganizationId" class="text-danger small"></span>
         </div>
     </div>
-
-
-    @* #FIXME:Закомментировал, т.к. добавил Organization из выплывающего списка*@
-    @*     <div class="form-group">
-    <label asp-for="OrganizationName" class="control-label">Кто утвердил</label>
-    <input asp-for="OrganizationName" class="form-control" placeholder="Введите наименование органа, утвердившего разъяснение" />
-    <span asp-validation-for="OrganizationName" class="text-danger"></span>
-    </div> *@
 
     <div class="row g-3">
         <div class="col-md-6">
@@ -164,10 +144,9 @@
     </div>
 
     <div class="row g-3">
-        @* #FIXME: Тут попробовал (да/нет) из bool*@
-
+        @* Тут попробовал (да/нет) из bool*@
         <div class="col-md-6">
-            <label asp-for="IsAgreedGenProk" class="form-label">Согласовано с ГП</label>
+            <label asp-for="IsAgreedGenProk" class="form-label fw-bold text-primary">Согласовано с ГП</label>
             <select asp-for="IsAgreedGenProk" class="form-select">
                 <option value="true">Да</option>
                 <option value="false">Нет</option>
@@ -176,19 +155,18 @@
         </div>
 
 
-        @* #FIXME: Тут не смог с enum ApproveLevel*@
-
-        @*     <div class="col-md-6">
-        <label asp-for="ApproveLevel" class="form-label">На каком уровне согласовано</label>
-        <select asp-for="ApproveLevel" class="form-select">
-        <option value="true">Федеральный</option>
-        <option value="false">Местный</option>
-        </select>
-        <span asp-validation-for="ApproveLevel" class="text-danger"></span>
-        </div> *@
+        @* #FIXME: Попытка с enum ApproveLevel по принципу bool*@
+        <!-- Выделил для выплывающих -->
+        <div class="col-md-6">
+            <label asp-for="ApproveLevel" class="form-label fw-bold text-primary">Уровень утверждения</label>
+            <select asp-for="ApproveLevel" class="form-select" asp-items="Model.ApproveLevels">
+                <option value="" selected disabled>-Выберите уровень утверждения-</option>
+            </select>
+            <span asp-validation-for="ApproveLevel" class="text-danger"></span>
+        </div>
 
         <div class="col-md-6">
-            <label asp-for="IsRevelant" class="form-label">Актуально</label>
+            <label asp-for="IsRevelant" class="form-label fw-bold text-primary">Актуально</label>
             <select asp-for="IsRevelant" class="form-select">
                 <option value="true">Да</option>
                 <option value="false">Нет</option>
@@ -197,7 +175,7 @@
         </div>
 
         <div class="col-md-6">
-            <label asp-for="IsFavorites" class="form-label">Отметить как избранное</label>
+            <label asp-for="IsFavorites" class="form-label fw-bold text-primary">Отметить как избранное</label>
             <select asp-for="IsFavorites" class="form-select">
                 <option value="true">Да</option>
                 <option value="false">Нет</option>
