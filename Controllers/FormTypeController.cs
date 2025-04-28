@@ -17,7 +17,7 @@ namespace DiplomMetod.Controllers
         public FormTypeController(IFormRepository formRepository, IFormTypeRepository formTypeRepository)
         {
             _formRepository = formRepository;
-            formTypeRepository = formTypeRepository;
+            _formTypeRepository = formTypeRepository;
         }
 
         [HttpGet]
