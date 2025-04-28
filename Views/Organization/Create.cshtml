@@ -1,0 +1,42 @@
+﻿@using DiplomMetod.Models
+@model OrganizationCreateViewModel;
+
+
+@{
+    ViewData["Title"] = "Создать организацию";
+}
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Create" method="post">
+    <div class="row g-3">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="col-md-6">
+            <label asp-for="Name" class="control-label">Наименование организации</label>
+            <input asp-for="Name" class="form-control" placeholder="Введите наименование организации" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+    <div class="form-group mt-3">
+        <input type="submit" value="Создать" class="btn btn-dark me-2" />
+    </div>
+
+</form>
+
+
+
+
+<div>
+    <a asp-action="Index">К списку организаций</a>
+</div>
+
+
+
+
+
+
+
+@{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+
