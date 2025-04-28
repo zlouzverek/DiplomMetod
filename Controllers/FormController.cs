@@ -20,16 +20,13 @@ namespace DiplomMetod.Controllers
         private readonly IFileService _fileService;
         private readonly IFormExportService _formExportService;
 
-        public FormController(IFormRepository formRepository,
-            IReferenceBookRepository referenceBookRepository,
-            IOrganizationRepository organizationRepository,
-            IFileService fileService,
-            IFormExportService formExportService)
         public FormController(IFormRepository formRepository, 
             IReferenceBookRepository referenceBookRepository, 
             IOrganizationRepository organizationRepository, 
             IRegionDivisionRepository regionDivisionRepository,
-            IFormTypeRepository formTypeRepository)
+            IFormTypeRepository formTypeRepository,
+            IFileService fileService,
+            IFormExportService formExportService)
         {
             _formRepository = formRepository;
             _referenceBookRepository = referenceBookRepository;
