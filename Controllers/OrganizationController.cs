@@ -12,7 +12,8 @@ namespace DiplomMetod.Controllers
         private readonly IFormRepository _formRepository;
         private readonly IOrganizationRepository _organizationRepository;
 
-        public OrganizationController(IFormRepository formRepository, IOrganizationRepository organizationRepository)
+        public OrganizationController(IFormRepository formRepository,
+            IOrganizationRepository organizationRepository)
         {
             _formRepository = formRepository;
             _organizationRepository = organizationRepository;
@@ -28,21 +29,9 @@ namespace DiplomMetod.Controllers
         }
 
         [HttpGet]
-        [Route("privacy")]
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-
-        [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var organization = await _organizationRepository.GetAll();
-
-            var organizationCreateViewModel = new OrganizationCreateViewModel(organization);
-
-            return View(organizationCreateViewModel);
+            return View();
         }
 
 
@@ -52,7 +41,6 @@ namespace DiplomMetod.Controllers
             var organization = organizationCreateViewModel.ToFormEntity();
 
             await _organizationRepository.Add(organization);
-
 
             return RedirectToAction("Index", "Organization");
         }
@@ -65,18 +53,30 @@ namespace DiplomMetod.Controllers
             if (form != null)
                 await _organizationRepository.Remove(form);
 
-            return RedirectToAction("Index", "Form");
+            return RedirectToAction("Index", "Organization");
         }
 
 
+        [HttpGet]
         public async Task<IActionResult> Edit(int Id)
         {
-            var organization = await _organizationRepository.GetAll();
+            var organization = await _organizationRepository.GetById(Id);
 
-            //var editCreateViewModel = new EditCreateViewModel(formTypes, referenceBook);
-            return View();
+            var editViewModel = new OrganizationCreateViewModel(organization.Id, organization.Name);
+
+            return View(editViewModel);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Edit(OrganizationCreateViewModel editViewModel)
+        {
+            var organization = await _organizationRepository.GetById(editViewModel.Id);
 
+            organization.Name = editViewModel.Name;
+
+            await _organizationRepository.Update(organization);
+
+            return RedirectToAction("Index", "Organization");
+        }
     }
 }

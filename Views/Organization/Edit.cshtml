@@ -1,0 +1,35 @@
+﻿@using DiplomMetod.Models
+@model OrganizationCreateViewModel;
+
+
+@{
+    ViewData["Title"] = "Изменить организацию";
+}
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Edit" method="post">
+    <div class="row g-3">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="col-md-6">
+            <label asp-for="Name" class="control-label">@Model.Name</label>
+            <label asp-for="Name" hidden class="control-label">@Model.Id</label>
+            <input asp-for="Name" class="form-control" placeholder="Введите наименование организации" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mt-3">
+            <input type="submit" value="Изменить" class="btn btn-dark me-2" />
+        </div>
+
+</form>
+
+
+
+
+<div>
+    <a asp-action="Index">К списку организаций</a>
+</div>
+
+
+

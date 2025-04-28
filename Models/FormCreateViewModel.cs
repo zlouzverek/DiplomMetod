@@ -20,7 +20,9 @@ namespace DiplomMetod.Models
         {
             
         }
-        public FormCreateViewModel(IEnumerable<FormType> formTypes, IEnumerable<ReferenceBook> referenceBooks, IEnumerable<Organization> organizations, IEnumerable<RegionDivision> regionDivisions)
+        public FormCreateViewModel(IEnumerable<FormType> formTypes, IEnumerable<ReferenceBook> referenceBooks, 
+            IEnumerable<Organization> organizations, 
+            IEnumerable<RegionDivision> regionDivisions)
         {
             FormTypes = formTypes.Select(ft => new SelectListItem
             {
@@ -76,17 +78,11 @@ namespace DiplomMetod.Models
 
         public DateTime ExplanationDate { get; set; }
 
-        /*#FIXME: Тут вопрос: OrganizationName заменил на ID (вроде дожен ID по base автоматически создаваться)*/
         public int OrganizationId { get; set; }
 
         public IEnumerable<SelectListItem> Organizations { get; set; }
 
         public string RegionDivisionName {  get; set; }
-
-		/*#FIXME: Тут менял */
-		//public int RegionDivisionId { get; set; }
-
-		//public IEnumerable<SelectListItem> RegionDivision { get; set; }
 
 		public IEnumerable<KeyWordViewModel> KeyWords { get; set; }
 
@@ -107,7 +103,6 @@ namespace DiplomMetod.Models
 
         public string? Description { get; set; }
 
-        /*#FIXME:Заменил OrganizationName в public Form ToFormEntity(), на OrganizationId*/
         public Form ToFormEntity()
         {
             var form = new Form
@@ -131,7 +126,6 @@ namespace DiplomMetod.Models
                     Description = Description,
                     ApproveLevel = ApproveLevel,
                     OrganizationId = OrganizationId,
-                    /*Organizations = new OrganizationName { Name = OrganizationName }*/
 
                 },
                 /*#FIXME: Есть вопрос, т.к. это должно из списка выпадающего. Тут тоже менял, но не получилось. Ставил ID, потом Name....*/

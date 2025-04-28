@@ -23,14 +23,14 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (var form in Model)
+			@foreach (var organization in Model)
 			{
 				<tr>
-					<td>@form.Name</td>
+					<td>@organization.Name</td>
 					<td>
 						<div class="btn-group" role="group">
-							<a asp-action="Edit" class="btn btn-sm btn-warning" asp-route-id="@form.Id">Редактировать</a>
-							<a asp-action="Delete" class="btn btn-sm btn-danger" asp-route-id="@form.Id">Удалить</a>
+							<a asp-action="Edit" class="btn btn-sm btn-warning" asp-route-id="@organization.Id">Редактировать</a>
+							<a asp-action="Delete" class="btn btn-sm btn-danger" asp-route-id="@organization.Id">Удалить</a>
 						</div>
 					</td>
 				</tr>

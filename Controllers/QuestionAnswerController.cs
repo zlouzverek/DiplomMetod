@@ -56,9 +56,10 @@ namespace DiplomMetod.Controllers
 
 			var regionDivisions = await _regionDivisionRepository.GetAll();
 
-			var questionAnswerCreateViewModel = new QuestionAnswerCreateViewModel(formTypes, referenceBook, organizations, regionDivisions);
+            //var questionAnswerCreateViewModel = new QuestionAnswerCreateViewModel(formTypes, referenceBook, organizations, regionDivisions);
 
-            return View(questionAnswerCreateViewModel);
+            //return View(questionAnswerCreateViewModel);
+            return View();
         }
 
 

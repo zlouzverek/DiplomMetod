@@ -6,13 +6,19 @@ namespace DiplomMetod.Models
 {
     public class OrganizationCreateViewModel
     {
-
-        public OrganizationCreateViewModel(IEnumerable<Organization> organization)
+        public OrganizationCreateViewModel()
         {
-
+            
         }
 
+        public OrganizationCreateViewModel(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
         public string Name { get; set; }
+
+        public int Id { get; set; }
               
         public Organization ToFormEntity()
         {
