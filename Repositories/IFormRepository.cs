@@ -14,8 +14,6 @@ namespace DiplomMetod.Repositories
 
         Task Update(Form entity);
 
-        Task<IEnumerable<FormType>> GetFormTypes();
-
         IQueryable<Form> Query();
 
         IQueryable<Form> GetQueryAllWithIncludes();

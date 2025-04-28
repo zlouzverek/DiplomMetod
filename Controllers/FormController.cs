@@ -14,13 +14,19 @@ namespace DiplomMetod.Controllers
         private readonly IReferenceBookRepository _referenceBookRepository;
         private readonly IOrganizationRepository _organizationRepository;
         private readonly IRegionDivisionRepository _regionDivisionRepository;
+        private readonly IFormTypeRepository _formTypeRepository;
 
-        public FormController(IFormRepository formRepository, IReferenceBookRepository referenceBookRepository, IOrganizationRepository organizationRepository, IRegionDivisionRepository regionDivisionRepository)
+        public FormController(IFormRepository formRepository, 
+            IReferenceBookRepository referenceBookRepository, 
+            IOrganizationRepository organizationRepository, 
+            IRegionDivisionRepository regionDivisionRepository,
+            IFormTypeRepository formTypeRepository)
         {
             _formRepository = formRepository;
             _referenceBookRepository = referenceBookRepository;
             _organizationRepository = organizationRepository;
             _regionDivisionRepository = regionDivisionRepository;
+            _formTypeRepository = formTypeRepository;
         }
 
         [HttpGet]
@@ -37,10 +43,10 @@ namespace DiplomMetod.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var formTypes = await _formRepository.GetFormTypes();
+            var formTypes = await _formTypeRepository.GetAll();
 
             var referenceBook = await _referenceBookRepository.GetAll();
-            //#FIXME:Добавил organization. +  в public FormController наверхую.Тут GetAll?
+
             var organizations = await _organizationRepository.GetAll();
 
             var regionDivisions = await _regionDivisionRepository.GetAll();
@@ -86,7 +92,7 @@ namespace DiplomMetod.Controllers
         {
             var form = await _formRepository.GetById(Id);
            
-            var formTypes = await _formRepository.GetFormTypes();
+            var formTypes = await _formTypeRepository.GetAll();
 
             var referenceBook = await _referenceBookRepository.GetAll();
 

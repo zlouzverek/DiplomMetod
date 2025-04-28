@@ -14,13 +14,19 @@ namespace DiplomMetod.Controllers
         private readonly IReferenceBookRepository _referenceBookRepository;
         private readonly IOrganizationRepository _organizationRepository;
         private readonly IRegionDivisionRepository _regionDivisionRepository;
+        private readonly IFormTypeRepository _formTypeRepository;
 
-        public QuestionAnswerController(IFormRepository formRepository, IReferenceBookRepository referenceBookRepository, IOrganizationRepository organizationRepository, IRegionDivisionRepository regionDivisionRepository)
+        public QuestionAnswerController(IFormRepository formRepository, 
+            IReferenceBookRepository referenceBookRepository, 
+            IOrganizationRepository organizationRepository, 
+            IRegionDivisionRepository regionDivisionRepository,
+            IFormTypeRepository formTypeRepository)
         {
             _formRepository = formRepository;
             _referenceBookRepository = referenceBookRepository;
             _organizationRepository = organizationRepository;
             _regionDivisionRepository = regionDivisionRepository;
+            _formTypeRepository = formTypeRepository;
         }
 
         [HttpGet]
@@ -42,7 +48,7 @@ namespace DiplomMetod.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var formTypes = await _formRepository.GetFormTypes();
+            var formTypes = await _formTypeRepository.GetAll();
 
             var referenceBook = await _referenceBookRepository.GetAll();
             //#FIXME:Добавил organization. +  в public FormController наверхую.Тут GetAll?
@@ -91,7 +97,7 @@ namespace DiplomMetod.Controllers
         {
             var form = await _formRepository.GetById(Id);
 
-            var formTypes = await _formRepository.GetFormTypes();
+            var formTypes = await _formTypeRepository.GetAll();
 
             var referenceBook = await _referenceBookRepository.GetAll();
 

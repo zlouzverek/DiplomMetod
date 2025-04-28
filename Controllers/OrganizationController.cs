@@ -54,7 +54,7 @@ namespace DiplomMetod.Controllers
             await _organizationRepository.Add(organization);
 
 
-            return RedirectToAction("Index", "Form");
+            return RedirectToAction("Index", "Organization");
         }
 
 
@@ -71,13 +71,10 @@ namespace DiplomMetod.Controllers
 
         public async Task<IActionResult> Edit(int Id)
         {
-            var form = await _formRepository.GetById(Id);
-
-            var formTypes = await _formRepository.GetFormTypes();
             var organization = await _organizationRepository.GetAll();
 
             //var editCreateViewModel = new EditCreateViewModel(formTypes, referenceBook);
-            return View(form);
+            return View();
         }
 
 

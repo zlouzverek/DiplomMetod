@@ -37,11 +37,6 @@ namespace DiplomMetod.Repositories
             return await _dbContext.Set<Form>().FindAsync(id);
         }
 
-        public async Task<IEnumerable<FormType>> GetFormTypes()
-        {
-            return await _dbContext.Set<FormType>().ToListAsync();
-        }
-
         public IQueryable<Form> GetQueryAllWithIncludes()
         {
             return Query().Include(f => f.FormType)
