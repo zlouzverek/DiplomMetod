@@ -1,6 +1,7 @@
 ﻿using DiplomMetod.Data.Entites;
 using DiplomMetod.Models;
 using DiplomMetod.Repositories;
+using DiplomMetod.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,12 +14,17 @@ namespace DiplomMetod.Controllers
         private readonly IFormRepository _formRepository;
         private readonly IReferenceBookRepository _referenceBookRepository;
         private readonly IOrganizationRepository _organizationRepository;
+        private readonly IFileService _fileService;
 
-        public FormController(IFormRepository formRepository, IReferenceBookRepository referenceBookRepository, IOrganizationRepository organizationRepository)
+        public FormController(IFormRepository formRepository,
+            IReferenceBookRepository referenceBookRepository,
+            IOrganizationRepository organizationRepository,
+            IFileService fileService)
         {
             _formRepository = formRepository;
             _referenceBookRepository = referenceBookRepository;
             _organizationRepository = organizationRepository;
+            _fileService = fileService;
         }
 
         [HttpGet]
@@ -31,7 +37,7 @@ namespace DiplomMetod.Controllers
 
             return View(forms);
         }
-      
+
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -50,18 +56,24 @@ namespace DiplomMetod.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(FormCreateViewModel formCreateViewModel)
         {
+
             var form = formCreateViewModel.ToFormEntity();
+
+            if (formCreateViewModel.File != null && formCreateViewModel.File.Length > 0)
+            {
+                form.FileLink = await _fileService.SaveFile(formCreateViewModel.File, "uploadFiles");
+            }
 
             await _formRepository.Add(form);
 
-
             return RedirectToAction("Index", "Form");
+
         }
 
 
         public async Task<IActionResult> Delete(int id)
         {
-           var form = await _formRepository.GetById(id);
+            var form = await _formRepository.GetById(id);
 
             if (form != null)
                 await _formRepository.Remove(form);
@@ -81,7 +93,7 @@ namespace DiplomMetod.Controllers
         public async Task<IActionResult> Edit(int Id)
         {
             var form = await _formRepository.GetById(Id);
-           
+
             var formTypes = await _formRepository.GetFormTypes();
             var referenceBook = await _referenceBookRepository.GetAll();
 

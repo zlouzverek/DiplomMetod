@@ -11,13 +11,9 @@
 
   <ItemGroup>
     <Compile Remove="Data\Migrations\**" />
-    <Compile Remove="Services\**" />
     <Content Remove="Data\Migrations\**" />
-    <Content Remove="Services\**" />
     <EmbeddedResource Remove="Data\Migrations\**" />
-    <EmbeddedResource Remove="Services\**" />
     <None Remove="Data\Migrations\**" />
-    <None Remove="Services\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,6 +37,7 @@
     <Folder Include="Migrations\" />
     <Folder Include="Views\Organization\" />
     <Folder Include="wwwroot\img\" />
+    <Folder Include="wwwroot\uploadFiles\" />
   </ItemGroup>
 
 </Project>

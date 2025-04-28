@@ -76,6 +76,8 @@ namespace DiplomMetod.Models
 
         public string? Description { get; set; }
 
+        public IFormFile File { get; set; }
+
         /*#FIXME:Заменил OrganizationName в public Form ToFormEntity(), на OrganizationId*/
         public Form ToFormEntity()
         {
