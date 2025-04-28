@@ -1,8 +1,6 @@
 ﻿@using DiplomMetod.Data.Entites
 @model IEnumerable<Form>;
 
-
-
 <h1 class="mb-4">Методические рекомендации</h1>
 @await Html.PartialAsync("Search")
 
@@ -27,7 +25,6 @@
 				<th class="small text-center align-middle">Избранное</th>
 				<th class="small text-center align-middle">Скачать файл</th>
 				<th class="small text-center align-middle">Действия</th>
-
 			</tr>
 		</thead>
 		<tbody>
@@ -45,22 +42,21 @@
 							@string.Join(", ", form.KeyWords.Select(k => k.Name))
 						}
 					</td>
-					<td>@form.Explanation.Number</td>
-					<td>@form.Explanation.Date</td>
-					<td>@form.Explanation.Organization.Name</td>
-					<td>@(form.Explanation.IsAgreedGenProk ? "да" : "нет")</td>
-					<td>@form.Explanation.ApproveLevel.ToString()</td>
-					<td>@(form.Explanation.IsRevelant ? "актуально" : "не актуально")</td>
+					<td>@form.Explanation?.Number</td>
+					<td>@form.Explanation?.Date</td>
+					<td>@form.Explanation?.Organization?.Name</td>
+					<td>@(form.Explanation?.IsAgreedGenProk == true ? "да" : "нет")</td>
+					<td>@form.Explanation?.ApproveLevel.ToString()</td>
+					<td>@(form.Explanation?.IsRevelant == true ? "актуально" : "не актуально")</td>
 					<td>@form.RegionsDivision?.Name</td>
-					<td>@form.Explanation.Comment</td>
-					<td>@(form.Explanation.IsFavorites ? "да" : "нет")</td>
+					<td>@form.Explanation?.Comment</td>
+					<td>@(form.Explanation?.IsFavorites == true ? "да" : "нет")</td>
 					<td>
 						@if (!string.IsNullOrEmpty(form.FileLink))
 						{
 							<a href="@form.FileLink" target="_blank">Скачать</a>
 						}
 					</td>
-
 					<td>
 						<div class="btn-group" role="group">
 							<a asp-action="Edit" class="btn btn-sm btn-warning" asp-route-id="@form.Id">Редактировать</a>
@@ -73,7 +69,6 @@
 	</table>
 </div>
 
-@* скрипты для выгрузки в эксель *@
 @section Scripts {
 	<script>
 		function submitForm(exportType) {
@@ -81,5 +76,4 @@
 			document.getElementById('exportForm').submit();
 		}
 	</script>
-        }
-@await Html.PartialAsync("Export")
+}
