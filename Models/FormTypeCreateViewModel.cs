@@ -6,16 +6,23 @@ namespace DiplomMetod.Models
 {
     public class FormTypeCreateViewModel
     {
-
-        public FormTypeCreateViewModel(IEnumerable<FormType> formType)
+        public FormTypeCreateViewModel()
         {
 
         }
 
+        public FormTypeCreateViewModel(int id, string name, string fullname)
+        {
+            Id = id;
+            Name = name;
+            FullName = fullname;
+        }
+
+        public int Id { get; set; }
         public string Name { get; set; }
 
         public string FullName { get; set; }
-
+            
 
         public FormType ToFormEntity()
         {

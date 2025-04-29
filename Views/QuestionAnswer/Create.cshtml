@@ -236,8 +236,7 @@
             const container = document.getElementById('keywords-container');
             const div = document.createElement('div');
             div.className = 'input-group mb-3';
-            div.innerHTML = `
-                                <input type="text" name="KeyWords[${keywordIndex}].Name" class="form-control" placeholder="Введите ключевое слово" />
+            div.innerHTML = '<input type="text" name="KeyWords[${keywordIndex}].Name" class="form-control" placeholder="Введите ключевое слово" />
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" type="button" onclick="removeKeyword(this)">-</button>
                         </div>
