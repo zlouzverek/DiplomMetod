@@ -12,7 +12,8 @@ namespace DiplomMetod.Controllers
         private readonly IFormRepository _formRepository;
         private readonly IReferenceBookRepository _referenceBookRepository;
 
-        public ReferenceBookController(IFormRepository formRepository, IReferenceBookRepository referenceBookRepository)
+        public ReferenceBookController(IFormRepository formRepository, 
+            IReferenceBookRepository referenceBookRepository)
         {
             _formRepository = formRepository;
             _referenceBookRepository = referenceBookRepository;
@@ -28,21 +29,9 @@ namespace DiplomMetod.Controllers
         }
 
         [HttpGet]
-        [Route("privacy")]
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-
-        [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var referenceBook = await _referenceBookRepository.GetAll();
- 
-            var referenceBookCreateViewModel = new ReferenceBookCreateViewModel(referenceBook);
-
-            return View(referenceBookCreateViewModel);
+            return View();
         }
 
 
@@ -53,8 +42,7 @@ namespace DiplomMetod.Controllers
 
             await _referenceBookRepository.Add(referenceBook);
 
-
-            return RedirectToAction("Index", "Form");
+            return RedirectToAction("Index", "ReferenceBook");
         }
 
 
@@ -65,21 +53,34 @@ namespace DiplomMetod.Controllers
             if (form != null)
                 await _referenceBookRepository.Remove(form);
 
-            return RedirectToAction("Index", "Form");
+            return RedirectToAction("Index", "ReferenceBook");
         }
 
 
         [HttpGet]
         public async Task<IActionResult> Edit(int Id)
         {
-            var form = await _formRepository.GetById(Id);
+            var referenceBook = await _referenceBookRepository.GetById(Id);
 
-            var referenceBook = await _referenceBookRepository.GetAll();
+            var editViewModel = new ReferenceBookCreateViewModel
+                (referenceBook.Id, referenceBook.Name, referenceBook.FullName);
 
-            //var editCreateViewModel = new EditCreateViewModel(formTypes, referenceBook);
-            return View(form);
+            return View(editViewModel);
         }
 
-  
+        [HttpPost]
+        public async Task<IActionResult> Edit(ReferenceBookCreateViewModel editViewModel)
+        {
+            var referenceBook = await _referenceBookRepository.GetById(editViewModel.Id);
+
+            referenceBook.Name = editViewModel.Name;
+
+            referenceBook.FullName = editViewModel.FullName;
+
+            await _referenceBookRepository.Update(referenceBook);
+
+            return RedirectToAction("Index", "ReferenceBook");
+        }
+
     }
 }
