@@ -1,0 +1,142 @@
+﻿<!-- edit.html -->
+@using DiplomMetod.Models
+@model FormCreateViewModel
+
+@{
+    ViewData["Title"] = "Изменить методическую рекомендацию";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <div class="row g-3">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+
+        <div class="col-md-6">
+            <label asp-for="FormTypeId" class="form-label">Тип формы</label>
+            <select asp-for="FormTypeId" asp-items="Model.FormTypes" class="form-select">
+                <option value="">Выберите тип формы</option>
+            </select>
+            <span asp-validation-for="FormTypeId" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="ReferenceBooksId" class="form-label">Справочник</label>
+            <select asp-for="ReferenceBooksId" asp-items="Model.ReferenceBooks" class="form-select">
+                <option value="">Выберите справочник</option>
+            </select>
+            <span asp-validation-for="ReferenceBooksId" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="RequisiteNumber" class="form-label">Номер реквизита</label>
+            <input asp-for="RequisiteNumber" class="form-control" />
+            <span asp-validation-for="RequisiteNumber" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="Code" class="form-label">Код</label>
+            <input asp-for="Code" class="form-control" />
+            <span asp-validation-for="Code" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="ExplanationName" class="form-label">Наименование</label>
+            <input asp-for="ExplanationName" class="form-control" />
+            <span asp-validation-for="ExplanationName" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="ExplanationFullName" class="form-label">Полное наименование</label>
+            <input asp-for="ExplanationFullName" class="form-control" />
+            <span asp-validation-for="ExplanationFullName" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-3">
+            <label asp-for="ExplanationNumber" class="form-label">Номер</label>
+            <input asp-for="ExplanationNumber" class="form-control" />
+            <span asp-validation-for="ExplanationNumber" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-3">
+            <label asp-for="ExplanationDate" class="form-label">Дата</label>
+            <input asp-for="ExplanationDate" type="date" class="form-control" />
+            <span asp-validation-for="ExplanationDate" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="OrganizationId" class="form-label">Кто дал разъяснение</label>
+            <select asp-for="OrganizationId" asp-items="Model.Organizations" class="form-select">
+                <option value="">Выберите организацию</option>
+            </select>
+            <span asp-validation-for="OrganizationId" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="RegionDivisionId" class="form-label">Кому разъяснено</label>
+            <select asp-for="RegionDivisionId" asp-items="Model.RegionDivisions" class="form-select">
+                <option value="">Выберите подразделение</option>
+            </select>
+            <span asp-validation-for="RegionDivisionId" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="ApproveLevel" class="form-label">Уровень утверждения</label>
+            <select asp-for="ApproveLevel" asp-items="Model.ApproveLevels" class="form-select">
+                <option value="">Выберите уровень</option>
+            </select>
+            <span asp-validation-for="ApproveLevel" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="File" class="form-label">Файл</label>
+            <input asp-for="File" type="file" class="form-control" />
+            <span asp-validation-for="File" class="text-danger"></span>
+            @if (!string.IsNullOrEmpty(Model.FileLink))
+            {
+                <div class="mt-2">
+                    <a href="@Model.FileLink" target="_blank">Текущий файл</a>
+                </div>
+            }
+        </div>
+
+        <div class="col-md-3 form-check">
+            <input asp-for="IsAgreedGenProk" class="form-check-input" />
+            <label asp-for="IsAgreedGenProk" class="form-check-label">Согласовано с Генпрокуратурой</label>
+        </div>
+
+        <div class="col-md-3 form-check">
+            <input asp-for="IsRevelant" class="form-check-input" />
+            <label asp-for="IsRevelant" class="form-check-label">Актуально</label>
+        </div>
+
+        <div class="col-md-3 form-check">
+            <input asp-for="IsFavorites" class="form-check-input" />
+            <label asp-for="IsFavorites" class="form-check-label">В избранном</label>
+        </div>
+
+        <div class="col-12">
+            <label asp-for="Comment" class="form-label">Комментарий</label>
+            <textarea asp-for="Comment" class="form-control"></textarea>
+            <span asp-validation-for="Comment" class="text-danger"></span>
+        </div>
+
+        <div class="col-12">
+            <label asp-for="Description" class="form-label">Описание</label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="col-12 mt-4">
+            <button type="submit" class="btn btn-primary">Изменить</button>
+            <a asp-action="Index" class="btn btn-secondary">Отмена</a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
