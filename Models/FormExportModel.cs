@@ -28,23 +28,23 @@ namespace DiplomMetod.Models
         [Description("Дата разъяснения")]
         public DateTime ExplanationDate { get; set; }
 
-        [Description("Организация")]
+        [Description("Кто разъяснил")]
         public string OrganizationName { get; set; }
 
-        [Description("Согласовано с ГП")]
-        public string IsAgreedGenProk { get; set; }
+		[Description("Кому разъяснено")]
+		public string RegionDivisionName { get; set; }
 
-        [Description("Уровень")]
-        public string ApproveLevel { get; set; }
+		[Description("Примечание")]
+		public string Comment { get; set; }
+
+		[Description("Уровень")]
+		public string ApproveLevel { get; set; }
+
+		[Description("Согласовано с ГП")]
+        public string IsAgreedGenProk { get; set; }
 
         [Description("Актуальность")]
         public string IsRevelant { get; set; }
-
-        [Description("Регион")]
-        public string RegionDivisionName { get; set; }
-
-        [Description("Примечание")]
-        public string Comment { get; set; }
 
         [Description("Избранное")]
         public string IsFavorites { get; set; }

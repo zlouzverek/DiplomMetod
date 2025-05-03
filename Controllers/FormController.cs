@@ -64,8 +64,8 @@ namespace DiplomMetod.Controllers
             return View(formCreateViewModel);
         }
 
-
-        [HttpPost]
+		//Папка для сохранения на wwwroot uploadFiles
+		[HttpPost]
         public async Task<IActionResult> Create(FormCreateViewModel formCreateViewModel)
         {
 
