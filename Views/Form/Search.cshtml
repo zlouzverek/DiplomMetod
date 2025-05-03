@@ -50,7 +50,25 @@
         <div class="col-md-2">
             <input name="OrganizationName" class="form-control" placeholder="Кто утвердил" value="@Context.Request.Query["OrganizationName"]" />
         </div>
+        
+        <div class="col-md-2">
+            <input name="RegionsDivisionName" class="form-control" placeholder="Регион" value="@Context.Request.Query["RegionsDivisionName"]" />
+        </div>
 
+        <div class="col-md-2">
+            <input name="Comment" class="form-control" placeholder="Примечание" value="@Context.Request.Query["Comment"]" />
+        </div>
+
+        <!-- Выбор для enum ApproveLevel -->
+        <div class="col-md-2">
+            <select name="ApproveLevel" class="form-control">
+                <option value="">Выбери уровень</option>
+                <option value="0" selected="@(Context.Request.Query["ApproveLevel"] == "0")">Федеральный</option>
+                <option value="1" selected="@(Context.Request.Query["ApproveLevel"] == "1")">Местный</option>
+            </select>
+        </div>
+
+        <!-- Чекбокс для IsAgreedGenProk -->
         <div class="col-md-2">
             <div class="form-check form-switch d-flex align-items-center">
                 <input type="checkbox"
@@ -63,10 +81,7 @@
             </div>
         </div>
 
-        <div class="col-md-2">
-            <input name="ApproveLevel" class="form-control" placeholder="Уровень (фед/мес)" value="@Context.Request.Query["ApproveLevel"]" />
-        </div>
-
+        <!-- Чекбокс для IsRevelant -->
         <div class="col-md-2">
             <div class="form-check form-switch d-flex align-items-center">
                 <input type="checkbox"
@@ -79,14 +94,7 @@
             </div>
         </div>
 
-        <div class="col-md-2">
-            <input name="RegionsDivisionName" class="form-control" placeholder="Регион" value="@Context.Request.Query["RegionsDivisionName"]" />
-        </div>
-
-        <div class="col-md-2">
-            <input name="Comment" class="form-control" placeholder="Примечание" value="@Context.Request.Query["Comment"]" />
-        </div>
-
+        <!-- Чекбокс для IsFavorites -->
         <div class="col-md-2">
             <div class="form-check form-switch d-flex align-items-center">
                 <input type="checkbox"
@@ -98,7 +106,6 @@
                 <label class="form-check-label ms-2" for="IsFavoritesCheckbox">Избранное</label>
             </div>
         </div>
-
 
     </form>
 </search>

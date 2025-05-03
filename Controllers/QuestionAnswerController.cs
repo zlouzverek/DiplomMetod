@@ -187,9 +187,11 @@ namespace DiplomMetod.Controllers
                 query = query.Where(f => f.Explanation.IsAgreedGenProk == filters.IsAgreedGenProk.Value);
             }
 
+            //Нюанс с ApproveLevel при организации поиска
             if (!string.IsNullOrEmpty(filters.ApproveLevel))
             {
-                query = query.Where(f => f.Explanation.ApproveLevel.ToString().Contains(filters.ApproveLevel));
+                var level = (ApproveLevel)int.Parse(filters.ApproveLevel);
+                query = query.Where(f => f.Explanation.ApproveLevel == level);
             }
 
             if (filters.IsRevelant.HasValue)

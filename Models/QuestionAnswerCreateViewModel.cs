@@ -8,7 +8,7 @@ namespace DiplomMetod.Models
 	public class QuestionAnswerCreateViewModel
 	{
 
-        /*#FIXME:Затычка для ENUM посмотри пожалуйста*/
+        //Реализация всплывающего Enum через DescriptionAttribute (из Entites) //
         private static string GetEnumDescription(Enum value)
         {
             FieldInfo field = value.GetType().GetField(value.ToString());
@@ -21,7 +21,10 @@ namespace DiplomMetod.Models
 		{
 
 		}
-		public QuestionAnswerCreateViewModel(IEnumerable<FormType> formTypes, IEnumerable<ReferenceBook> referenceBooks, IEnumerable<Organization> organizations, IEnumerable<RegionDivision> regionDivisions)
+		public QuestionAnswerCreateViewModel(IEnumerable<FormType> formTypes, 
+            IEnumerable<ReferenceBook> referenceBooks, 
+            IEnumerable<Organization> organizations, 
+            IEnumerable<RegionDivision> regionDivisions)
         {
             FormTypes = formTypes.Select(ft => new SelectListItem
             {
@@ -34,8 +37,7 @@ namespace DiplomMetod.Models
                 Value = rb.Id.ToString(),
                 Text = rb.Name
             }).ToList();
-
-            /*#FIXME:Добавил Organizations, прописал тут и в контроллере*/
+                       
             Organizations = organizations.Select(rb => new SelectListItem
             {
                 Value = rb.Id.ToString(),
@@ -85,9 +87,6 @@ namespace DiplomMetod.Models
 
         public IEnumerable<SelectListItem> Organizations { get; set; }
 
-        //public string RegionDivisionName { get; set; }
-
-        /*#FIXME: Тут менял */
         public int RegionDivisionId { get; set; }
 
         public IEnumerable<SelectListItem> RegionDivisions { get; set; }
@@ -111,7 +110,6 @@ namespace DiplomMetod.Models
 
         public string? Description { get; set; }
 
-        /*#FIXME:Заменил OrganizationName в public Form ToFormEntity(), на OrganizationId*/
         public Form ToFormEntity()
         {
             var form = new Form
@@ -138,7 +136,7 @@ namespace DiplomMetod.Models
                     OrganizationId = OrganizationId,
                    
                 },
-                /*#FIXME: Есть вопрос, т.к. это должно из списка выпадающего. Тут тоже менял, но не получилось. Ставил ID, потом Name....*/
+               
                 RegionsDivisionsId = RegionDivisionId,
             };
 

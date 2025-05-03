@@ -8,7 +8,7 @@ namespace DiplomMetod.Models
 {
     public class FormCreateViewModel
     {
-        /*#FIXME:Затычка для ENUM посмотри пожалуйста*/
+        //Реализация всплывающего Enum через DescriptionAttribute (из Entites) //
         private static string GetEnumDescription(Enum value)
         {
             FieldInfo field = value.GetType().GetField(value.ToString());
@@ -20,7 +20,8 @@ namespace DiplomMetod.Models
         {
             
         }
-        public FormCreateViewModel(IEnumerable<FormType> formTypes, IEnumerable<ReferenceBook> referenceBooks, 
+        public FormCreateViewModel(IEnumerable<FormType> formTypes, 
+            IEnumerable<ReferenceBook> referenceBooks, 
             IEnumerable<Organization> organizations, 
             IEnumerable<RegionDivision> regionDivisions)
         {
@@ -36,21 +37,19 @@ namespace DiplomMetod.Models
                 Text = rb.Name
             }).ToList();
 
-            /*#FIXME:Добавил Organizations, прописал тут и в контроллере*/
             Organizations = organizations.Select(rb => new SelectListItem
             {
                 Value = rb.Id.ToString(),
                 Text = rb.Name
             }).ToList();
 
-			/*#FIXME:Не понял почему рукагется, ошибку. Менял все оп аналогии на ID-все равно ошибка*/
-			//RegionDivisions = regionDivisions.Select(rb => new SelectListItem
-			//{
-			//	Value = rb.Id.ToString(),
-			//	Text = rb.Name
-			//}).ToList();
+            RegionDivisions = regionDivisions.Select(rb => new SelectListItem
+            {
+                Value = rb.Id.ToString(),
+                Text = rb.Name
+            }).ToList();
 
-			ApproveLevels = Enum.GetValues(typeof(ApproveLevel))
+            ApproveLevels = Enum.GetValues(typeof(ApproveLevel))
             .Cast<ApproveLevel>()
             .Select(level => new SelectListItem
         {
@@ -82,15 +81,17 @@ namespace DiplomMetod.Models
 
         public IEnumerable<SelectListItem> Organizations { get; set; }
 
-        public string RegionDivisionName {  get; set; }
+        public int RegionDivisionId { get; set; }
 
-		public IEnumerable<KeyWordViewModel> KeyWords { get; set; }
+        public IEnumerable<SelectListItem> RegionDivisions { get; set; }
+
+        public IEnumerable<KeyWordViewModel> KeyWords { get; set; }
 
         public string? FileLink { get; set; }
 
         public bool IsAgreedGenProk { get; set; }
 
-        /*#FIXME: Тут реализован enum*/
+        //#FIXME: Тут реализован enum//
         public ApproveLevel ApproveLevel { get; set; }
 
         public IEnumerable<SelectListItem> ApproveLevels { get; set; }
@@ -130,8 +131,8 @@ namespace DiplomMetod.Models
                     OrganizationId = OrganizationId,
 
                 },
-                /*#FIXME: Есть вопрос, т.к. это должно из списка выпадающего. Тут тоже менял, но не получилось. Ставил ID, потом Name....*/
-                RegionsDivision = new RegionDivision { Name = RegionDivisionName },
+
+                RegionsDivisionsId = RegionDivisionId,
             };
 
             foreach (var item in KeyWords)
