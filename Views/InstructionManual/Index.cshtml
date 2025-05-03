@@ -1,0 +1,76 @@
+﻿@{
+    ViewData["Title"] = "Инструкция";
+    Layout = "_Layout";
+}
+
+<!-- Основной блок страницы с фоновым изображением -->
+<main class="home-main instructions-page">
+    <!-- Центральный контейнер с контентом -->
+    <div class="home-content">
+        <!-- Шапка с логотипом и заголовком -->
+        <div class="home-header">
+            <!-- Логотип организации -->
+            <img src="~/img/Giac.png" alt="Эмблема" class="home-logo" />
+            <div class="home-title-wrapper">
+                <!-- Главный заголовок страницы -->
+                <h1 class="home-title">
+                    Руководство и инструкция<br>
+                    по работе с сервисом "Методика"
+                </h1>
+            </div>
+        </div>
+
+        <!-- Декоративная разделительная линия -->
+        <div class="home-divider"></div>
+
+        <!-- Блок с нумерованными инструкциями -->
+        <div class="instructions-container">
+
+            <!-- Добавление нумерации, прсто потрясно -->
+            <ol class="numbered-instructions">
+              
+                <!-- Начало работы с системой -->
+                <li class="instruction-item">
+                    <div class="instruction-content">
+                        <h3 class="instruction-title">Описание системы </h3>
+                        <div class="instruction-text">
+                            <p>Перечень возможностей</p>
+                            <ul class="instruction-sublist">
+                                <li>Текст</li>
+                                <li>Текст</li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Добавление методических рекомендаций -->
+                <li class="instruction-item">
+                    <div class="instruction-content">
+                        <h3 class="instruction-title">Работа с разделом "Методические рекомендации"</h3>
+                        <div class="instruction-text">
+                            <p>Добавление методических рекомендаций, поиск и экспорт</p>
+                            <ul class="instruction-sublist">
+                                <li>Текст</li>
+                                <li>Текст</li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Добавление разъяснений по принципу "Вопрос-ответ" -->
+                <li class="instruction-item">
+                    <div class="instruction-content">
+                        <h3 class="instruction-title">Работа с разделом "Вопрос-ответ"</h3>
+                        <div class="instruction-text">
+                            <p>Добавление разъяснений, поиск и экспорт</p>
+                            <ul class="instruction-sublist">
+                                <li>Текст</li>
+                                <li>Текст</li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </div>
+</main>

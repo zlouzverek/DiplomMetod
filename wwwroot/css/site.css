@@ -352,3 +352,158 @@ footer {
     }
 }
 
+
+
+
+/* Основные стили для контейнера инструкций */
+.instructions-container {
+    max-width: 1250px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+/* Стили для нумерованного списка */
+.numbered-instructions {
+    counter-reset: instruction-counter;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.instruction-item {
+    position: relative;
+    padding-left: 70px;
+    margin-bottom: 30px;
+    min-height: 60px;
+}
+
+    .instruction-item:before {
+        counter-increment: instruction-counter;
+        content: counter(instruction-counter);
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 50px;
+        height: 50px;
+        background: rgba(41, 98, 155, 0.8);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: bold;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .instruction-item:hover:before {
+        background: rgba(41, 98, 155, 1);
+        transform: scale(1.1);
+    }
+
+.instruction-content {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border-radius: 8px;
+    padding: 20px;
+    border-left: 4px solid rgba(41, 98, 155, 0.8);
+    transition: all 0.3s ease;
+}
+
+.instruction-item:hover .instruction-content {
+    background: rgba(255, 255, 255, 0.15);
+    border-left: 4px solid rgba(41, 98, 155, 1);
+}
+
+.instruction-title {
+    color: white;
+    font-size: 1.3rem;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.instruction-text {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+
+/* Адаптивные стили */
+@media (max-width: 992px) {
+    .instructions-container {
+        padding: 0 20px;
+    }
+
+    .instruction-item {
+        padding-left: 60px;
+        margin-bottom: 25px;
+    }
+
+        .instruction-item:before {
+            width: 45px;
+            height: 45px;
+            font-size: 22px;
+        }
+
+    .instruction-title {
+        font-size: 1.2rem;
+    }
+
+    .instruction-text {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .instructions-container {
+        padding: 0 15px;
+    }
+
+    .instruction-item {
+        padding-left: 50px;
+        margin-bottom: 20px;
+    }
+
+        .instruction-item:before {
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+        }
+
+    .instruction-title {
+        font-size: 1.1rem;
+    }
+
+    .instruction-text {
+        font-size: 0.95rem;
+    }
+
+    .instruction-content {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .instruction-item {
+        padding-left: 45px;
+    }
+
+        .instruction-item:before {
+            width: 35px;
+            height: 35px;
+            font-size: 18px;
+        }
+
+    .instruction-title {
+        font-size: 1rem;
+    }
+
+    .instruction-text {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+}
