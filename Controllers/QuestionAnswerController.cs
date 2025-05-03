@@ -70,7 +70,7 @@ namespace DiplomMetod.Controllers
 
             await _formRepository.Add(form);
 
-            return RedirectToAction("Index", "Form");
+            return RedirectToAction("Index", "QuestionAnswer");
         }
 
 
@@ -81,7 +81,7 @@ namespace DiplomMetod.Controllers
             if (form != null)
                 await _formRepository.Remove(form);
 
-            return RedirectToAction("Index", "Form");
+            return RedirectToAction("Index", "QuestionAnswer");
         }
 
 

@@ -43,11 +43,11 @@ namespace DiplomMetod.Models
             }).ToList();
 
             /*#FIXME:Не понял почему рукагется, ошибку. Менял все оп аналогии на ID-все равно ошибка*/
-            //RegionDivisions = regionDivisions.Select(rb => new SelectListItem
-            //{
-            //	Value = rb.Id.ToString(),
-            //	Text = rb.Name
-            //}).ToList();
+            RegionDivisions = regionDivisions.Select(rb => new SelectListItem
+            {
+                Value = rb.Id.ToString(),
+                Text = rb.Name
+            }).ToList();
 
             ApproveLevels = Enum.GetValues(typeof(ApproveLevel))
             .Cast<ApproveLevel>()
@@ -85,12 +85,12 @@ namespace DiplomMetod.Models
 
         public IEnumerable<SelectListItem> Organizations { get; set; }
 
-        public string RegionDivisionName { get; set; }
+        //public string RegionDivisionName { get; set; }
 
         /*#FIXME: Тут менял */
-        //public int RegionDivisionId { get; set; }
+        public int RegionDivisionId { get; set; }
 
-        //public IEnumerable<SelectListItem> RegionDivision { get; set; }
+        public IEnumerable<SelectListItem> RegionDivisions { get; set; }
 
         public IEnumerable<KeyWordViewModel> KeyWords { get; set; }
 
@@ -136,11 +136,10 @@ namespace DiplomMetod.Models
                     Description = Description,
                     ApproveLevel = ApproveLevel,
                     OrganizationId = OrganizationId,
-                    /*Organizations = new OrganizationName { Name = OrganizationName }*/
-
+                   
                 },
                 /*#FIXME: Есть вопрос, т.к. это должно из списка выпадающего. Тут тоже менял, но не получилось. Ставил ID, потом Name....*/
-                RegionsDivision = new RegionDivision { Name = RegionDivisionName },
+                RegionsDivisionsId = RegionDivisionId,
             };
 
             foreach (var item in KeyWords)

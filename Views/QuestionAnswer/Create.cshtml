@@ -18,7 +18,7 @@
                     <i class="bi bi-card-checklist me-2"></i>Тип формы
                 </label>
                 <select asp-for="FormTypeId" class="form-select border-primary" asp-items="Model.FormTypes">
-                    <option value="" selected disabled>-Выберите тип формф-</option>
+                    <option value="" selected disabled>-Выберите тип формы-</option>
                 </select>
                 <span asp-validation-for="FormTypeId" class="text-danger small"></span>
             </div>
@@ -88,26 +88,19 @@
         <span asp-validation-for="Answer" class="text-danger"></span>
     </div>
 
-    <!-- #FIXME: Пока затычка, как получится исправить,заменить на код ниже -->
-    <div class="form-group">
-        <label asp-for="RegionDivisionName" class="control-label">Вопрос задал (регион или служба)</label>
-        <input asp-for="RegionDivisionName" class="form-control" placeholder="Выберите регион (службу)" />
-        <span asp-validation-for="RegionDivisionName" class="text-danger"></span>
+
+    <!-- Выделил для выплывающих -->
+    <div class="col-md-6">
+        <div class="mb-3">
+            <label asp-for="RegionDivisionId" class="form-label fw-bold text-primary">
+                <i class="bi bi-card-checklist me-2"></i>Регион, которому дан ответ
+            </label>
+            <select asp-for="RegionDivisionId" class="form-select border-primary" asp-items="Model.RegionDivisions">
+                <option value="" selected disabled>-Выберите регион (подразделение-</option>
+            </select>
+            <span asp-validation-for="RegionDivisionId" class="text-danger small"></span>
+        </div>
     </div>
-
-
-	@* 	<!-- #FIXME: Неполучилось, выдает ошибку. Ругается на Model asp-items="Model.RegionDivisionName" -->
-	<div class="col-md-6">
-	<div class="mb-3">
-	<label asp-for="RegionDivisionName" class="form-label fw-bold text-primary">
-	<i class="bi bi-book me-2"></i>Регионы (подразделения)
-	</label>
-	<select asp-for="RegionDivisionName" class="form-select border-primary" asp-items="Model.RegionDivisionName">
-	<option value="" selected disabled>-Выберите регион (подразделение)-</option>
-	</select>
-	<span asp-validation-for="RegionDivisionName" class="text-danger small"></span>
-	</div>
-	</div> *@
 
     <div class="col-md-6">
         <div class="mb-3">
