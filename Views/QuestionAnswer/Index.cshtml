@@ -15,14 +15,14 @@
                 <th class="small text-center align-middle">Справочник</th>
                 <th class="small text-center align-middle">Ключевые слова</th>
                 <th class="small text-center align-middle">Вопрос задан в рамках</th>
-                <th class="small text-center align-middle">Вопрос задал (регион)</th>
-                <th class="small text-center align-middle">Ответ дан (организация)</th>
+                <th class="small text-center align-middle">Кто задал вопрос</th>
+                <th class="small text-center align-middle">Кем дан ответ</th>
                 <th class="small text-center align-middle">Рег № ответа</th>
                 <th class="small text-center align-middle">Дата ответа</th>
-                <th class="small text-center align-middle">Согласовано с ГП</th>
-                <th class="small text-center align-middle">Уровень (фед/мес)</th>
-                <th class="small text-center align-middle">Актуальность</th>
                 <th class="small text-center align-middle">Примечание</th>
+                <th class="small text-center align-middle">Уровень (фед/мес)</th>
+                <th class="small text-center align-middle">Согласовано с ГП</th>
+                <th class="small text-center align-middle">Актуальность</th>
                 <th class="small text-center align-middle">Избранное</th>
                 <th class="small text-center align-middle">Скачать файл</th>
                 <th class="small text-center align-middle">Действия</th>
@@ -48,10 +48,10 @@
                     <td>@form.Explanation?.Organization?.Name</td>
                     <td>@form.Explanation?.Number</td>
                     <td>@form.Explanation?.Date</td>
-                    <td>@(form.Explanation?.IsAgreedGenProk == true ? "да" : "нет")</td>
-                    <td>@form.Explanation?.ApproveLevel.ToString()</td>
-                    <td>@(form.Explanation?.IsRevelant == true ? "актуально" : "не актуально")</td>
                     <td>@form.Explanation?.Comment</td>
+                    <td>@form.Explanation?.ApproveLevel.ToString()</td>
+                    <td>@(form.Explanation?.IsAgreedGenProk == true ? "да" : "нет")</td>
+                    <td>@(form.Explanation?.IsRevelant == true ? "актуально" : "не актуально")</td>
                     <td>@(form.Explanation?.IsFavorites == true ? "да" : "нет")</td>
                     <td>
                         @if (!string.IsNullOrEmpty(form.FileLink))
@@ -72,3 +72,13 @@
 </div>
 
 @await Html.PartialAsync("Export")
+
+<!-- Тут добавлен экспорт -->
+@section Scripts {
+    <script>
+        function submitForm(exportType) {
+            document.getElementById('exportType').value = exportType;
+            document.getElementById('exportForm').submit();
+        }
+    </script>
+}

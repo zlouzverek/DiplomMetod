@@ -4,14 +4,13 @@ using DiplomMetod.Models;
 using DiplomMetod.Repositories;
 using DiplomMetod.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace DiplomMetod.Controllers
 {
-
     public class FormController : Controller
     {
-
         private readonly IFormRepository _formRepository;
         private readonly IReferenceBookRepository _referenceBookRepository;
         private readonly IOrganizationRepository _organizationRepository;
@@ -20,9 +19,10 @@ namespace DiplomMetod.Controllers
         private readonly IFileService _fileService;
         private readonly IFormExportService _formExportService;
 
-        public FormController(IFormRepository formRepository, 
-            IReferenceBookRepository referenceBookRepository, 
-            IOrganizationRepository organizationRepository, 
+        public FormController(
+            IFormRepository formRepository,
+            IReferenceBookRepository referenceBookRepository,
+            IOrganizationRepository organizationRepository,
             IRegionDivisionRepository regionDivisionRepository,
             IFormTypeRepository formTypeRepository,
             IFileService fileService,
@@ -31,10 +31,10 @@ namespace DiplomMetod.Controllers
             _formRepository = formRepository;
             _referenceBookRepository = referenceBookRepository;
             _organizationRepository = organizationRepository;
-            _fileService = fileService;
-            _formExportService = formExportService;
             _regionDivisionRepository = regionDivisionRepository;
             _formTypeRepository = formTypeRepository;
+            _fileService = fileService;
+            _formExportService = formExportService;
         }
 
         [HttpGet]
@@ -44,7 +44,6 @@ namespace DiplomMetod.Controllers
 
             // выполняем запрос и получаем отфильтрованные данных
             var forms = await query.ToListAsync();
-
             return View(forms);
         }
 
@@ -52,74 +51,146 @@ namespace DiplomMetod.Controllers
         public async Task<IActionResult> Create()
         {
             var formTypes = await _formTypeRepository.GetAll();
-
-            var referenceBook = await _referenceBookRepository.GetAll();
-
+            var referenceBooks = await _referenceBookRepository.GetAll();
             var organizations = await _organizationRepository.GetAll();
-
             var regionDivisions = await _regionDivisionRepository.GetAll();
 
-            var formCreateViewModel = new FormCreateViewModel(formTypes, referenceBook, organizations, regionDivisions);
+            var viewModel = new FormCreateViewModel(formTypes, referenceBooks, organizations, regionDivisions);
+            return View(viewModel);
+        }
+
+
+        //Папка для сохранения на wwwroot uploadFiles
+        [HttpPost]
+        public async Task<IActionResult> Create(FormCreateViewModel formCreateViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var form = formCreateViewModel.ToFormEntity();
+
+                if (formCreateViewModel.File != null && formCreateViewModel.File.Length > 0)
+                {
+                    form.FileLink = await _fileService.SaveFile(formCreateViewModel.File, "uploadFiles");
+                }
+
+                await _formRepository.Add(form);
+                return RedirectToAction("Index");
+            }
+
+            // Если модель не валидная, то обратно возвращаем представление с текущими данными
+            formCreateViewModel.FormTypes = (await _formTypeRepository.GetAll()).Select(ft => new SelectListItem
+            {
+                Value = ft.Id.ToString(),
+                Text = ft.Name
+            }).ToList();
+
+            formCreateViewModel.ReferenceBooks = (await _referenceBookRepository.GetAll()).Select(rb => new SelectListItem
+            {
+                Value = rb.Id.ToString(),
+                Text = rb.Name
+            }).ToList();
+
+            formCreateViewModel.Organizations = (await _organizationRepository.GetAll()).Select(org => new SelectListItem
+            {
+                Value = org.Id.ToString(),
+                Text = org.Name
+            }).ToList();
+
+            formCreateViewModel.RegionDivisions = (await _regionDivisionRepository.GetAll()).Select(rd => new SelectListItem
+            {
+                Value = rd.Id.ToString(),
+                Text = rd.Name
+            }).ToList();
 
             return View(formCreateViewModel);
         }
 
-		//Папка для сохранения на wwwroot uploadFiles
-		[HttpPost]
-        public async Task<IActionResult> Create(FormCreateViewModel formCreateViewModel)
-        {
-
-            var form = formCreateViewModel.ToFormEntity();
-
-            if (formCreateViewModel.File != null && formCreateViewModel.File.Length > 0)
-            {
-                form.FileLink = await _fileService.SaveFile(formCreateViewModel.File, "uploadFiles");
-            }
-
-            await _formRepository.Add(form);
-
-            return RedirectToAction("Index", "Form");
-
-        }
-
-
         public async Task<IActionResult> Delete(int id)
         {
             var form = await _formRepository.GetById(id);
-
             if (form != null)
                 await _formRepository.Remove(form);
 
-            return RedirectToAction("Index", "Form");
+            return RedirectToAction("Index");
         }
 
-
         [HttpGet]
-        public async Task<IActionResult> Edit(int Id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var form = await _formRepository.GetById(Id);
-           
+            var form = await _formRepository.GetById(id);
+            if (form == null)
+            {
+                return NotFound();
+            }
+
             var formTypes = await _formTypeRepository.GetAll();
+            var referenceBooks = await _referenceBookRepository.GetAll();
+            var organizations = await _organizationRepository.GetAll();
+            var regionDivisions = await _regionDivisionRepository.GetAll();
 
-            var referenceBook = await _referenceBookRepository.GetAll();
+            var viewModel = new FormCreateViewModel(
+                form,
+                formTypes,
+                referenceBooks,
+                organizations,
+                regionDivisions
+            );
 
-            //var editCreateViewModel = new EditCreateViewModel(formTypes, referenceBook);
-            return View(form);
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(FormCreateViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var form = viewModel.ToFormEntity();
+
+                if (viewModel.File != null && viewModel.File.Length > 0)
+                {
+                    form.FileLink = await _fileService.SaveFile(viewModel.File, "uploadFiles");
+                }
+
+                await _formRepository.Update(form);
+                return RedirectToAction("Index");
+            }
+
+            // Если модель не валидная, тогда перезагружаем списки заново
+            viewModel.FormTypes = (await _formTypeRepository.GetAll()).Select(ft => new SelectListItem
+            {
+                Value = ft.Id.ToString(),
+                Text = ft.Name
+            }).ToList();
+
+            viewModel.ReferenceBooks = (await _referenceBookRepository.GetAll()).Select(rb => new SelectListItem
+            {
+                Value = rb.Id.ToString(),
+                Text = rb.Name
+            }).ToList();
+
+            viewModel.Organizations = (await _organizationRepository.GetAll()).Select(org => new SelectListItem
+            {
+                Value = org.Id.ToString(),
+                Text = org.Name
+            }).ToList();
+
+            viewModel.RegionDivisions = (await _regionDivisionRepository.GetAll()).Select(rd => new SelectListItem
+            {
+                Value = rd.Id.ToString(),
+                Text = rd.Name
+            }).ToList();
+
+            return View(viewModel);
         }
 
         [HttpPost]
         public async Task<IActionResult> Export(FormSearchViewModel filters, string exportType)
         {
             var query = GetFormQueryFiltered(filters);
-
             var forms = await query.ToListAsync();
-
             var type = Enum.Parse<FormExportType>(exportType, true);
-
             var result = _formExportService.Export(forms.ToExportModel(), type);
-
             return result;
-
         }
 
         private IQueryable<Form> GetFormQueryFiltered(FormSearchViewModel filters)
@@ -127,54 +198,35 @@ namespace DiplomMetod.Controllers
             var query = _formRepository.GetQueryAllWithIncludes();
 
             if (!string.IsNullOrEmpty(filters.InventoryNumber))
-            {
                 query = query.Where(f => f.InventoryNumber.Contains(filters.InventoryNumber));
-            }
 
             if (!string.IsNullOrEmpty(filters.NameFormType))
-            {
                 query = query.Where(f => f.FormType.Name.Contains(filters.NameFormType));
-            }
 
             if (filters.RequisiteNumber.HasValue)
-            {
                 query = query.Where(f => f.RequisiteNumber == filters.RequisiteNumber);
-            }
 
             if (filters.Code.HasValue)
-            {
                 query = query.Where(f => f.Code == filters.Code);
-            }
 
             if (!string.IsNullOrEmpty(filters.ReferenceBookName))
-            {
                 query = query.Where(f => f.ReferenceBook.Name.Contains(filters.ReferenceBookName));
-            }
 
             if (!string.IsNullOrEmpty(filters.KeyWordName))
-            {
                 query = query.Where(f => f.KeyWords.Any(kw => kw.Name.Contains(filters.KeyWordName)));
-            }
 
             if (!string.IsNullOrEmpty(filters.ExplanationNumber))
-            {
                 query = query.Where(f => f.Explanation.Number.Contains(filters.ExplanationNumber));
-            }
 
             if (filters.ExplanationDate.HasValue)
-            {
                 query = query.Where(f => f.Explanation.Date.Date == filters.ExplanationDate.Value.Date);
-            }
 
             if (!string.IsNullOrEmpty(filters.OrganizationName))
-            {
                 query = query.Where(f => f.Explanation.Organization.Name.Contains(filters.OrganizationName));
-            }
 
             if (filters.IsAgreedGenProk.HasValue)
-            {
                 query = query.Where(f => f.Explanation.IsAgreedGenProk == filters.IsAgreedGenProk.Value);
-            }
+
 
             //Нюанс с ApproveLevel при организации поиска
             if (!string.IsNullOrEmpty(filters.ApproveLevel))
@@ -184,27 +236,18 @@ namespace DiplomMetod.Controllers
             }
 
             if (filters.IsRevelant.HasValue)
-            {
                 query = query.Where(f => f.Explanation.IsRevelant == filters.IsRevelant.Value);
-            }
 
             if (!string.IsNullOrEmpty(filters.RegionsDivisionName))
-            {
                 query = query.Where(f => f.RegionsDivision.Name.Contains(filters.RegionsDivisionName));
-            }
 
             if (!string.IsNullOrEmpty(filters.Comment))
-            {
                 query = query.Where(f => f.Explanation.Comment.Contains(filters.Comment));
-            }
 
             if (filters.IsFavorites.HasValue)
-            {
                 query = query.Where(f => f.Explanation.IsFavorites == filters.IsFavorites.Value);
-            }
 
             return query;
         }
-
     }
 }
