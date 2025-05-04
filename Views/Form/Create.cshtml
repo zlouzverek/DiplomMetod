@@ -173,7 +173,7 @@
 		<div class="form-group mt-3">
 			<input type="submit" value="Создать" class="btn btn-dark me-2" />
 		</div>
-
+	</div>
 </form>
 
 
@@ -184,7 +184,36 @@
 </div>
 
 
+@section Scripts {
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			var now = new Date();
+			var isoString = now.toISOString().slice(0, 16);
+			document.getElementById('explanationDate').value = isoString;
+		});
 
+		let keywordIndex = 1;
+
+		function addKeyword() {
+			const container = document.getElementById('keywords-container');
+			const div = document.createElement('div');
+			div.className = 'input-group mb-3';
+			div.innerHTML = `
+				<input type="text" name="KeyWords[${keywordIndex}].Name" class="form-control" placeholder="Введите ключевое слово" />
+				<div class="input-group-append">
+					<button class="btn btn-outline-secondary" type="button" onclick="removeKeyword(this)">-</button>
+				</div>
+			`;
+			container.appendChild(div);
+			keywordIndex++;
+		}
+
+		function removeKeyword(button) {
+			const div = button.closest('.input-group');
+			div.remove();
+		}
+	</script>
+}
 
 
 
@@ -193,34 +222,3 @@
 	await Html.RenderPartialAsync("_ValidationScriptsPartial");
 }
 
-@section Scripts {
-	<script>
-		document.addEventListener('DOMContentLoaded', function () {
-			var now = new Date();
-			var isoString = now.toISOString().slice(0, 16); // Формат YYYY-MM-DDTHH:MM
-			document.getElementById('explanationDate').value = isoString;
-		});
-	</script>
-
-	<script>
-		let keywordIndex = 1; // Начинаем с 1, так как первое поле уже есть
-
-		function addKeyword() {
-			const container = document.getElementById('keywords-container');
-			const div = document.createElement('div');
-			div.className = 'input-group mb-3';
-			div.innerHTML = '<input type="text" name="KeyWords[${keywordIndex}].Name" class="form-control" placeholder="Введите ключевое слово" />
-				< div class="input-group-append" >
-					<button class="btn btn-outline-secondary" type = "button" onclick = "removeKeyword(this)" > -</button>
-						< /div>
-							`;
-													container.appendChild(div);
-													keywordIndex++;
-												}
-
-												function removeKeyword(button) {
-													const div = button.closest('.input-group');
-													div.remove();
-												}
-	</script>
-}
