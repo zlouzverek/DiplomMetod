@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
 using DiplomMetod.Data.Entites;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DiplomMetod.Models
@@ -136,29 +137,58 @@ namespace DiplomMetod.Models
 
         // Модель для создания
         public int Id { get; set; }
+
         public int FormTypeId { get; set; }
+
+        [ValidateNever]
         public IEnumerable<SelectListItem> FormTypes { get; set; }
+
         public int ReferenceBooksId { get; set; }
+
+        [ValidateNever]
         public IEnumerable<SelectListItem> ReferenceBooks { get; set; }
+
         public int RequisiteNumber { get; set; }
+
         public int Code { get; set; }
         public string ExplanationName { get; set; }
+
         public string ExplanationFullName { get; set; }
+
         public string? ExplanationNumber { get; set; }
+
         public DateTime ExplanationDate { get; set; }
+
         public int OrganizationId { get; set; }
+
+        [ValidateNever]
         public IEnumerable<SelectListItem> Organizations { get; set; }
+
         public int RegionDivisionId { get; set; }
+
+        [ValidateNever]
         public IEnumerable<SelectListItem> RegionDivisions { get; set; }
+
+        [ValidateNever]
         public IEnumerable<KeyWordViewModel> KeyWords { get; set; }
+
         public string? FileLink { get; set; }
+
         public bool IsAgreedGenProk { get; set; }
+
         public ApproveLevel ApproveLevel { get; set; }
+
+        [ValidateNever]
         public IEnumerable<SelectListItem> ApproveLevels { get; set; }
+
         public bool IsRevelant { get; set; }
+
         public bool IsFavorites { get; set; }
+
         public string? Comment { get; set; }
+
         public string? Description { get; set; }
+
         public IFormFile? File { get; set; }
 
         public Form ToFormEntity()

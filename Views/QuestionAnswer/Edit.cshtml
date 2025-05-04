@@ -95,9 +95,13 @@
             <span asp-validation-for="ApproveLevel" class="text-danger"></span>
         </div>
 
+
         <div class="col-md-6">
             <label asp-for="File" class="form-label">Файл</label>
             <input asp-for="File" type="file" class="form-control" />
+
+            <input type="hidden" asp-for="FileLink" /> 
+
             <span asp-validation-for="File" class="text-danger"></span>
             @if (!string.IsNullOrEmpty(Model.FileLink))
             {
@@ -138,6 +142,8 @@
             <button type="submit" class="btn btn-primary">Изменить</button>
             <a asp-action="Index" class="btn btn-secondary">Отмена</a>
         </div>
+        
+
     </div>
 </form>
 

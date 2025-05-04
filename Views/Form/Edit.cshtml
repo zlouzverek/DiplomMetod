@@ -93,6 +93,10 @@
             <label asp-for="File" class="form-label">Файл</label>
             <input asp-for="File" type="file" class="form-control" />
             <span asp-validation-for="File" class="text-danger"></span>
+
+
+            <input type="hidden" asp-for="FileLink" />
+
             @if (!string.IsNullOrEmpty(Model.FileLink))
             {
                 <div class="mt-2">
@@ -132,6 +136,8 @@
             <button type="submit" class="btn btn-primary">Изменить</button>
             <a asp-action="Index" class="btn btn-secondary">Отмена</a>
         </div>
+
+
     </div>
 </form>
 

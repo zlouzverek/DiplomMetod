@@ -74,35 +74,13 @@ namespace DiplomMetod.Controllers
                 }
 
                 await _formRepository.Add(form);
+
                 return RedirectToAction("Index");
             }
-
-            // Если модель не валидная, то обратно возвращаем представление с текущими данными
-            formCreateViewModel.FormTypes = (await _formTypeRepository.GetAll()).Select(ft => new SelectListItem
+            else
             {
-                Value = ft.Id.ToString(),
-                Text = ft.Name
-            }).ToList();
-
-            formCreateViewModel.ReferenceBooks = (await _referenceBookRepository.GetAll()).Select(rb => new SelectListItem
-            {
-                Value = rb.Id.ToString(),
-                Text = rb.Name
-            }).ToList();
-
-            formCreateViewModel.Organizations = (await _organizationRepository.GetAll()).Select(org => new SelectListItem
-            {
-                Value = org.Id.ToString(),
-                Text = org.Name
-            }).ToList();
-
-            formCreateViewModel.RegionDivisions = (await _regionDivisionRepository.GetAll()).Select(rd => new SelectListItem
-            {
-                Value = rd.Id.ToString(),
-                Text = rd.Name
-            }).ToList();
-
-            return View(formCreateViewModel);
+                return RedirectToAction("Create");
+            }
         }
 
         public async Task<IActionResult> Delete(int id)
@@ -144,43 +122,44 @@ namespace DiplomMetod.Controllers
         {
             if (ModelState.IsValid)
             {
-                var form = viewModel.ToFormEntity();
+               var form = await _formRepository.GetById(viewModel.Id);
 
+                form.Explanation.FullName = viewModel.ExplanationFullName;
+                form.Explanation.Name = viewModel.ExplanationName;
+                form.Explanation.Number = viewModel.ExplanationNumber;
+                form.FileLink = form.FileLink;
+                form.RequisiteNumber = viewModel.RequisiteNumber;
+                form.FormTypeId = viewModel.FormTypeId;
+
+                var keywords = new List<KeyWord>();
+                
+                foreach( var k in viewModel.KeyWords)
+                {
+                    keywords.Add(new KeyWord()
+                    {
+                        Name = k.Name
+                    });
+                }
+
+                form.KeyWords = keywords;
+                form.ReferenceBooksId = viewModel.ReferenceBooksId;
+                form.RegionsDivisionsId = viewModel.RegionDivisionId;
+                form.Code = viewModel.Code;
+              
                 if (viewModel.File != null && viewModel.File.Length > 0)
                 {
                     form.FileLink = await _fileService.SaveFile(viewModel.File, "uploadFiles");
                 }
 
                 await _formRepository.Update(form);
+
                 return RedirectToAction("Index");
             }
-
-            // Если модель не валидная, тогда перезагружаем списки заново
-            viewModel.FormTypes = (await _formTypeRepository.GetAll()).Select(ft => new SelectListItem
+            else
             {
-                Value = ft.Id.ToString(),
-                Text = ft.Name
-            }).ToList();
+                return RedirectToAction("Edit", viewModel.Id);
+            }
 
-            viewModel.ReferenceBooks = (await _referenceBookRepository.GetAll()).Select(rb => new SelectListItem
-            {
-                Value = rb.Id.ToString(),
-                Text = rb.Name
-            }).ToList();
-
-            viewModel.Organizations = (await _organizationRepository.GetAll()).Select(org => new SelectListItem
-            {
-                Value = org.Id.ToString(),
-                Text = org.Name
-            }).ToList();
-
-            viewModel.RegionDivisions = (await _regionDivisionRepository.GetAll()).Select(rd => new SelectListItem
-            {
-                Value = rd.Id.ToString(),
-                Text = rd.Name
-            }).ToList();
-
-            return View(viewModel);
         }
 
         [HttpPost]
