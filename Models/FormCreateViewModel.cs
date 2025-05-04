@@ -191,6 +191,8 @@ namespace DiplomMetod.Models
 
         public IFormFile? File { get; set; }
 
+        public bool IsQuestion { get; set; }
+
         public Form ToFormEntity()
         {
             var form = new Form

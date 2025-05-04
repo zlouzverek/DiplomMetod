@@ -15,12 +15,14 @@
             <input type="hidden" name="ExplanationNumber" value="@Context.Request.Query["ExplanationNumber"]" />
             <input type="hidden" name="ExplanationDate" value="@Context.Request.Query["ExplanationDate"]" />
             <input type="hidden" name="OrganizationName" value="@Context.Request.Query["OrganizationName"]" />
-            <input type="hidden" name="IsAgreedGenProk" value="@Context.Request.Query["IsAgreedGenProk"]" />
             <input type="hidden" name="ApproveLevel" value="@Context.Request.Query["ApproveLevel"]" />
-            <input type="hidden" name="IsRevelant" value="@Context.Request.Query["IsRevelant"]" />
             <input type="hidden" name="RegionsDivisionName" value="@Context.Request.Query["RegionsDivisionName"]" />
             <input type="hidden" name="Comment" value="@Context.Request.Query["ExplanationComment"]" />
             <input type="hidden" name="IsFavorites" value="@Context.Request.Query["IsFavorites"]" />
+            <input type="hidden" name="IsQuestion" value="@Context.Request.Query["IsQuestion"]" />
+            <input type="hidden" name="IsRevelant" value="@Context.Request.Query["IsRevelant"]" />
+            <input type="hidden" name="IsAgreedGenProk" value="@Context.Request.Query["IsAgreedGenProk"]" />
+
             <input type="hidden" id="exportType" name="ExportType" value="" />
           
             <button type="button" class="btn btn-info text-white" onclick="submitForm('Excel')">Экспорт в Excel</button>

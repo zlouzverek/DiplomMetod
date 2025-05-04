@@ -226,6 +226,9 @@ namespace DiplomMetod.Controllers
             if (filters.IsFavorites.HasValue)
                 query = query.Where(f => f.Explanation.IsFavorites == filters.IsFavorites.Value);
 
+            if (filters.IsQuestion.HasValue)
+                query = query.Where(f => f.IsQuestion == filters.IsQuestion.Value);
+
             return query;
         }
     }

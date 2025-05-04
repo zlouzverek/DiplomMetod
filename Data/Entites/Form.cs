@@ -49,5 +49,7 @@ namespace DiplomMetod.Data.Entites
 
         public string? FileLink { get; set; }
 
+        public bool IsQuestion { get; set; }
+
     }
 }

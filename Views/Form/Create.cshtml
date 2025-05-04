@@ -170,6 +170,15 @@
 			<span asp-validation-for="File" class="text-danger"></span>
 		</div>
 
+		<div class="col-md-6">
+			<label asp-for="IsQuestion" class="form-label fw-bold text-primary">Вопрос</label>
+			<select asp-for="IsQuestion" class="form-select">
+				<option value="true">Да</option>
+				<option value="false">Нет</option>
+			</select>
+			<span asp-validation-for="IsQuestion" class="text-danger"></span>
+		</div>
+
 		<div class="form-group mt-3">
 			<input type="submit" value="Создать" class="btn btn-dark me-2" />
 		</div>

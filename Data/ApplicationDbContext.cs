@@ -121,7 +121,8 @@ namespace DiplomMetod.Data
                     Event = "Event1",
                     Question = "Question1",
                     Answer = "Answer1",
-                    FileLink = "http://example.com/file1"
+                    FileLink = "http://example.com/file1",
+                    IsQuestion = true,
                 },
                 new Form
                 {
@@ -136,7 +137,9 @@ namespace DiplomMetod.Data
                     Event = "Event2",
                     Question = "Question2",
                     Answer = "Answer2",
-                    FileLink = "http://example.com/file2"
+                    FileLink = "http://example.com/file2",
+                    IsQuestion = false
+                  
                 }
             );
 

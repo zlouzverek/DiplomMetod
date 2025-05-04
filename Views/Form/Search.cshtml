@@ -102,8 +102,21 @@
                        class="form-check-input"
                        id="IsFavoritesCheckbox"
                        value="true"
-                @(Context.Request.Query["IsRevelant"] == "true" ? "checked" : "") />
+                @(Context.Request.Query["IsFavorites"] == "true" ? "checked" : "") />
                 <label class="form-check-label ms-2" for="IsFavoritesCheckbox">Избранное</label>
+            </div>
+        </div>
+
+        <!-- Чекбокс для IsQuestion -->
+        <div class="col-md-2">
+            <div class="form-check form-switch d-flex align-items-center">
+                <input type="checkbox"
+                       name="IsQuestion"
+                       class="form-check-input"
+                       id="IsQuestionCheckbox"
+                       value="true"
+                @(Context.Request.Query["IsQuestion"] == "true" ? "checked" : "") />
+                <label class="form-check-label ms-2" for="IsQuestionCheckbox">Вопрос/Ответ</label>
             </div>
         </div>
 
