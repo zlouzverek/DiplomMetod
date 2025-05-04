@@ -1,0 +1,40 @@
+﻿@using DiplomMetod.Models
+@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Вход";
+}
+
+<div class="row">
+    <div class="col-md-10 my-2 mx-auto col-lg-5">
+        <form class="p-4 p-md-5 border rounded-3 bg-light" asp-controller="Account" asp-action="Login" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" asp-for="UserName" id="floatingInput" placeholder="name@example.com">
+                <span asp-validation-for="UserName" class="text-danger"></span>
+                <label for="floatingInput">Email-адрес</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" asp-for="Password" id="floatingPassword" placeholder="Пароль">
+                <span asp-validation-for="Password" class="text-danger"></span>
+                <label for="floatingPassword">Пароль</label>
+            </div>
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" asp-for="RememberMe"> Запомнить меня
+                </label>
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Войти</button>
+            <div class="mb-3 p-3 text-center">
+                <a class="card-link text-dark" asp-controller="Account" asp-action="Register" asp-route-returnUrl="@Model.ReturnUrl">Регистрация нового пользователя</a>
+            </div>
+            <input type="hidden" asp-for="ReturnUrl" value="@Model.ReturnUrl" />
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

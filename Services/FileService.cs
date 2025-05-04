@@ -1,5 +1,6 @@
 ﻿
 using DiplomMetod.Models;
+using DiplomMetod.Shared;
 
 namespace DiplomMetod.Services
 {
@@ -7,7 +8,7 @@ namespace DiplomMetod.Services
     {
         public async Task<string> SaveFile(IFormFile file, string folder)
         {
-            var filePath = Path.Combine($"wwwroot/{folder}", file.FileName);
+            var filePath = Path.Combine($"{Const.RootPath}/{folder}", file.FileName);
             
             using (var stream = new FileStream(filePath, FileMode.Create))
             {

@@ -17,10 +17,11 @@
 else
 {
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Регистрация</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login" class="btn btn-outline-light me-2">Войти</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Вход</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register" class="btn btn-warning">Регистрация</a>
     </li>
+
 }
 </ul>
