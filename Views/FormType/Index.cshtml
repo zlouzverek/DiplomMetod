@@ -5,6 +5,15 @@
 
 <h1 class="mb-4">Действующие типы формы</h1>
 
+<div class="d-flex justify-content-between mb-3">
+	<!-- Правая группа из 2 кнопок. Отступ справа, за счет between-->
+	<div class="d-flex">
+		<a asp-controller="FormType" asp-action="Create" class="btn btn-dark me-2">Создать новый</a>
+		<a asp-controller="Home" asp-action="Index" class="btn btn-secondary">На главную</a>
+	</div>
+</div>
+
+
 <div class="table-responsive">
 	<table class="table table-striped table-bordered">
 		<thead>
@@ -15,16 +24,16 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (var form in Model)
+			@foreach (var formType in Model)
 			{
 				<tr>
-					<td>@form.Name</td>
-					<td>@form.FullName</td>
+					<td>@formType.Name</td>
+					<td>@formType.FullName</td>
 
 					<td>
 						<div class="btn-group" role="group">
-							<a asp-action="Edit" class="btn btn-sm btn-warning" asp-route-id="@form.Id">Редактировать</a>
-							<a asp-action="Delete" class="btn btn-sm btn-danger" asp-route-id="@form.Id">Удалить</a>
+							<a asp-action="Edit" class="btn btn-sm btn-warning" asp-route-id="@formType.Id">Редактировать</a>
+							<a asp-action="Delete" class="btn btn-sm btn-danger" asp-route-id="@formType.Id">Удалить</a>
 						</div>
 					</td>
 				</tr>

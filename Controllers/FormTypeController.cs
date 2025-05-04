@@ -12,9 +12,8 @@ namespace DiplomMetod.Controllers
         private readonly IFormRepository _formRepository;
         private readonly IFormTypeRepository _formTypeRepository;
 
-
-
-        public FormTypeController(IFormRepository formRepository, IFormTypeRepository formTypeRepository)
+        public FormTypeController(IFormRepository formRepository, 
+            IFormTypeRepository formTypeRepository)
         {
             _formRepository = formRepository;
             _formTypeRepository = formTypeRepository;
@@ -23,60 +22,61 @@ namespace DiplomMetod.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var formTypes = await _formRepository.GetAll();
+            var formType = await _formTypeRepository.GetAll();
 
-            return View(formTypes);
+            return View(formType);
         }
-
-        [HttpGet]
-        [Route("privacy")]
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
 
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var formTypes = await _formTypeRepository.GetAll();
-
-            var formTypeCreateViewModel = new FormTypeCreateViewModel(formTypes);
-
-            return View(formTypeCreateViewModel);
+            return View();
         }
 
-
-        /*#FIXME: выводит ошибку. Пока не понял почему. Может создать отдельный репзиторий для FormType?
-        [HttpPost]
-        public async Task<IActionResult> Create(FormTypeCreateViewModel formTypeCreateViewModel)
+		[HttpPost]
+		public async Task<IActionResult> Create(FormTypeCreateViewModel formTypeCreateViewModel)
         {
-            var formTypes = formTypeCreateViewModel.ToFormEntity();
+            var formType = formTypeCreateViewModel.ToFormEntity();
 
-            await _formRepository.Add(formTypes);
+            await _formTypeRepository.Add(formType);
 
-
-            return RedirectToAction("Index", "Form");
-        }
-        */
-
-        public async Task<IActionResult> Delete(int id)
-        {
-            var form = await _formRepository.GetById(id);
-
-            if (form != null)
-                await _formRepository.Remove(form);
-
-            return RedirectToAction("Index", "Form");
+            return RedirectToAction("Index", "FormType");
         }
 
-        [HttpGet]
+		public async Task<IActionResult> Delete(int id)
+		{
+			var form = await _formTypeRepository.GetById(id);
+
+			if (form != null)
+				await _formTypeRepository.Remove(form);
+
+			return RedirectToAction("Index", "Organization");
+		}
+
+
+		[HttpGet]
         public async Task<IActionResult> Edit(int Id)
         {
-            var form = await _formRepository.GetById(Id);
+            var formType = await _formTypeRepository.GetById(Id);
 
-            //var editCreateViewModel = new EditCreateViewModel(formTypes, referenceBook);
-            return View(form);
+            var editViewModel = new FormTypeCreateViewModel
+                (formType.Id, formType.Name, formType.FullName);
+
+            return View(editViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(FormTypeCreateViewModel editViewModel)
+        {
+            var formType = await _formTypeRepository.GetById(editViewModel.Id);
+
+            formType.Name = editViewModel.Name;
+
+            formType.FullName = editViewModel.FullName;
+
+            await _formTypeRepository.Update(formType);
+
+            return RedirectToAction("Index", "FormType");
         }
 
     }

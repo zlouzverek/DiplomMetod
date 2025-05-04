@@ -19,11 +19,11 @@ namespace DiplomMetod
                 ExplanationNumber = form.Explanation.Number,
                 ExplanationDate = form.Explanation.Date,
                 OrganizationName = form.Explanation.Organization.Name,
-                IsAgreedGenProk = form.Explanation.IsAgreedGenProk ? "да" : "нет",
-                ApproveLevel = form.Explanation.ApproveLevel.ToString(),
+				RegionDivisionName = form.RegionsDivision?.Name,
+				Comment = form.Explanation.Comment,
+				ApproveLevel = form.Explanation.ApproveLevel.ToString(),
+				IsAgreedGenProk = form.Explanation.IsAgreedGenProk ? "да" : "нет",
                 IsRevelant = form.Explanation.IsRevelant ? "актуально" : "не актуально",
-                RegionDivisionName = form.RegionsDivision?.Name,
-                Comment = form.Explanation.Comment,
                 IsFavorites = form.Explanation.IsFavorites ? "да" : "нет"
             });
 

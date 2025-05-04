@@ -12,7 +12,8 @@ namespace DiplomMetod.Controllers
         private readonly IFormRepository _formRepository;
         private readonly IRegionDivisionRepository _regionDivisionRepository;
 
-        public RegionDivisionController(IFormRepository formRepository, IRegionDivisionRepository regionDivisionRepository)
+        public RegionDivisionController(IFormRepository formRepository, 
+            IRegionDivisionRepository regionDivisionRepository)
         {
             _formRepository = formRepository;
             _regionDivisionRepository = regionDivisionRepository;
@@ -27,23 +28,13 @@ namespace DiplomMetod.Controllers
             return View(regionDivision);
         }
 
-        [HttpGet]
-        [Route("privacy")]
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
-
-        [HttpGet]
-        public async Task<IActionResult> Create()
-        {
-            var regionDivision = await _regionDivisionRepository.GetAll();
-
-            var regionDivisionCreateViewModel = new RegionDivisionCreateViewModel(regionDivision);
-
-            return View(regionDivisionCreateViewModel);
-        }
+		[HttpGet]
+		public async Task<IActionResult> Create()
+		{
+			return View();
+		}
+	
 
 
         [HttpPost]
@@ -54,7 +45,7 @@ namespace DiplomMetod.Controllers
             await _regionDivisionRepository.Add(regionDivision);
 
 
-            return RedirectToAction("Index", "Form");
+            return RedirectToAction("Index", "RegionDivision");
         }
 
 
@@ -65,22 +56,33 @@ namespace DiplomMetod.Controllers
             if (form != null)
                 await _regionDivisionRepository.Remove(form);
 
-            return RedirectToAction("Index", "Form");
+            return RedirectToAction("Index", "RegionDivision");
         }
 
 
         [HttpGet]
         public async Task<IActionResult> Edit(int Id)
         {
-            var form = await _formRepository.GetById(Id);
+            var regionDivision = await _regionDivisionRepository.GetById(Id);
+
+			var editViewModel = new RegionDivisionCreateViewModel(regionDivision.Id, regionDivision.Name);
+
+			return View(editViewModel);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Edit(RegionDivisionCreateViewModel editViewModel)
+		{
+			var regionDivision = await _regionDivisionRepository.GetById(editViewModel.Id);
+
+			regionDivision.Name = editViewModel.Name;
+
+			await _regionDivisionRepository.Update(regionDivision);
+
+			return RedirectToAction("Index", "RegionDivision");
+		}
 
 
-            var referenceBook = await _regionDivisionRepository.GetAll();
 
-            //var editCreateViewModel = new EditCreateViewModel(formTypes, referenceBook);
-            return View(form);
-        }
-
-
-    }
+	}
 }

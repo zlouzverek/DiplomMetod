@@ -19,12 +19,14 @@
             <input type="hidden" name="ApproveLevel" value="@Context.Request.Query["ApproveLevel"]" />
             <input type="hidden" name="IsRevelant" value="@Context.Request.Query["IsRevelant"]" />
             <input type="hidden" name="RegionsDivisionName" value="@Context.Request.Query["RegionsDivisionName"]" />
-            <input type="hidden" name="Comment" value="@Context.Request.Query["Comment"]" />
+            <input type="hidden" name="Comment" value="@Context.Request.Query["ExplanationComment"]" />
             <input type="hidden" name="IsFavorites" value="@Context.Request.Query["IsFavorites"]" />
             <input type="hidden" id="exportType" name="ExportType" value="" />
           
             <button type="button" class="btn btn-info text-white" onclick="submitForm('Excel')">Экспорт в Excel</button>
+            <!-- Пока убрал, на перспективу создание Экспорт в PDF
             <button type="button" class="btn btn-info text-white" onclick="submitForm('Pdf')">Экспорт в PDF</button>
+            -->
         </form>
        
      </div>

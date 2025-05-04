@@ -1,7 +1,40 @@
-﻿<export>
+﻿
+
+
+<export>
     <div class="d-flex justify-content-end gap-2 mt-3">
-        <!-- Правая группа из 2 кнопок. За счет end-->
-        <a asp-controller="Form" asp-action="ExportToExcel" class="btn btn-info text-white">Экспорт в Excel</a>
-        <a asp-controller="Form" asp-action="ExportToPdf" class="btn btn-info text-white">Экcпорт в PDF</a>
+
+        <form id="exportForm" asp-controller="Form" asp-action="Export" method="post">
+            <!-- Скрытые поля для передачи данных фильтра -->
+            <input type="hidden" name="InventoryNumber" value="@Context.Request.Query["InventoryNumber"]" />
+            <input type="hidden" name="NameFormType" value="@Context.Request.Query["NameFormType"]" />
+            <input type="hidden" name="RequisiteNumber" value="@Context.Request.Query["RequisiteNumber"]" />
+            <input type="hidden" name="Code" value="@Context.Request.Query["Code"]" />
+            <input type="hidden" name="ReferenceBookName" value="@Context.Request.Query["ReferenceBookName"]" />
+            <input type="hidden" name="KeyWordName" value="@Context.Request.Query["KeyWordName"]" />
+            <!--  Странно, наверное экспорт тоже работает от Form. Скорре всего для QA нужно создавать отдельный ExtensionMethods
+
+            <input type="hidden" name="Event" value="@Context.Request.Query["Event"]" />  
+            
+            -->
+            <input type="hidden" name="ExplanationNumber" value="@Context.Request.Query["ExplanationNumber"]" />
+            <input type="hidden" name="ExplanationDate" value="@Context.Request.Query["ExplanationDate"]" />
+            <input type="hidden" name="OrganizationName" value="@Context.Request.Query["OrganizationName"]" />
+            <input type="hidden" name="IsAgreedGenProk" value="@Context.Request.Query["IsAgreedGenProk"]" />
+            <input type="hidden" name="ApproveLevel" value="@Context.Request.Query["ApproveLevel"]" />
+            <input type="hidden" name="IsRevelant" value="@Context.Request.Query["IsRevelant"]" />
+            <input type="hidden" name="RegionsDivisionName" value="@Context.Request.Query["RegionsDivisionName"]" />
+            <input type="hidden" name="Comment" value="@Context.Request.Query["ExplanationComment"]" />
+            <input type="hidden" name="IsFavorites" value="@Context.Request.Query["IsFavorites"]" />
+            <input type="hidden" id="exportType" name="ExportType" value="" />
+
+            <button type="button" class="btn btn-info text-white" onclick="submitForm('Excel')">Экспорт в Excel</button>
+            <!-- Пока убрал, на перспективу создание Экспорт в PDF
+            <button type="button" class="btn btn-info text-white" onclick="submitForm('Pdf')">Экспорт в PDF</button>
+            -->
+        </form>
+
     </div>
     <export>
+
+

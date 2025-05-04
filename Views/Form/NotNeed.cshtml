@@ -1,0 +1,90 @@
+﻿using DiplomMetod.Data.Entites;
+using DiplomMetod.Models;
+using DiplomMetod.Repositories;
+using DiplomMetod.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
+namespace DiplomMetod.Controllers
+{
+    public class FormController : Controller
+    {
+        // ... остальные поля и конструктор остаются без изменений ...
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+    {
+    var form = await _formRepository.GetById(id);
+    if (form == null)
+    {
+    return NotFound();
+    }
+
+    var formTypes = await _formTypeRepository.GetAll();
+    var referenceBooks = await _referenceBookRepository.GetAll();
+    var organizations = await _organizationRepository.GetAll();
+    var regionDivisions = await _regionDivisionRepository.GetAll();
+
+    var editViewModel = new FormEditViewModel(form, formTypes, referenceBooks, organizations, regionDivisions);
+
+    return View(editViewModel);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult>
+        Edit(FormEditViewModel editViewModel)
+        {
+        if (!ModelState.IsValid)
+        {
+        // Перезагружаем данные для выпадающих списков, если модель невалидна
+        var formTypes = await _formTypeRepository.GetAll();
+        var referenceBooks = await _referenceBookRepository.GetAll();
+        var organizations = await _organizationRepository.GetAll();
+        var regionDivisions = await _regionDivisionRepository.GetAll();
+
+        editViewModel.FormTypes = formTypes.Select(ft => new SelectListItem
+        {
+        Value = ft.Id.ToString(),
+        Text = ft.Name,
+        Selected = ft.Id == editViewModel.FormTypeId
+        }).ToList();
+
+        editViewModel.ReferenceBooks = referenceBooks.Select(rb => new SelectListItem
+        {
+        Value = rb.Id.ToString(),
+        Text = rb.Name,
+        Selected = rb.Id == editViewModel.ReferenceBooksId
+        }).ToList();
+
+        editViewModel.Organizations = organizations.Select(org => new SelectListItem
+        {
+        Value = org.Id.ToString(),
+        Text = org.Name,
+        Selected = org.Id == editViewModel.OrganizationId
+        }).ToList();
+
+        editViewModel.RegionDivisions = regionDivisions.Select(rd => new SelectListItem
+        {
+        Value = rd.Id.ToString(),
+        Text = rd.Name,
+        Selected = rd.Id == editViewModel.RegionDivisionId
+        }).ToList();
+
+        return View(editViewModel);
+        }
+
+        var form = editViewModel.ToFormEntity();
+
+        if (editViewModel.File != null && editViewModel.File.Length > 0)
+        {
+        form.FileLink = await _fileService.SaveFile(editViewModel.File, "uploadFiles");
+        }
+
+        await _formRepository.Update(form);
+
+        return RedirectToAction("Index", "Form");
+        }
+
+        // ... остальные методы остаются без изменений ...
+        }
+        }

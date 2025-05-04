@@ -34,7 +34,9 @@ namespace DiplomMetod.Repositories
 
         public async Task<Form> GetById(int id)
         {
-            return await _dbContext.Set<Form>().FindAsync(id);
+            return await _dbContext.Set<Form>().Include(x => x.Explanation)
+                               .ThenInclude(x => x.Organization)
+                               .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public IQueryable<Form> GetQueryAllWithIncludes()
