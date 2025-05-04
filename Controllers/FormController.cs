@@ -166,8 +166,11 @@ namespace DiplomMetod.Controllers
         public async Task<IActionResult> Export(FormSearchViewModel filters, string exportType)
         {
             var query = GetFormQueryFiltered(filters);
+
             var forms = await query.ToListAsync();
+
             var type = Enum.Parse<FormExportType>(exportType, true);
+
             var result = _formExportService.Export(forms.ToExportModel(), type);
             return result;
         }

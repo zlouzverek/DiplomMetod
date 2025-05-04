@@ -59,8 +59,7 @@ namespace DiplomMetod.Controllers
         {
             var formType = await _formTypeRepository.GetById(Id);
 
-            var editViewModel = new FormTypeCreateViewModel
-                (formType.Id, formType.Name, formType.FullName);
+            var editViewModel = new FormTypeCreateViewModel(formType.Id, formType.Name, formType.FullName);
 
             return View(editViewModel);
         }
