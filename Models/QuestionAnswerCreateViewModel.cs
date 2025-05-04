@@ -129,7 +129,7 @@ namespace DiplomMetod.Models
             KeyWords = new List<KeyWordViewModel>();
         }
 
-        //Тут реализован Enum по Description
+        //Тут реализован Enum по ExplanationDescription
         private static string GetEnumDescription(Enum value)
         {
             FieldInfo field = value.GetType().GetField(value.ToString());

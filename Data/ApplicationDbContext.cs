@@ -82,8 +82,8 @@ namespace DiplomMetod.Data
                     OrganizationId = 1,
                     IsAgreedGenProk = true,
                     IsRevelant = true,
-                    Description = "Description 1",
-                    Comment = "Comment 1",
+                    Description = "ExplanationDescription 1",
+                    Comment = "ExplanationComment 1",
                     IsFavorites = true,
                     ApproveLevel = ApproveLevel.Local,
                     FormId = 1
@@ -98,8 +98,8 @@ namespace DiplomMetod.Data
                     OrganizationId = 2,
                     IsAgreedGenProk = false,
                     IsRevelant = false,
-                    Description = "Description 2",
-                    Comment = "Comment 2",
+                    Description = "ExplanationDescription 2",
+                    Comment = "ExplanationComment 2",
                     IsFavorites = false,
                     ApproveLevel = ApproveLevel.Federal,
                     FormId = 2

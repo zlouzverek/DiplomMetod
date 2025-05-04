@@ -39,8 +39,8 @@ namespace DiplomMetod.Models
                 ApproveLevel = form.Explanation.ApproveLevel;
                 IsRevelant = form.Explanation.IsRevelant;
                 IsFavorites = form.Explanation.IsFavorites;
-                Comment = form.Explanation.Comment;
-                Description = form.Explanation.Description;
+                ExplanationComment = form.Explanation.Comment;
+                ExplanationDescription = form.Explanation.Description;
             }
 
             FormTypes = formTypes.Select(ft => new SelectListItem
@@ -127,7 +127,7 @@ namespace DiplomMetod.Models
             KeyWords = new List<KeyWordViewModel>();
         }
 
-        //Тут реализован Enum по Description
+        //Тут реализован Enum по ExplanationDescription
         private static string GetEnumDescription(Enum value)
         {
             FieldInfo field = value.GetType().GetField(value.ToString());
@@ -185,9 +185,9 @@ namespace DiplomMetod.Models
 
         public bool IsFavorites { get; set; }
 
-        public string? Comment { get; set; }
+        public string? ExplanationComment { get; set; }
 
-        public string? Description { get; set; }
+        public string? ExplanationDescription { get; set; }
 
         public IFormFile? File { get; set; }
 
@@ -210,8 +210,8 @@ namespace DiplomMetod.Models
                     IsAgreedGenProk = IsAgreedGenProk,
                     IsRevelant = IsRevelant,
                     IsFavorites = IsFavorites,
-                    Comment = Comment,
-                    Description = Description,
+                    Comment = ExplanationComment,
+                    Description = ExplanationDescription,
                     ApproveLevel = ApproveLevel,
                     OrganizationId = OrganizationId,
                 },
