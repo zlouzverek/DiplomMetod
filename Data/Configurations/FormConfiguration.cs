@@ -35,5 +35,6 @@ namespace DiplomMetod.Data.Configurations
                 .WithMany(x => x.Forms)
                 .HasForeignKey(x => x.RegionsDivisionsId);
         }
+
     }
 }

@@ -68,6 +68,10 @@ namespace DiplomMetod.Controllers
             {
                 var form = formCreateViewModel.ToFormEntity();
 
+                var formType = await _formTypeRepository.GetById(form.FormTypeId);
+
+                form.FormType = formType;
+
                 if (formCreateViewModel.File != null && formCreateViewModel.File.Length > 0)
                 {
                     form.FileLink = await _fileService.SaveFile(formCreateViewModel.File, "uploadFiles");
