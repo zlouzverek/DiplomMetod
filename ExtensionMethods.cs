@@ -22,6 +22,7 @@ namespace DiplomMetod
                 OrganizationName = form.Explanation.Organization.Name,
 				RegionDivisionName = form.RegionsDivision?.Name,
 				Comment = form.Explanation.Comment,
+				Description = form.Explanation.Description,
 				ApproveLevel = form.Explanation.ApproveLevel.ToString(),
 				IsAgreedGenProk = form.Explanation.IsAgreedGenProk ? "да" : "нет",
                 IsRevelant = form.Explanation.IsRevelant ? "актуально" : "не актуально",

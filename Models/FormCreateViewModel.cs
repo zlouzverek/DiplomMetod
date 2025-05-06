@@ -41,6 +41,7 @@ namespace DiplomMetod.Models
                 IsFavorites = form.Explanation.IsFavorites;
                 ExplanationComment = form.Explanation.Comment;
                 ExplanationDescription = form.Explanation.Description;
+                ExplanationDescription = form.Explanation.Description;
             }
 
             FormTypes = formTypes.Select(ft => new SelectListItem
