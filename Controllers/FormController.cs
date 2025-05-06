@@ -76,7 +76,7 @@ namespace DiplomMetod.Controllers
 
                 if (formCreateViewModel.File != null && formCreateViewModel.File.Length > 0)
                 {
-                    form.FileLink = await _fileService.SaveFile(formCreateViewModel.File, $"{form.Id}_{form.FormType.Name}_{form.Explanation.Date:yyyy-MM-dd}" , "uploadFiles");
+                    form.FileLink = await _fileService.SaveFile(formCreateViewModel.File , "uploadFiles");
                 }
 
                 await _formRepository.Add(form);
@@ -157,7 +157,7 @@ namespace DiplomMetod.Controllers
               
                 if (viewModel.File != null && viewModel.File.Length > 0)
                 {
-                    form.FileLink = await _fileService.SaveFile(viewModel.File, $"{form.Id}_{form.FormType.Name}_{form.Explanation.Date:yyyy-MM-dd}", "uploadFiles");
+                    form.FileLink = await _fileService.SaveFile(viewModel.File, "uploadFiles");
                 }
 
                 await _formRepository.Update(form);
