@@ -1,0 +1,132 @@
+﻿@{
+    ViewData["Title"] = "Наименования";
+    Layout = "_Layout";
+}
+
+<!-- Основной блок страницы с фоновым изображением -->
+<main class="home-main instructions-page">
+    <!-- Центральный контейнер с контентом -->
+    <div class="home-content">
+        <!-- Шапка с логотипом и заголовком -->
+        <div class="home-header">
+            <!-- Логотип организации -->
+            <img src="~/img/Giac.png" alt="Эмблема" class="home-logo" />
+            <div class="home-title-wrapper">
+                <!-- Главный заголовок страницы -->
+                <h1 class="home-title">
+                    Руководство и инструкция<br>
+                    по работе с сервисом "Методика"
+                </h1>
+            </div>
+        </div>
+
+        <!-- Декоративная разделительная линия -->
+        <div class="home-divider"></div>
+
+        <!-- Блок с нумерованными инструкциями -->
+        <div class="instructions-container">
+
+            <!-- Добавление нумерации, прсто потрясно -->
+            <ol class="numbered-instructions">
+
+                <!-- Список форм -->
+                <li class="instruction-item">
+                    <div class="instruction-content">
+                        <h3 class="instruction-title toggle-list">Перечень форм</h3>
+                        <div class="instruction-text">
+                            <ul class="instruction-sublist" style="display: none;">
+                                <!-- #Plan. На перспективу можно организовать ссылки на эти формы -->
+                                <li>Форма №1, Статистическая карточка на выявленнное преступление</li>
+                                <li>Форма №1.1,"Статистическая карточка о результатах расследования преступления</li>
+                                <li>Форма №2, Статистическая карточка на лицо, совершившее преступление</li>
+                                <li>Форма №2.1",Статистическая карточка на лицо, подозреваемое (обвиняемое) в совершении преступления</li>
+                                <li>Форма №3", Статистическая карточка о движении уголовного дела</li>
+                                <li>Форма №4", Статистическая карточка об установленной сумме материального ущерба, результатах возмещения и изъятия предметов преступной деятельности</li>
+                                <li>Форма №5", Статистическая карточка о потерпевшем</li>
+                                <li>Форма №6", Статистическая карточка о результатах рассмотрения дела судом первой инстанции</li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Список справочников -->
+                <li class="instruction-item">
+                    <div class="instruction-content">
+                        <h3 class="instruction-title toggle-list">Список справочников</h3>
+                        <div class="instruction-text">
+                            <ul class="instruction-sublist" style="display: none;">
+                                <li>Текст</li>
+                                <li>Текст</li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Список организаций -->
+                <li class="instruction-item">
+                    <div class="instruction-content">
+                        <h3 class="instruction-title toggle-list">Список организаций</h3>
+                        <div class="instruction-text">
+                            <ul class="instruction-sublist" style="display: none;">
+                                <li>Текст</li>
+                                <li>Текст</li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Список регионов -->
+                <li class="instruction-item">
+                    <div class="instruction-content">
+                        <h3 class="instruction-title toggle-list">Список регионов</h3>
+                        <div class="instruction-text">
+                            <ul class="instruction-sublist" style="display: none;">
+                                <li>Текст</li>
+                                <li>Текст</li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+
+                <!-- Полезные ссылки -->
+                <li class="instruction-item">
+                    <div class="instruction-content">
+                        <h3 class="instruction-title toggle-list">Поезные ссылки</h3>
+                        <div class="instruction-text">
+                            <ul class="instruction-sublist" style="display: none;">
+                                <li>Текст</li>
+                                <li>Текст</li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+
+            </ol>
+        </div>
+    </div>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Выводим элементы с toggle-list
+        const toggleButtons = document.querySelectorAll('.toggle-list');
+        
+        // Добавляем действия для кнопок кнопки
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Переходим к другому ul с instruction-sublist
+                const sublist = this.parentElement.querySelector('.instruction-sublist');
+                
+                // Отображение списка
+                if (sublist.style.display === 'none') {
+                    sublist.style.display = 'block';
+                } else {
+                    sublist.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+

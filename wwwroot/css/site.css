@@ -507,3 +507,18 @@ footer {
         line-height: 1.5;
     }
 }
+/* Для выпадающих списков */
+.toggle-list {
+    cursor: pointer;
+    user-select: none;
+}
+
+    .toggle-list:hover {
+        color: #0066cc;
+        text-decoration: underline;
+    }
+
+.instruction-sublist {
+    margin-top: 10px;
+    padding-left: 20px;
+}

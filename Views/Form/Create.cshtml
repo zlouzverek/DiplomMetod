@@ -1,4 +1,5 @@
 ﻿@using DiplomMetod.Models
+@using DiplomMetod.Models
 @model FormCreateViewModel;
 
 
@@ -75,10 +76,9 @@
 		<span asp-validation-for="ExplanationName" class="text-danger"></span>
 	</div>
 
-
-	<div class="form-group">
+	<div class="col-md-12">
 		<label asp-for="ExplanationFullName" class="control-label">Разъяснение (полное)</label>
-		<input asp-for="ExplanationFullName" class="form-control" placeholder="Введите разъяснение (официальное наименование)" />
+		<textarea asp-for="ExplanationFullName" class="form-control" rows="3" placeholder="Введите разъяснение (официальное наименование)"></textarea>
 		<span asp-validation-for="ExplanationFullName" class="text-danger"></span>
 	</div>
 
@@ -163,6 +163,11 @@
 		<label asp-for="ExplanationComment" class="control-label">Примечание</label>
 		<input asp-for="ExplanationComment" class="form-control" placeholder="Введите примечание (пояснение)" />
 
+		<div class="col-md-12">
+			<label asp-for="ExplanationDescription" class="control-label">Пример из жизни</label>
+			<textarea asp-for="ExplanationDescription" class="form-control" rows="3" placeholder="Введите пример из жизни"></textarea>
+			<span asp-validation-for="ExplanationDescription" class="text-danger"></span>
+		</div>
 
 		<div class="form-group">
 			<label asp-for="File" class="control-label">Загрузить файл</label>

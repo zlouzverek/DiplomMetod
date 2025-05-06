@@ -37,7 +37,10 @@ namespace DiplomMetod.Models
 		[Description("Примечание")]
 		public string Comment { get; set; }
 
-		[Description("Уровень")]
+        [Description("Пример из жизни")]
+        public string? Description { get; set; }
+
+        [Description("Уровень")]
 		public string ApproveLevel { get; set; }
 
 		[Description("Согласовано с ГП")]
