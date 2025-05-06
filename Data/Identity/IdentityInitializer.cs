@@ -5,7 +5,7 @@ namespace DiplomMetod.Data.Identity
     public class IdentityInitializer
     {
 
-        private const string adminRoleName = "Admin";
+        private const string adminRoleName = "Administrator";
         private const string userRoleName = "User";
 
         public static void Initialize(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
