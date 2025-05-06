@@ -3,12 +3,13 @@ using DiplomMetod.Data.Enums;
 using DiplomMetod.Models;
 using DiplomMetod.Repositories;
 using DiplomMetod.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace DiplomMetod.Controllers
 {
+    [Authorize]
     public class FormController : Controller
     {
         private readonly IFormRepository _formRepository;
@@ -36,7 +37,7 @@ namespace DiplomMetod.Controllers
             _fileService = fileService;
             _formExportService = formExportService;
         }
-
+        
         [HttpGet]
         public async Task<IActionResult> Index(FormSearchViewModel filters)
         {
@@ -47,6 +48,7 @@ namespace DiplomMetod.Controllers
             return View(forms);
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -59,7 +61,7 @@ namespace DiplomMetod.Controllers
             return View(viewModel);
         }
 
-
+        [Authorize(Roles = "Administrator")]
         //Папка для сохранения на wwwroot uploadFiles
         [HttpPost]
         public async Task<IActionResult> Create(FormCreateViewModel formCreateViewModel)
@@ -74,7 +76,7 @@ namespace DiplomMetod.Controllers
 
                 if (formCreateViewModel.File != null && formCreateViewModel.File.Length > 0)
                 {
-                    form.FileLink = await _fileService.SaveFile(formCreateViewModel.File, "uploadFiles");
+                    form.FileLink = await _fileService.SaveFile(formCreateViewModel.File, $"{form.Id}_{form.FormType.Name}_{form.Explanation.Date:yyyy-MM-dd}" , "uploadFiles");
                 }
 
                 await _formRepository.Add(form);
@@ -87,6 +89,7 @@ namespace DiplomMetod.Controllers
             }
         }
 
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int id)
         {
             var form = await _formRepository.GetById(id);
@@ -96,6 +99,7 @@ namespace DiplomMetod.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
@@ -121,6 +125,7 @@ namespace DiplomMetod.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public async Task<IActionResult> Edit(FormCreateViewModel viewModel)
         {
@@ -152,7 +157,7 @@ namespace DiplomMetod.Controllers
               
                 if (viewModel.File != null && viewModel.File.Length > 0)
                 {
-                    form.FileLink = await _fileService.SaveFile(viewModel.File, "uploadFiles");
+                    form.FileLink = await _fileService.SaveFile(viewModel.File, $"{form.Id}_{form.FormType.Name}_{form.Explanation.Date:yyyy-MM-dd}", "uploadFiles");
                 }
 
                 await _formRepository.Update(form);
