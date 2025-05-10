@@ -53,7 +53,9 @@ namespace DiplomMetod.Services
             var stream = new MemoryStream();
             package.SaveAs(stream);
 
-            var content = stream.ToArray();
+
+			// Загрузка данных, начиная со второй строки
+			var content = stream.ToArray();
             return new FileContentResult(content, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
             {
                 FileDownloadName = $"Forms-{DateTime.Now:yyyy-MM-dd}.xlsx"

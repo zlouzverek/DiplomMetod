@@ -53,8 +53,13 @@
         </div>
 
         <div class="col-md-2">
+            <input name="Event" class="form-control" placeholder="Площадка для вопроса" value="@Context.Request.Query["Event"]" />
+        </div>
+
+        <div class="col-md-2">
             <input name="Comment" class="form-control" placeholder="Примечание" value="@Context.Request.Query["ExplanationComment"]" />
         </div>
+
 
         <!-- Выбор для enum ApproveLevel -->
         <div class="col-md-2">

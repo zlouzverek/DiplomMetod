@@ -212,25 +212,27 @@ namespace DiplomMetod.Controllers
             if (!string.IsNullOrEmpty(filters.OrganizationName))
                 query = query.Where(f => f.Explanation.Organization.Name.Contains(filters.OrganizationName));
 
-            if (filters.IsAgreedGenProk.HasValue)
+			if (!string.IsNullOrEmpty(filters.RegionsDivisionName))
+				query = query.Where(f => f.RegionsDivision.Name.Contains(filters.RegionsDivisionName));
+
+			if (!string.IsNullOrEmpty(filters.Event))
+				query = query.Where(f => f.Event.Contains(filters.Event));
+
+			if (!string.IsNullOrEmpty(filters.Comment))
+				query = query.Where(f => f.Explanation.Comment.Contains(filters.Comment));
+
+			//Нюанс с ApproveLevel при организации поиска
+			if (!string.IsNullOrEmpty(filters.ApproveLevel))
+			{
+				var level = (ApproveLevel)int.Parse(filters.ApproveLevel);
+				query = query.Where(f => f.Explanation.ApproveLevel == level);
+			}
+
+			if (filters.IsAgreedGenProk.HasValue)
                 query = query.Where(f => f.Explanation.IsAgreedGenProk == filters.IsAgreedGenProk.Value);
-
-
-            //Нюанс с ApproveLevel при организации поиска
-            if (!string.IsNullOrEmpty(filters.ApproveLevel))
-            {
-                var level = (ApproveLevel)int.Parse(filters.ApproveLevel);
-                query = query.Where(f => f.Explanation.ApproveLevel == level);
-            }
 
             if (filters.IsRevelant.HasValue)
                 query = query.Where(f => f.Explanation.IsRevelant == filters.IsRevelant.Value);
-
-            if (!string.IsNullOrEmpty(filters.RegionsDivisionName))
-                query = query.Where(f => f.RegionsDivision.Name.Contains(filters.RegionsDivisionName));
-
-            if (!string.IsNullOrEmpty(filters.Comment))
-                query = query.Where(f => f.Explanation.Comment.Contains(filters.Comment));
 
             if (filters.IsFavorites.HasValue)
                 query = query.Where(f => f.Explanation.IsFavorites == filters.IsFavorites.Value);

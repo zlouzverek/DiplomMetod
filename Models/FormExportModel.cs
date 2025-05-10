@@ -32,6 +32,9 @@ namespace DiplomMetod.Models
 		[Description("Кому разъяснено")]
 		public string RegionDivisionName { get; set; }
 
+		[Description("Площадка для вопроса")]
+		public string Event { get; set; }
+
 		[Description("Примечание")]
 		public string Comment { get; set; }
 

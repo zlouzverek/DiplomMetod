@@ -20,6 +20,7 @@ namespace DiplomMetod
                 ExplanationDate = form.Explanation.Date,
                 OrganizationName = form.Explanation.Organization.Name,
 				RegionDivisionName = form.RegionsDivision?.Name,
+				Event = form.Event,
 				Comment = form.Explanation.Comment,
 				Description = form.Explanation.Description,
 				ApproveLevel = form.Explanation.ApproveLevel.ToString(),
