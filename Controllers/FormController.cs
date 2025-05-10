@@ -188,9 +188,6 @@ namespace DiplomMetod.Controllers
         {
             var query = _formRepository.GetQueryAllWithIncludes();
 
-            if (!string.IsNullOrEmpty(filters.InventoryNumber))
-                query = query.Where(f => f.InventoryNumber.Contains(filters.InventoryNumber));
-
             if (!string.IsNullOrEmpty(filters.NameFormType))
                 query = query.Where(f => f.FormType.Name.Contains(filters.NameFormType));
 

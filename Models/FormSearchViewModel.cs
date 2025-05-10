@@ -4,7 +4,6 @@ namespace DiplomMetod.Models
 {
     public class FormSearchViewModel
     {
-        public string? InventoryNumber { get; set; }
         public string? NameFormType { get; set; }
         public int? RequisiteNumber { get; set; }
         public int? Code { get; set; }

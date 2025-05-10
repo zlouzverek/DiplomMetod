@@ -7,20 +7,6 @@ namespace DiplomMetod.Data.Entites
         public int FormTypeId { get; set; }
         public FormType FormType { get; set; }
 
-
-        private string _inventoryNumber;
-        [Description("Инвентарный номер")]
-        public string InventoryNumber
-        {
-            get
-            {
-                return _inventoryNumber;
-            }
-            set
-            {
-                _inventoryNumber = FormType == null ? value : $"{Id}_{FormType?.Name}";
-            }
-        }
         [Description("Номер реквизита")]
         public int? RequisiteNumber { get; set; }
 

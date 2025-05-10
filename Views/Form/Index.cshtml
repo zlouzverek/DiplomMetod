@@ -31,7 +31,8 @@
 			@foreach (var form in Model)
 			{
 				<tr>
-					<td>@form.InventoryNumber</td>
+					@* Пока оставлю, в настоящий момент нет необходимости. Нужно думать над доработкой потом
+					 <td>@form.FormType?.Name + @form.Explanation?.Date</td> *@
 					<td>@form.FormType?.Name</td>
 					<td>@form.RequisiteNumber</td>
 					<td>@form.Code</td>

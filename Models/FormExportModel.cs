@@ -4,8 +4,6 @@ namespace DiplomMetod.Models
 {
     public class FormExportModel
     {
-        [Description("Инвентарный номер")]
-        public string InventoryNumber { get; set; }
 
         [Description("Тип формы")]
         public string FormTypeName { get; set; }
