@@ -177,29 +177,33 @@
 
 		<div class="col-md-6">
 			<label asp-for="IsQuestion" class="form-label fw-bold text-primary">Относится к категории Вопрос/Ответ</label>
-			<select asp-for="IsQuestion" class="form-select">
+			<select asp-for="IsQuestion" class="form-select" id="isQuestionSelect">
 				<option value="true">Да</option>
-				<option value="false">Нет</option>
+				@* selected - для выбора по умолчанию "нет" *@
+				<option value="false" selected>Нет</option>
 			</select>
 			<span asp-validation-for="IsQuestion" class="text-danger"></span>
 		</div>
 
-		<div class="col-md-12">
-			<label asp-for="Question" class="control-label">Вопрос</label>
-			<textarea asp-for="Question" class="form-control" rows="3" placeholder="Введите вопрос"></textarea>
-			<span asp-validation-for="Question" class="text-danger"></span>
-		</div>
+		@* Добавил стиль неотображения "none" для контейнера Вопрос, Ответ, Мероприятие   *@
+		<div id="questionFields" style="display: none;">
+			<div class="col-md-12">
+				<label asp-for="Question" class="control-label">Вопрос</label>
+				<textarea asp-for="Question" class="form-control" rows="3" placeholder="Введите вопрос"></textarea>
+				<span asp-validation-for="Question" class="text-danger"></span>
+			</div>
 
-		<div class="col-md-12">
-			<label asp-for="Answer" class="control-label">Ответ</label>
-			<textarea asp-for="Answer" class="form-control" rows="3" placeholder="Введите ответ"></textarea>
-			<span asp-validation-for="Answer" class="text-danger"></span>
-		</div>
+			<div class="col-md-12">
+				<label asp-for="Answer" class="control-label">Ответ</label>
+				<textarea asp-for="Answer" class="form-control" rows="3" placeholder="Введите ответ"></textarea>
+				<span asp-validation-for="Answer" class="text-danger"></span>
+			</div>
 
-		<div class="form-group">
-			<label asp-for="Event" class="control-label">Площадка для вопроса</label>
-			<input asp-for="Event" class="form-control" placeholder="Введите наименование площадки в рамках которой задан вопрос" />
-			<span asp-validation-for="Event" class="text-danger"></span>
+			<div class="form-group">
+				<label asp-for="Event" class="control-label">Площадка для вопроса</label>
+				<input asp-for="Event" class="form-control" placeholder="Введите наименование площадки в рамках которой задан вопрос" />
+				<span asp-validation-for="Event" class="text-danger"></span>
+			</div>
 		</div>
 
 		<div class="form-group mt-3">
@@ -208,13 +212,9 @@
 	</div>
 </form>
 
-
-
-
 <div>
 	<a asp-action="Index">К списку рекомендаций</a>
 </div>
-
 
 @section Scripts {
 	<script>
@@ -222,6 +222,26 @@
 			var now = new Date();
 			var isoString = now.toISOString().slice(0, 16);
 			document.getElementById('explanationDate').value = isoString;
+
+			// Скрипт для неотображения полей Вопрос, Ответ, Площадка пока IsQuestion не будет true "да"
+			const isQuestionSelect = document.getElementById('isQuestionSelect');
+			//questionFields - для контейнера
+			const questionFields = document.getElementById('questionFields');
+
+			//метод отработки
+			function toggleQuestionFields() {
+				if (isQuestionSelect.value === 'true') {
+					questionFields.style.display = 'block';
+				} else {
+					questionFields.style.display = 'none';
+				}
+			}
+
+			// Инициализация при загрузке
+			toggleQuestionFields();
+
+			// Отрабатывает при изменении значения
+			isQuestionSelect.addEventListener('change', toggleQuestionFields);
 		});
 
 		let keywordIndex = 1;
