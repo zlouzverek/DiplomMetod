@@ -153,9 +153,14 @@ namespace DiplomMetod.Controllers
                 form.KeyWords = keywords;
                 form.ReferenceBooksId = viewModel.ReferenceBooksId;
                 form.RegionsDivisionsId = viewModel.RegionDivisionId;
-                form.Code = viewModel.Code;
-              
-                if (viewModel.File != null && viewModel.File.Length > 0)
+				//Добавил IsQuestion
+				form.IsQuestion = viewModel.IsQuestion;
+				form.Question = viewModel.Question;
+				form.Answer = viewModel.Answer;
+				form.Event = viewModel.Event;
+
+
+				if (viewModel.File != null && viewModel.File.Length > 0)
                 {
                     form.FileLink = await _fileService.SaveFile(viewModel.File, "uploadFiles");
                 }
