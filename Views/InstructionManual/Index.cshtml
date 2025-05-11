@@ -1,7 +1,11 @@
 ﻿@{
-    ViewData["Title"] = "Инструкция";
+    ViewData["Title"] = "Описание и руководство";
     Layout = "_Layout";
 }
+
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 <!-- Основной блок страницы с фоновым изображением -->
 <main class="home-main instructions-page">
@@ -14,7 +18,7 @@
             <div class="home-title-wrapper">
                 <!-- Главный заголовок страницы -->
                 <h1 class="home-title">
-                    Руководство и инструкция<br>
+                    Описание и руководство<br>
                     по работе с сервисом "Методика"
                 </h1>
             </div>
@@ -43,33 +47,37 @@
                     </div>
                 </li>
 
-                <!-- Добавление методических рекомендаций -->
-                <li class="instruction-item">
-                    <div class="instruction-content">
-                        <h3 class="instruction-title">Работа с разделом "Методические рекомендации"</h3>
-                        <div class="instruction-text">
-                            <p>Добавление методических рекомендаций, поиск и экспорт</p>
-                            <ul class="instruction-sublist">
-                                <li>Текст</li>
-                                <li>Текст</li>
-                            </ul>
+                                    @if (SignInManager.IsSignedIn(User))
+                {
+                    <!-- Добавление методических рекомендаций -->
+                    <li class="instruction-item">
+                        <div class="instruction-content">
+                            <h3 class="instruction-title">Работа с разделом "Методические рекомендации"</h3>
+                            <div class="instruction-text">
+                                <p>Добавление методических рекомендаций, поиск и экспорт</p>
+                                <ul class="instruction-sublist">
+                                    <li>Текст</li>
+                                    <li>Текст</li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                </li>
+                    </li>
 
-                <!-- Добавление разъяснений по принципу "Вопрос-ответ" -->
-                <li class="instruction-item">
-                    <div class="instruction-content">
-                        <h3 class="instruction-title">Работа с разделом "Вопрос-ответ"</h3>
-                        <div class="instruction-text">
-                            <p>Добавление разъяснений, поиск и экспорт</p>
-                            <ul class="instruction-sublist">
-                                <li>Текст</li>
-                                <li>Текст</li>
-                            </ul>
+                    <!-- Добавление разъяснений по принципу "Вопрос-ответ" -->
+                    <li class="instruction-item">
+                        <div class="instruction-content">
+                            <h3 class="instruction-title">Работа с разделом "Списки и ссылки</h3>
+                            <div class="instruction-text">
+                                <p>Добавление разъяснений, поиск и экспорт</p>
+                                <ul class="instruction-sublist">
+                                    <li>Текст</li>
+                                    <li>Текст</li>
+                                </ul>
+
+                            </div>
                         </div>
-                    </div>
-                </li>
+                    </li>
+                }
             </ol>
         </div>
     </div>

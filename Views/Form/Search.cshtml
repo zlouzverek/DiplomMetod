@@ -11,7 +11,10 @@
 
             <!-- Правая группа из 2 кнопок -->
             <div class="d-flex">
-                <a asp-controller="Form" asp-action="Create" class="btn btn-dark me-2">Создать новую</a>
+                 @if (User.IsInRole("Administrator"))
+                {
+                    <a asp-controller="Form" asp-action="Create" class="btn btn-dark me-2">Создать новую</a>
+                }
                 <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">На главную</a>
             </div>
         </div>
