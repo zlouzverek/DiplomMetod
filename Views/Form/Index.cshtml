@@ -19,6 +19,7 @@
 				<th class="small text-center align-middle">Кто разъяснил</th>
 				<th class="small text-center align-middle">Кому разъяснено</th>
 				<th class="small text-center align-middle">Площадка для вопроса</th>
+				<th class="small text-center align-middle">Категория Вопрос/Ответ</th>
 				<th class="small text-center align-middle">Примечание</th>
 				<th class="small text-center align-middle">Уровень (фед/мес)</th>
 				<th class="small text-center align-middle">Согласовано с ГП</th>
@@ -49,8 +50,9 @@
 					<td>@form.Explanation?.Organization?.Name</td>
 					<td>@form.RegionsDivision?.Name</td>
 					<td>@form.Event</td>
+					<td>@(form.IsQuestion ? "да" : "нет")</td>
 					<td>@form.Explanation?.Comment</td>
-					<td>@form.Explanation?.ApproveLevel.ToString()</td>
+					<td>@(form.Explanation?.ApproveLevel.ToString() == "Federal" ? "федеральный" : "местный")</td>
 					<td>@(form.Explanation?.IsAgreedGenProk == true ? "да" : "нет")</td>
 					<td>@(form.Explanation?.IsRevelant == true ? "актуально" : "не актуально")</td>
 					<td>@(form.Explanation?.IsFavorites == true ? "да" : "нет")</td>

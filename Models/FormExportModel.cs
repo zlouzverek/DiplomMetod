@@ -32,9 +32,6 @@ namespace DiplomMetod.Models
 		[Description("Кому разъяснено")]
 		public string RegionDivisionName { get; set; }
 
-		[Description("Площадка для вопроса")]
-		public string Event { get; set; }
-
 		[Description("Примечание")]
 		public string Comment { get; set; }
 
@@ -53,5 +50,16 @@ namespace DiplomMetod.Models
         [Description("Избранное")]
         public string IsFavorites { get; set; }
 
-    }
+        [Description("Категория Вопрос/Ответ")]
+		public bool IsQuestion { get; set; }
+
+		[Description("Вопрос")]
+		public string? Question { get; set; }
+
+		[Description("Ответ")]
+		public string? Answer { get; set; }
+
+		[Description("Площадка для вопроса")]
+		public string Event { get; set; }
+	}
 }

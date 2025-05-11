@@ -26,8 +26,11 @@ namespace DiplomMetod
 				ApproveLevel = form.Explanation.ApproveLevel.ToString(),
 				IsAgreedGenProk = form.Explanation.IsAgreedGenProk ? "да" : "нет",
                 IsRevelant = form.Explanation.IsRevelant ? "актуально" : "не актуально",
-                IsFavorites = form.Explanation.IsFavorites ? "да" : "нет"
-            });
+                IsFavorites = form.Explanation.IsFavorites ? "да" : "нет",
+				IsQuestion = form.IsQuestion,
+                Question = form.Question,
+                Answer = form.Answer
+			});
 
             return exportModels;
         }
