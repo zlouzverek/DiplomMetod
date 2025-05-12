@@ -1,12 +1,12 @@
 ﻿using DiplomMetod.Data.Configurations;
 using DiplomMetod.Data.Entites;
-using Microsoft.AspNetCore.Identity;
+using DiplomMetod.Shared;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DiplomMetod.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {

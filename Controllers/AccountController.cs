@@ -1,4 +1,5 @@
-﻿using DiplomMetod.Models;
+﻿using DiplomMetod.Data.Entites;
+using DiplomMetod.Models;
 using DiplomMetod.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -8,10 +9,10 @@ namespace DiplomMetod.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -64,16 +65,18 @@ namespace DiplomMetod.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterUserViewModel register)
         {
-            if (register.Password == register.UserName)
+            if (register.Password == register.Email)
             {
                 ModelState.AddModelError("Name", "Имя и пароль не должны совпадать");
             }
 
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser
+                var user = new User
                 {
-                    UserName = register.UserName,
+                    FirstName = register.FirstName,
+                    LastName = register.LastName,
+                    UserName = register.Email,
                     Email = register.Email,
                 };
 
@@ -99,5 +102,34 @@ namespace DiplomMetod.Controllers
             }
             return View(register);
         }
+
+
+        [Authorize]
+        public async Task<IActionResult> Profile()
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var userProfileViewModel = user.ToUserProfileViewModel();
+            
+            return View(userProfileViewModel);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> EditProfile()
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var userProfileViewModel = user.ToUserProfileViewModel();
+            
+            return View(userProfileViewModel);
+        }
+
+        //[Authorize]
+        //[HttpPost]
+        //public async Task<IActionResult> EditProfile()
+        //{
+
+
+        //    return View();
+
+        //}
     }
 }

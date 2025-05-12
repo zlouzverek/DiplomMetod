@@ -1,4 +1,5 @@
 using DiplomMetod.Data;
+using DiplomMetod.Data.Entites;
 using DiplomMetod.Data.Identity;
 using DiplomMetod.Repositories;
 using DiplomMetod.Services;
@@ -17,7 +18,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 //builder.Services.AddDbContext<ApplicationDbContext>(options =>
 //   options.UseSqlite("Data Source=Local.db"));
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
@@ -76,7 +77,7 @@ app.MapControllerRoute(
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+    var userManager = services.GetRequiredService<UserManager<User>>();
     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
     IdentityInitializer.Initialize(userManager, roleManager);
 }

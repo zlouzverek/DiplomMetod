@@ -3,7 +3,7 @@
     @if (User.Identity.IsAuthenticated)
     {
         <li class="nav-item">
-            <a class="nav-link text-dark"  asp-controller="Account" asp-action="Manage" title="Manage">Привет @User.Identity?.Name!</a>
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Profile" title="Profile">Привет @User.Identity?.Name!</a>
         </li>
         <li class="nav-item">
             <form class="form-inline"  asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home")" method="post">

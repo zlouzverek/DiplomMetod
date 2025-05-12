@@ -7,8 +7,12 @@ namespace DiplomMetod.Models
         [Required(ErrorMessage = "не указано имя")]
         [Display(Name = "Имя")]
         [StringLength(16, MinimumLength = 2, ErrorMessage = "имя должно быть от 2 до 16 символов")]
-        public string UserName { get; set; }
+        public string? FirstName { get; set; }
 
+
+        [Display(Name = "Фамилия")]
+        [StringLength(30, MinimumLength = 2, ErrorMessage = "имя должно быть от 2 до 30 символов")]
+        public string? LastName { get; set; }
 
         [Required(ErrorMessage = "Не указан пароль")]
         [DataType(DataType.Password)]
