@@ -25,13 +25,14 @@ namespace DiplomMetod.Models
         [Compare("Password", ErrorMessage = "Пароли не совпадают")]
         public string ConfirmPassword { get; set; }
 
-        public string ReturnUrl { get; set; }
+        public string? ReturnUrl { get; set; }
 
         [Required(ErrorMessage = "не указан email")]
         [EmailAddress(ErrorMessage = "некорректный формат email")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
+        public string? PhoneNumber { get; set; }
 
     }
 }

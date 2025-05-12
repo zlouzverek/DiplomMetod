@@ -1,0 +1,28 @@
+﻿@using DiplomMetod.Models
+@model ManageRolesViewModel
+
+<h2>Управление ролями для @Model.Email</h2>
+<form asp-action="ManageRoles" method="post">
+    <input type="hidden" asp-for="UserId" />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Роль</th>
+                <th>Выбрать</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var role in Model.UserRoles)
+            {
+                <tr>
+                    <td>@role.RoleName</td>
+                    <td>
+                        <input type="checkbox" asp-for="@role.IsSelected" />
+                        <input type="hidden" asp-for="@role.RoleName" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+</form>

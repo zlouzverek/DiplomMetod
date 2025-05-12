@@ -303,6 +303,16 @@ namespace DiplomMetod.Shared
             return profileViewModel;
         }
 
+        public static User ToUser(this UserProfileViewModel userProfileViewModel, User user)
+        {
+            user.UserName = userProfileViewModel.Email;
+            user.FirstName = userProfileViewModel.FirstName;
+            user.LastName = userProfileViewModel.LastName;
+            user.Email = userProfileViewModel.Email;
+            user.PhoneNumber = userProfileViewModel.PhoneNumber;
+            return user;
+        }
+
     }
 
 }

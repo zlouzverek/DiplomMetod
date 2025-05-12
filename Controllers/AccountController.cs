@@ -105,31 +105,102 @@ namespace DiplomMetod.Controllers
 
 
         [Authorize]
-        public async Task<IActionResult> Profile()
+        [HttpGet]
+        public async Task<IActionResult> Profile(string returnUrl)
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var userProfileViewModel = user.ToUserProfileViewModel();
+
+            userProfileViewModel.ReturnUrl = returnUrl;
             
             return View(userProfileViewModel);
         }
 
         [Authorize]
-        public async Task<IActionResult> EditProfile()
+        [HttpGet]
+        public async Task<IActionResult> EditProfile(string userId, string returnUrl)
         {
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var user = userId == null ? await _userManager.FindByNameAsync(User.Identity.Name) : await _userManager.FindByIdAsync(userId);
+            
             var userProfileViewModel = user.ToUserProfileViewModel();
+
+            userProfileViewModel.ReturnUrl = returnUrl;
             
             return View(userProfileViewModel);
         }
 
-        //[Authorize]
-        //[HttpPost]
-        //public async Task<IActionResult> EditProfile()
-        //{
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> EditProfile(UserProfileViewModel userProfileViewModel)
+        {
 
+            if (ModelState.IsValid)
+            {
+                var existingUser = await _userManager.FindByIdAsync(userProfileViewModel.Id);
+                
+                var user = userProfileViewModel.ToUser(existingUser);
 
-        //    return View();
+                await _userManager.UpdateAsync(user);
 
-        //}
+               return Redirect(userProfileViewModel.ReturnUrl);
+            }
+
+            return View(userProfileViewModel);
+
+        }
+
+        
+            // GET: Страница сброса пароля
+            [HttpGet]
+            public IActionResult ResetPassword(string userId, string returnUrl)
+            {
+                var user = _userManager.FindByIdAsync(userId).Result;
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                var model = new ResetPasswordViewModel
+                {
+                    UserId = user.Id,
+                    Email = user.Email,
+                    ReturnUrl = returnUrl
+                };
+
+                return View(model);
+            }
+
+            // POST: Обработка сброса пароля
+            [HttpPost]
+            public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+
+                var user = await _userManager.FindByIdAsync(model.UserId);
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                // Сбрасываем пароль
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var result = await _userManager.ResetPasswordAsync(user, token, model.NewPassword);
+
+                if (result.Succeeded)
+                {
+                    return Redirect(model.ReturnUrl);
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+
+                return View(model);
+            }
+  
     }
 }

@@ -11,8 +11,9 @@
                         <h4>@Model.Email</h4>
                     </div>
                     <div class="my-2">
-                        <a class="btn btn-secondary me-2" asp-controller="Account" asp-action="EditProfile" class="link-dark"><h6>Изменить персональную информацию</h6></a>
+                        <a class="btn btn-secondary me-2" asp-controller="Account" asp-route-returnUrl="@Context.Request.Path" asp-action="EditProfile" class="link-dark"><h6>Изменить персональную информацию</h6></a>
                     </div>
+                    <a asp-action="ResetPassword" asp-route-userId="@Model.Id" asp-route-returnUrl="@Context.Request.Path" class="btn btn-warning mt-3">Сменить пароль</a>
                 </div>
             </div>
         </div>

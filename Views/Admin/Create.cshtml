@@ -1,0 +1,36 @@
+﻿@using DiplomMetod.Models
+@model RegisterUserViewModel
+
+<h2>Добавить пользователя</h2>
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PhoneNumber"></label>
+        <input asp-for="PhoneNumber" class="form-control" />
+    </div>
+    <div class="form-floating mb-3">
+        <input type="password" class="form-control" asp-for="Password" id="floatingPassword" placeholder="Пароль">
+        <span asp-validation-for="Password"></span>
+        <label for="floatingPassword">Пароль</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="password" class="form-control" asp-for="ConfirmPassword" id="floatingPassword" placeholder="Повтор пароля">
+        <span asp-validation-for="ConfirmPassword"></span>
+        <label for="floatingPassword">Повтор пароля</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Создать</button>
+</form>
