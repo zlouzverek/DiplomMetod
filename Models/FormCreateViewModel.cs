@@ -24,11 +24,16 @@ namespace DiplomMetod.Models
             FormTypeId = form.FormTypeId;
             ReferenceBooksId = form.ReferenceBooksId;
             RequisiteNumber = (int)form.RequisiteNumber;
-            Code = (int)form.Code;
-            FileLink = form.FileLink;
+			Code = (int)form.Code;
+			FileLink = form.FileLink;
             RegionDivisionId = form.RegionsDivisionsId;
+			//Добавил IsQuestion (не было)
+			IsQuestion = form.IsQuestion;
+			Question = form.Question;
+			Answer = form.Answer;
+			Event = form.Event;
 
-            if (form.Explanation != null)
+			if (form.Explanation != null)
             {
                 ExplanationName = form.Explanation.Name;
                 ExplanationFullName = form.Explanation.FullName;
@@ -194,7 +199,14 @@ namespace DiplomMetod.Models
 
         public bool IsQuestion { get; set; }
 
-        public Form ToFormEntity()
+		public string? Question { get; set; }
+
+		public string? Answer { get; set; }
+
+		public string? Event { get; set; }
+
+
+		public Form ToFormEntity()
         {
             var form = new Form
             {
@@ -204,7 +216,13 @@ namespace DiplomMetod.Models
                 ReferenceBooksId = ReferenceBooksId,
                 RequisiteNumber = RequisiteNumber,
                 FileLink = FileLink,
-                Explanation = new Explanation
+				//Добавил сюда IsQuestion (не было)
+				IsQuestion = IsQuestion,
+				Question = Question,
+                Answer = Answer,
+                Event = Event,
+
+				Explanation = new Explanation
                 {
                     Name = ExplanationName,
                     FullName = ExplanationFullName,

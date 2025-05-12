@@ -33,20 +33,5 @@ namespace DiplomMetod.Data
            
         }
 
-        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-        {
-            foreach (var entry in ChangeTracker.Entries<Form>())
-            {
-                if (entry.State == EntityState.Added || entry.State == EntityState.Modified)
-                {
-                    entry.Entity.InventoryNumber = $"{entry.Entity.Id}_{entry.Entity.FormType?.Name}";
-                }
-            }
-
-            return await base.SaveChangesAsync(cancellationToken);
-        }
-
-
-
     }
 }

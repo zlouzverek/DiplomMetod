@@ -11,7 +11,6 @@ namespace DiplomMetod
         {
             var exportModels = forms.Select(form => new FormExportModel
             {
-                InventoryNumber = form.InventoryNumber,
                 FormTypeName = form.FormType?.Name,
                 RequisiteNumber = form.RequisiteNumber,
                 Code = form.Code,
@@ -21,13 +20,17 @@ namespace DiplomMetod
                 ExplanationDate = form.Explanation.Date,
                 OrganizationName = form.Explanation.Organization.Name,
 				RegionDivisionName = form.RegionsDivision?.Name,
+				Event = form.Event,
 				Comment = form.Explanation.Comment,
 				Description = form.Explanation.Description,
 				ApproveLevel = form.Explanation.ApproveLevel.ToString(),
 				IsAgreedGenProk = form.Explanation.IsAgreedGenProk ? "да" : "нет",
                 IsRevelant = form.Explanation.IsRevelant ? "актуально" : "не актуально",
-                IsFavorites = form.Explanation.IsFavorites ? "да" : "нет"
-            });
+                IsFavorites = form.Explanation.IsFavorites ? "да" : "нет",
+				IsQuestion = form.IsQuestion,
+                Question = form.Question,
+                Answer = form.Answer
+			});
 
             return exportModels;
         }
@@ -213,7 +216,6 @@ namespace DiplomMetod
                 {
                     Id = 1,
                     FormTypeId = 1,
-                    InventoryNumber = $"1_{formType1.Name}",
                     RequisiteNumber = 101,
                     Code = 1,
                     ReferenceBooksId = 1,
@@ -229,7 +231,6 @@ namespace DiplomMetod
                 {
                     Id = 2,
                     FormTypeId = 2,
-                    InventoryNumber = $"2_{formType1.Name}",
                     RequisiteNumber = 102,
                     Code = 2,
                     ReferenceBooksId = 2,

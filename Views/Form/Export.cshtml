@@ -6,7 +6,6 @@
 
         <form id="exportForm" asp-controller="Form" asp-action="Export" method="post">
             <!-- Скрытые поля для передачи данных фильтра -->
-            <input type="hidden" name="InventoryNumber" value="@Context.Request.Query["InventoryNumber"]" />
             <input type="hidden" name="NameFormType" value="@Context.Request.Query["NameFormType"]" />
             <input type="hidden" name="RequisiteNumber" value="@Context.Request.Query["RequisiteNumber"]" />
             <input type="hidden" name="Code" value="@Context.Request.Query["Code"]" />
@@ -17,6 +16,7 @@
             <input type="hidden" name="OrganizationName" value="@Context.Request.Query["OrganizationName"]" />
             <input type="hidden" name="ApproveLevel" value="@Context.Request.Query["ApproveLevel"]" />
             <input type="hidden" name="RegionsDivisionName" value="@Context.Request.Query["RegionsDivisionName"]" />
+            <input type="hidden" name="Event" value="@Context.Request.Query["Event"]" />
             <input type="hidden" name="Comment" value="@Context.Request.Query["ExplanationComment"]" />
             <input type="hidden" name="Description" value="@Context.Request.Query["ExplanationDescription"]" />
             <input type="hidden" name="IsFavorites" value="@Context.Request.Query["IsFavorites"]" />

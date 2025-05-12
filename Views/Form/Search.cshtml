@@ -11,12 +11,12 @@
 
             <!-- Правая группа из 2 кнопок -->
             <div class="d-flex">
-                <a asp-controller="Form" asp-action="Create" class="btn btn-dark me-2">Создать новую</a>
+                 @if (User.IsInRole("Administrator"))
+                {
+                    <a asp-controller="Form" asp-action="Create" class="btn btn-dark me-2">Создать новую</a>
+                }
                 <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">На главную</a>
             </div>
-        </div>
-        <div class="col-md-2">
-            <input name="InventoryNumber" class="form-control" placeholder="Инвентарный №" value="@Context.Request.Query["InventoryNumber"]" />
         </div>
 
         <div class="col-md-2">
@@ -56,8 +56,13 @@
         </div>
 
         <div class="col-md-2">
+            <input name="Event" class="form-control" placeholder="Площадка для вопроса" value="@Context.Request.Query["Event"]" />
+        </div>
+
+        <div class="col-md-2">
             <input name="Comment" class="form-control" placeholder="Примечание" value="@Context.Request.Query["ExplanationComment"]" />
         </div>
+
 
         <!-- Выбор для enum ApproveLevel -->
         <div class="col-md-2">

@@ -4,8 +4,6 @@ namespace DiplomMetod.Models
 {
     public class FormExportModel
     {
-        [Description("Инвентарный номер")]
-        public string InventoryNumber { get; set; }
 
         [Description("Тип формы")]
         public string FormTypeName { get; set; }
@@ -52,5 +50,16 @@ namespace DiplomMetod.Models
         [Description("Избранное")]
         public string IsFavorites { get; set; }
 
-    }
+        [Description("Категория Вопрос/Ответ")]
+		public bool IsQuestion { get; set; }
+
+		[Description("Вопрос")]
+		public string? Question { get; set; }
+
+		[Description("Ответ")]
+		public string? Answer { get; set; }
+
+		[Description("Площадка для вопроса")]
+		public string Event { get; set; }
+	}
 }

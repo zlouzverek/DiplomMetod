@@ -30,12 +30,22 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-md-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="InstructionManual" asp-action="Index">Описание и руковдство</a>
+                    </li>
+
                     @if (SignInManager.IsSignedIn(User))
                     {
-                        <ul class="navbar-nav flex-grow-1">
+                       
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="Form" asp-action="Index">Методические рекомендации</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Designation" asp-action="Index">Cписки и ссылки</a>
+                            </li>
+
                             @if (User.IsInRole("Administrator"))
                             {
                                 <li class="nav-item">
@@ -51,15 +61,10 @@
                                     <a class="nav-link" asp-area="" asp-controller="FormType" asp-action="Index">Формы</a>
                                 </li>
                             }
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="InstructionManual" asp-action="Index">Руководство</a>
-                            </li>
-                             <li class="nav-item">
-     <a class="nav-link" asp-area="" asp-controller="Designation" asp-action="Index">Cписки и ссылки</a>
- </li>
-                        </ul>
-                    }
 
+						
+                    }
+                    </ul>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
