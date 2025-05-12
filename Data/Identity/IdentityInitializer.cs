@@ -1,4 +1,5 @@
 ﻿using DiplomMetod.Data.Entites;
+using DiplomMetod.Shared;
 using Microsoft.AspNetCore.Identity;
 
 namespace DiplomMetod.Data.Identity
@@ -6,8 +7,8 @@ namespace DiplomMetod.Data.Identity
     public class IdentityInitializer
     {
 
-        private const string adminRoleName = "Administrator";
-        private const string userRoleName = "User";
+        private const string adminRoleName = Const.AdminRoleName;
+        private const string userRoleName = Const.UserRoleName;
 
         public static void Initialize(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {

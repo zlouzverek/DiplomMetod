@@ -4,6 +4,7 @@ namespace DiplomMetod.Controllers
 {
     using DiplomMetod.Data.Entites;
     using DiplomMetod.Models;
+    using DiplomMetod.Shared;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -95,6 +96,7 @@ namespace DiplomMetod.Controllers
                 return NotFound();
 
             var roles = _roleManager.Roles.ToList();
+
             var model = new ManageRolesViewModel
             {
                 UserId = user.Id,
@@ -122,12 +124,23 @@ namespace DiplomMetod.Controllers
 
             // Удаляем все текущие роли и добавляем выбранные
             await _userManager.RemoveFromRolesAsync(user, userRoles);
-            await _userManager.AddToRolesAsync(
-                user,
-                model.UserRoles.Where(r => r.IsSelected).Select(r => r.RoleName)
-            );
 
-            return RedirectToAction("Index");
+            // Добавляем выбранные роли
+            var selectedRoles = model.UserRoles
+                .Where(r => r.IsSelected)
+                .Select(r => r.RoleName)
+                .ToList();
+            
+            if (selectedRoles.Any())
+            {
+                await _userManager.AddToRolesAsync(user, selectedRoles);
+            }
+            else
+            {
+                await _userManager.AddToRoleAsync(user, Const.UserRoleName);
+            }
+
+                return RedirectToAction("Index");
         }
 
         // Блокировка/разблокировка пользователя

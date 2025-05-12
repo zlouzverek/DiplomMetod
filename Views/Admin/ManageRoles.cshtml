@@ -4,6 +4,7 @@
 <h2>Управление ролями для @Model.Email</h2>
 <form asp-action="ManageRoles" method="post">
     <input type="hidden" asp-for="UserId" />
+    <input type="hidden" asp-for="Email" />
     <table class="table">
         <thead>
             <tr>
@@ -12,13 +13,16 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var role in Model.UserRoles)
+            @for (var i = 0; i < Model.UserRoles.Count; i++)
             {
                 <tr>
-                    <td>@role.RoleName</td>
                     <td>
-                        <input type="checkbox" asp-for="@role.IsSelected" />
-                        <input type="hidden" asp-for="@role.RoleName" />
+                        @Model.UserRoles[i].RoleName
+                        <input type="hidden" asp-for="@Model.UserRoles[i].RoleId" />
+                        <input type="hidden" asp-for="@Model.UserRoles[i].RoleName" />
+                    </td>
+                    <td>
+                        <input type="checkbox" asp-for="@Model.UserRoles[i].IsSelected" />
                     </td>
                 </tr>
             }
