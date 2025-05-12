@@ -38,6 +38,10 @@ namespace DiplomMetod.Controllers
                     }
                     return RedirectToAction("Index", "Home");
                 }
+                else if (result.IsLockedOut)
+                {
+                    ModelState.AddModelError("", "Учетная запись заблокирована");
+                }
                 else
                 {
                     ModelState.AddModelError("", "Неверный логин или пароль");
