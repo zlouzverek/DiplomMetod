@@ -31,35 +31,10 @@ builder.Services.AddScoped<IFormTypeRepository, FormTypeRepository>();
 builder.Services.AddTransient<IFileService, FileService>();
 builder.Services.AddTransient<IFormExportService, FormExportService>();
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Diplom Metod API", Version = "v1" });
-});
-
 
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-  
-    app.UseSwagger();
-
-    app.UseSwaggerUI(options => // UseSwaggerUI is called only in Development.
-    {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Diplom Metod API");
-        options.RoutePrefix = "swagger";
-    });
-}
-else
-{
-    app.UseExceptionHandler("/Form/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

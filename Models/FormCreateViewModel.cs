@@ -12,7 +12,7 @@ namespace DiplomMetod.Models
         {
             KeyWords = new List<KeyWordViewModel>();
         }
-
+        //конструктор для редактирования
         public FormCreateViewModel(
             Form form,
             IEnumerable<FormType> formTypes,
@@ -92,6 +92,7 @@ namespace DiplomMetod.Models
             }).ToList() ?? new List<KeyWordViewModel>();
         }
 
+        //конструктор для создания
         public FormCreateViewModel(
             IEnumerable<FormType> formTypes,
             IEnumerable<ReferenceBook> referenceBooks,
