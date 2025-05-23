@@ -64,8 +64,12 @@
 					</td>
 					<td>
 						<div class="btn-group" role="group">
-							<a asp-action="Edit" class="btn btn-sm btn-warning" asp-route-id="@form.Id">Редактировать</a>
-							<a asp-action="Delete" class="btn btn-sm btn-danger" asp-route-id="@form.Id">Удалить</a>
+							@if (User.IsInRole("Administrator"))
+							{
+								<a asp-action="Edit" class="btn btn-sm btn-warning" asp-route-id="@form.Id">Редактировать</a>
+								<a asp-action="Delete" class="btn btn-sm btn-danger" asp-route-id="@form.Id">Удалить</a>
+							}
+
 						</div>
 					</td>
 				</tr>
